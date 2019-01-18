@@ -1,0 +1,94 @@
+﻿<div class="inner_page">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-10">
+                <div class="inner_page_titel text-center">View Query</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="query-title">{{supportTicket.TopicName}}</div>
+            </div>
+            <div class="col-md-3 text-right">
+                <a (click)="BackToSupportTicket()" href="javascript:void(0)" class="btn btn-primary q-back-button back-mob mb-7">Back To View Query</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container q-bg">
+        <div class="row">
+            <div class="col-md-12 col-11 ">
+                <div class="form-group  form-md-line-input">
+                    <div class="col-md-12 no-pad"><label><span class="q-title">Query </span> : </label></div>
+                    <div class="col-md-12 no-pad"><label><b class="fs-16">{{supportTicket.QueryTitle}}</b> <p class="fs-13"> {{supportTicket.Query}} </p></label></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div *ngIf="supportTicketReplies && supportTicketReplies.length > 0">
+            <div class="row"><div class="col-md-10 mt-14 col-11"><label class="mb-7"><b style="font-weight: bold;line-height: 1.5rem; font-size:16px;">Reply</b> : </label></div></div>
+            <div>
+                <ng-template ngFor let-supportTicketReply let-i="index" [ngForOf]="supportTicketReplies">
+                    <div class="row" [class.justify-content-end]="(supportTicketReply.UserId != adminId)">
+                        <div class="col-md-10"><p [class.text-right]="(supportTicketReply.UserId != adminId)">{{(supportTicketReply.UserId != adminId) ? 'User' : 'Admin'}}</p></div>
+                        <div class="col-md-10 col-11">
+                            <div class="form-group  form-md-line-input {{(supportTicketReply.UserId != adminId) ? 'q-bgr' : 'q-bgl'}}">
+                                <div class="col-md-12"><div [innerHTML]='supportTicketReply.QueryReply | safeHtml'></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mt-14">
+                <hr>
+            </div>
+        </div>
+        <div class="row" *ngIf="(supportTicketReplies && supportTicketReplies.length > 0 && supportTicketReplies[supportTicketReplies.length - 1].UserId == adminId) && supportTicket.UserId == supportTicketReplies[0].CurrentUserId">
+            <div class="col-md-12">
+                <div class="q-rep no-margin">Your Reply</div>
+            </div>
+            <div class="col-md-12">
+                <form novalidate (ngSubmit)="OnSubmitSupportTicketReply(frmSupportTicketReply)" [formGroup]="frmSupportTicketReply">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-md-line-input no-margin">
+                                <ckeditor formControlName="QueryReply"
+                                          [readonly]="false"
+                                          debounce="500">
+                                </ckeditor>
+                            </div>
+                            <span class="help-block has-error" *ngIf="frmSupportTicketReply.controls.QueryReply.errors?.required && isSubmited"> Please enter reply content </span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions text-right top-padding-20px">
+                        <input class="btn btn-primary btn-cancel-margin q-send-button" type="submit" value="Send">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center" *ngIf="supportTickets && supportTickets.length > 0">
+            <div class="col-md-12">
+                <div class="inner_page_titel no-margin" style="padding-top: 40px;padding-bottom: 20px;">Related Queries</div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <ng-template ngFor let-supportTicket let-i="index" [ngForOf]="supportTickets">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mt10" (click)="GoSupportTicketReply(supportTicket.SupportTicketId)">
+                            <div class="q-rep-box">
+                                <p class="query-arrows">{{supportTicket.QueryTitle}}</p>
+                                <p class="fs-13">{{(supportTicket.Query.length > 100) ? supportTicket.Query.substring(0, 101) + ' . . .' : supportTicket.Query}}</p>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

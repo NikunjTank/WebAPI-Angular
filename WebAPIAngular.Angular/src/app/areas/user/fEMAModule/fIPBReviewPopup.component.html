@@ -1,0 +1,70 @@
+﻿<div class="<!--poupu_modules-->" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="search_result">
+                    <div class="card">
+                        <ul class="nav nav-tabs justify-content-center" role="tablist" style="margin-bottom: 20px;">
+                            <li role="presentation" (click)="OnClickModuleTab('fipbReview')"><a href="#tab1" [class.tab-active]="moduleTab == 'fipbReview'" aria-controls="tab1" role="tab" data-toggle="tab">FIPB Review</a></li>
+                            <li role="presentation" (click)="OnClickModuleTab('clarifications')"><a href="#tab2" [class.tab-active]="moduleTab == 'clarifications'" aria-controls="tab2" role="tab" data-toggle="tab">Clarifications</a></li>
+                            <li role="presentation" (click)="OnClickModuleTab('fipbPressReleaseCase')"><a href="#tab3" [class.tab-active]="moduleTab == 'fipbPressReleaseCase'" aria-controls="tab3" role="tab" data-toggle="tab">FIPB Press Release (Cases)</a></li>
+                        </ul>
+                        <div class="tab-content no-padding">
+                            <div role="tabpanel" class="tab-pane active" id="tab1">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 select_fdi_menu">
+                                        <div class="form-group">
+                                            <select class="form-control" (change)="OnChangeFIPBReview(ddlFIPBReview.value)" #ddlFIPBReview>
+                                                <option *ngFor="let item of fIPBReviews" [value]="item.FIPBReviewId">{{item.Name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fdi_box_poupu" *ngIf="fIPBReviewPDFUrl">
+                                    <!--<iframe [src]='fIPBReviewPDFUrl' class="w-100" height="400" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+                                    <iframe [src]='fIPBReviewPDFUrl' class="w-100" id="iframe1" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab2">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 select_fdi_menu">
+                                        <div class="form-group">
+                                            <select class="form-control" (change)="OnChangeDIPPClarification(ddlDIPPClarification.value)" #ddlDIPPClarification>
+                                                <option *ngFor="let item of dIPPClarifications" [value]="item.DIPPClarificationId">{{item.ClarificationTopic}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fdi_box_poupu" *ngIf="dIPPClarificationPDFUrl">
+                                    <!--<iframe [src]='dIPPClarificationPDFUrl' class="w-100" height="400" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+                                    <iframe [src]='dIPPClarificationPDFUrl' class="w-100" id="iframe2" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab3">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 select_fdi_menu">
+                                        <div class="form-group">
+                                            <select class="form-control" (change)="OnChangeFIPBPressReleaseCase(ddlFIPBPressReleaseCase.value)" #ddlFIPBPressReleaseCase>
+                                                <option *ngFor="let item of fIPBPressReleaseCases" [value]="item.FIPBPressReleaseCaseId">{{item.MeetingNo_Detail}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fdi_box_poupu" *ngIf="fIPBPressReleaseCasePDFUrl">
+                                    <!--<iframe [src]='fIPBPressReleaseCasePDFUrl' class="w-100" height="400" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+                                    <iframe [src]='fIPBPressReleaseCasePDFUrl' class="w-100" id="iframe3" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

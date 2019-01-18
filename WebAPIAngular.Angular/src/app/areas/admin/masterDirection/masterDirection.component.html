@@ -1,0 +1,43 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Master Direction
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitMasterDirection(frmMasterDirection)" [formGroup]="frmMasterDirection">
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="Year" id="txtYear">
+                            <option *ngFor="let item of masterDirectionYears" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtYear">Year</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmMasterDirection.controls.Year.errors?.required && isSubmited"> Please enter Year </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="MasterDirectionName" id="txtMasterDirectionName" />
+                        <label for="txtMasterDirectionName">Master Direction Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmMasterDirection.controls.MasterDirectionName.errors?.required && isSubmited"> Please enter Master Direction Name </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Upload PDF : </label>
+                        <input type="file" (change)="fileChange($event)" placeholder="Upload file" class="form-control" accept=".pdf">
+                        <a href="{{pdfServerPath + masterDirectionPDFName}}" *ngIf="masterDirectionPDFName && frmMasterDirection.value.MasterDirectionId" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;"></i>{{(masterDirectionPDFName) ? masterDirectionPDFName.substr(masterDirectionPDFName.indexOf('_') + 1) : masterDirectionPDFName}}</a>
+                        <input type="hidden" formControlName="PDF" />
+                        <span class="help-block has-error" *ngIf="frmMasterDirection.controls.PDF.errors?.required && isSubmited"> Please Upload PDF file </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelMasterDirection()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

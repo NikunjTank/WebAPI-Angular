@@ -1,0 +1,69 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} RBI Liaison Office
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="alert alert-info">
+            <strong>NOTE : </strong> <br />Upload .xls or .xlsx file using following field with proper sequence:<br /> Sr.No, Name and address of the company, Place of the Liaison Office, Date of Approval granted or UIN alloted (dd-mm-yyyy), UIN
+        </div>
+        <form novalidate (ngSubmit)="OnSubmitRBILiaisonOffice(frmRBILiaisonOffice)" [formGroup]="frmRBILiaisonOffice">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Upload Excel : </label>
+                        <input type="file" (change)="fileChange($event)" placeholder="Upload file" class="form-control" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                        <input type="hidden" formControlName="Excel" />
+                        <span class="help-block has-error" *ngIf="frmRBILiaisonOffice.controls.Excel.errors?.required && isSubmited"> Please Upload Excel file </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelRBILiaisonOffice()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+
+            <div *ngIf="addRBILiaisonOfficeFromFileResponse">
+                <div class="form-body" style="margin-top:15px;">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label bold" style="text-align:center !important;">SuccessRow : {{addRBILiaisonOfficeFromFileResponse.SuccessRow}}</label>
+                        <label class="col-md-3 control-label bold" style="text-align:center !important;"><i class="fa fa-square-o color-blue"></i> SkippedRow : {{addRBILiaisonOfficeFromFileResponse.SkippedRow}}</label>
+                        <label class="col-md-3 control-label bold" style="text-align:center !important;"><i class="fa fa-square-o color-red"></i> ErrorRow : {{addRBILiaisonOfficeFromFileResponse.ErrorRow}}</label>
+                    </div>
+                </div>
+
+                <div class="table-scrollable">
+                    <table class="table table-responsive table-advance">
+                        <thead>
+                            <tr class="grey-mint">
+                                <th>LineNumber</th>
+                                <th>Status</th>
+                                <th>Serial No</th>
+                                <th>Name and address of the company</th>
+                                <th>Place of the Liaison Office</th>
+                                <th>Date of approval granted or UIN alloted</th>
+                                <th>UIN</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="(addRBILiaisonOfficeFromFileResponse.NotProcessedRow.length == 0)">
+                                <td colspan="7" class="text-center"><label>Not Exists Not Processed RBI Liaison Office</label></td>
+                            </tr>
+                            <tr *ngFor="let notProcessedRow of addRBILiaisonOfficeFromFileResponse.NotProcessedRow" class="{{(notProcessedRow.Status == 'SKIPPED' ? 'color-blue' : '')}}">
+                                <td>{{notProcessedRow.LineNumber}}</td>
+                                <td>{{notProcessedRow.Status}}</td>
+                                <td>{{notProcessedRow.SerialNo}}</td>
+                                <td>{{notProcessedRow.NameAndAddressOfTheCompany}}</td>
+                                <td>{{notProcessedRow.PlaceOfTheLiaisonOffice}}</td>
+                                <td>{{notProcessedRow.DateOfApprovalGrantedOrUINAlloted}}</td>
+                                <td>{{notProcessedRow.UIN}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

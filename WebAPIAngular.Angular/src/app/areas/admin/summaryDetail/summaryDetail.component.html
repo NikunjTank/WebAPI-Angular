@@ -1,0 +1,49 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Summary Detail
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitSummaryDetail(frmSummaryDetail)" [formGroup]="frmSummaryDetail">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="FormName" id="txtFormName" />
+                        <label for="txtFormName">Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmSummaryDetail.controls.FormName.errors?.required && isSubmited"> Please enter Name </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Upload Word : </label>
+                        <input type="file" (change)="wordFileChange($event)" class="form-control" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                        <a href="{{wordServerPath + summaryDetailWordName}}" *ngIf="summaryDetailWordName && frmSummaryDetail.value.FormSummaryDocumentationDetailId" target="_blank"><i class="fa fa-file-word-o" style="color:dodgerblue;margin-right:7px;"></i>{{(summaryDetailWordName) ? summaryDetailWordName.substr(summaryDetailWordName.indexOf('_') + 1) : summaryDetailWordName}}</a>
+                        <input type="hidden" formControlName="WordFileName" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Upload Excel : </label>
+                        <input type="file" (change)="excelFileChange($event)" class="form-control" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                        <a href="{{excelServerPath + summaryDetailExcelName}}" *ngIf="summaryDetailExcelName && frmSummaryDetail.value.FormSummaryDocumentationDetailId" target="_blank"><i class="fa fa-file-excel-o" style="color:dodgerblue;margin-right:7px;"></i>{{(summaryDetailExcelName) ? summaryDetailExcelName.substr(summaryDetailExcelName.indexOf('_') + 1) : summaryDetailExcelName}}</a>
+                        <input type="hidden" formControlName="ExcelFileName" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Upload PDF : </label>
+                        <input type="file" (change)="pdfFileChange($event)" class="form-control" accept="application/pdf">
+                        <a href="{{pdfServerPath + summaryDetailPDFName}}" *ngIf="summaryDetailPDFName && frmSummaryDetail.value.FormSummaryDocumentationDetailId" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;"></i>{{(summaryDetailPDFName) ? summaryDetailPDFName.substr(summaryDetailPDFName.indexOf('_') + 1) : summaryDetailPDFName}}</a>
+                        <input type="hidden" formControlName="PDFFileName" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelSummaryDetail()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

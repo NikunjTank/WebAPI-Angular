@@ -1,0 +1,434 @@
+﻿<div class="modalLRForm <!--poupu_modules05-->" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="search_result">
+                    <div class="card">
+                        <ul class="nav nav-tabs justify-content-center" role="tablist">
+                            <li role="presentation" (click)="OnModuleTabClick('masterdirection')"><a href="#tab1" [class.tab-active]="moduleTab == 'masterdirection'" aria-controls="tab1" role="tab" data-toggle="tab">Master Direction</a></li>
+                            <li role="presentation" (click)="OnModuleTabClick('mastercircular')"><a href="#tab2" [class.tab-active]="moduleTab == 'mastercircular'" aria-controls="tab2" role="tab" data-toggle="tab">Master Circular</a></li>
+                            <li role="presentation" (click)="OnModuleTabClick('apdircircular')"><a href="#tab3" [class.tab-active]="moduleTab == 'apdircircular'" aria-controls="tab3" role="tab" data-toggle="tab">AP Dir Circular</a></li>
+                            <li role="presentation" (click)="OnModuleTabClick('rbifaq')"><a href="#tab4" [class.tab-active]="moduleTab == 'rbifaq'" aria-controls="tab4" role="tab" data-toggle="tab">RBI FAQs</a></li>
+                        </ul>
+                        <div class="tab-content no-padding">
+                            <div role="tabpanel" class="tab-pane active" id="tab1">
+                                <div class="select_fdi_menu top-padding-20px">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-6">
+                                            <select class="form-control" (change)="OnMasterDirectionChange(drpMasterDirection.value)" #drpMasterDirection>
+                                                <option *ngFor="let item of masterDirectionOfFEMASubModuleDetails" [value]="item.MasterDirectionId">{{item.MasterDirectionName}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1 no-padding-left">
+                                            <a href="{{masterDirectionPDFServerPath + masterDirectionPDFName}}" target="_blank"><i class="fa fa-file-pdf-o doc-icon"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="row top-padding-20px">
+                                        <div class="col-md-12">
+                                            <span *ngIf="masterDirectionFAQs.length > 0" style="margin-right:5px;">RBI FAQs:</span>
+                                            <span *ngFor="let item of masterDirectionFAQs">
+                                                <a href="{{fAQPDFServerPath + item.PDF}}" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;font-size:20px;"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                                        <div class="tab-hg">
+                                            <div class="table-responsive">
+                                                <!--<table class="table" *ngIf="!isAllChapter">
+                                                    <thead class="thead_bg">
+                                                        <tr class="grey-mint ">
+                                                            <th scope="col">Chapter</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngIf="!masterDirectionChapters">
+                                                            <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                        </tr>
+                                                        <tr *ngIf="masterDirectionChapters && masterDirectionChapters.length == 0">
+                                                            <td colspan="3" class="text-center"><label>No Chapter Found!</label></td>
+                                                        </tr>
+                                                        <ng-template ngFor let-masterDirectionChapter let-i="index" [ngForOf]="masterDirectionChapters">
+                                                            <tr (click)="ShowMasterDirectionIndex(i, masterDirectionChapter.MasterDirectionChapterId)">
+                                                                <td>{{masterDirectionChapter.Chapter}}</td>
+                                                            </tr>
+                                                            <tr class="{{itemDetailMasterDirectionChapters.index === i ? '' : 'd-none'}}">
+                                                                <td colspan="2">
+                                                                    <div class="table-scrollable" style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                                                                        <table class="table">
+                                                                            <thead class="thead_bg">
+                                                                                <tr class="grey-mint ">
+                                                                                    <th scope="col">Index Name</th>
+                                                                                    <th scope="col">Index Amendment Content</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr *ngIf="!masterDirectionIndexes">
+                                                                                    <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                                </tr>
+                                                                                <tr *ngIf="masterDirectionIndexes && masterDirectionIndexes.length == 0">
+                                                                                    <td colspan="3" class="text-center"><label>No Index Found!</label></td>
+                                                                                </tr>
+                                                                                <ng-template ngFor let-masterDirectionIndex let-i="index" [ngForOf]="masterDirectionIndexes">
+                                                                                    <tr (click)="ShowMasterDirectionSubIndex(i, masterDirectionIndex.MasterDirectionIndexId)">
+                                                                                        <td><a class="text-underline" (click)="ShowContent(masterDirectionIndex.MasterDirectionIndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{masterDirectionIndex.IndexNo + ' ' + masterDirectionIndex.IndexName}}</a></td>
+                                                                                        <td>
+                                                                                            <ul>
+                                                                                                <li *ngFor="let indexAmendment of masterDirectionIndex.IndexAmendments" class="ulli">
+                                                                                                    <a class="text-underline" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.MasterDirectionIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr class=" {{itemDetailMasterDirectionIndexes.index === i ? '' : 'd-none'}} ">
+                                                                                        <td colspan="2">
+                                                                                            <div class="table-scrollable" style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                                                                                                <table class="table">
+                                                                                                    <thead class="thead_bg">
+                                                                                                        <tr class="grey-mint ">
+                                                                                                            <th scope="col">SubIndex Name</th>
+                                                                                                            <th scope="col">Index Amendment Content</th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody>
+                                                                                                        <tr *ngIf="!masterDirectionSubIndexes">
+                                                                                                            <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                                                        </tr>
+                                                                                                        <tr *ngIf="masterDirectionSubIndexes && masterDirectionSubIndexes.length == 0">
+                                                                                                            <td colspan="3" class="text-center"><label>No SubIndex Found!</label></td>
+                                                                                                        </tr>
+                                                                                                        <ng-template ngFor let-masterDirectionSubIndex let-i="index" [ngForOf]="masterDirectionSubIndexes">
+                                                                                                            <tr>
+                                                                                                                <td><a class="text-underline" (click)="ShowContent(masterDirectionIndex.MasterDirectionIndexId, masterDirectionSubIndex.MasterDirectionSubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{masterDirectionSubIndex.SubIndexNo + ' ' + masterDirectionSubIndex.SubIndexName}}</a></td>
+                                                                                                                <td>
+                                                                                                                    <ul>
+                                                                                                                        <li *ngFor="let indexAmendment of masterDirectionSubIndex.SubIndexAmendments" class="ulli">
+                                                                                                                            <a class="text-underline" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.MasterDirectionIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a>
+                                                                                                                        </li>
+                                                                                                                    </ul>
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                        </ng-template>
+                                                                                                    </tbody>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </ng-template>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </ng-template>
+                                                    </tbody>
+                                                </table>-->
+                                                <table class="table" *ngIf="!isAllChapter">
+                                                    <thead class="thead_bg">
+                                                        <tr class="grey-mint ">
+                                                            <th colspan="2" scope="col">Chapter / Index / Sub-index Content</th>
+                                                            <th scope="col" style="width:50%;">Index / Sub-index Amendment</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngIf="!masterDirectionChapters">
+                                                            <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                        </tr>
+                                                        <tr *ngIf="masterDirectionChapters && masterDirectionChapters.length == 0">
+                                                            <td colspan="3" class="text-center"><label>No Chapter Found!</label></td>
+                                                        </tr>
+                                                        <ng-template ngFor let-masterDirectionChapter let-i="index" [ngForOf]="masterDirectionChapters">
+                                                            <tr (click)="ShowMasterDirectionIndex(i, masterDirectionChapter.MasterDirectionChapterId)" class="background-grey">
+                                                                <td colspan="3">{{masterDirectionChapter.Chapter}}</td>
+                                                            </tr>
+                                                            <ng-template ngFor let-masterDirectionIndex let-j="index" [ngForOf]="masterDirectionIndexes" *ngIf="itemDetailMasterDirectionChapters.index === i">
+                                                                <tr (click)="ShowMasterDirectionSubIndex(j, masterDirectionIndex.MasterDirectionIndexId)">
+                                                                    <td class="text-center text-nowrap"><a class="text-underline" (click)="ShowContent(masterDirectionIndex.MasterDirectionIndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{masterDirectionIndex.IndexNo}}</a></td>
+                                                                    <td><a class="text-underline" (click)="ShowContent(masterDirectionIndex.MasterDirectionIndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{masterDirectionIndex.IndexName}}</a></td>
+                                                                    <td>
+                                                                        <table>
+                                                                            <tbody>
+                                                                                <ng-template ngFor let-indexAmendment [ngForOf]="masterDirectionIndex.IndexAmendments">
+                                                                                    <tr *ngIf="indexAmendment.APDIRCirculars || indexAmendment.UpdatedInsertedByRBI == true" class="ulli no-border">
+                                                                                        <td class="no-border">
+                                                                                            <ng-template ngFor let-item [ngForOf]="indexAmendment.APDIRCirculars.split(';;')">
+                                                                                                <a class="und" *ngIf="item" href="{{aPDIRCircularServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}} dated {{item.split('||')[2] | date:'dd-MM-yyyy'}}</a><br />
+                                                                                            </ng-template>
+                                                                                        </td>
+                                                                                        <td class="no-border"><span>{{(indexAmendment.UpdatedInsertedByRBI == true) ? '(Updated / Inserted by RBI' + ((indexAmendment.UpdatedInsertedDateByRBI) ? ' on ' : '') + ((indexAmendment.UpdatedInsertedDateByRBI) ? (indexAmendment.UpdatedInsertedDateByRBI | date:'dd-MM-yyyy') + ')' : ')') : ''  }}</span></td>
+                                                                                        <td class="no-border text-nowrap"><a class="text-underline und" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.MasterDirectionIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                    </tr>
+                                                                                    <tr *ngIf="indexAmendment.Notifications" class="ulli no-border">
+                                                                                        <td class="no-border">
+                                                                                            <ng-template ngFor let-item [ngForOf]="indexAmendment.Notifications.split(';;')">
+                                                                                                <a class="und" *ngIf="item" href="{{notificationServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}} dated {{item.split('||')[2] | date:'dd-MM-yyyy'}}</a><br />
+                                                                                            </ng-template>
+                                                                                        </td>
+                                                                                        <td class="no-border"><span *ngIf="!indexAmendment.APDIRCirculars">{{(indexAmendment.UpdatedInsertedByRBI == true) ? '(Updated / Inserted by RBI' + ((indexAmendment.UpdatedInsertedDateByRBI) ? ' on ' : '') + ((indexAmendment.UpdatedInsertedDateByRBI) ? (indexAmendment.UpdatedInsertedDateByRBI | date:'dd-MM-yyyy')  + ')' : ')') : ''  }}</span></td>
+                                                                                        <td class="no-border text-nowrap"><a class="text-underline und" *ngIf="!indexAmendment.APDIRCirculars && indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.MasterDirectionIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                    </tr>
+                                                                                </ng-template>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <ng-template ngFor let-masterDirectionSubIndex let-k="index" [ngForOf]="masterDirectionSubIndexes" *ngIf="itemDetailMasterDirectionIndexes.index === j">
+                                                                    <tr>
+                                                                        <td class="text-center text-nowrap"><a class="text-underline" (click)="ShowContent(masterDirectionIndex.MasterDirectionIndexId, masterDirectionSubIndex.MasterDirectionSubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{masterDirectionSubIndex.SubIndexNo}}</a></td>
+                                                                        <td><a class="text-underline" (click)="ShowContent(masterDirectionIndex.MasterDirectionIndexId, masterDirectionSubIndex.MasterDirectionSubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{masterDirectionSubIndex.SubIndexName}}</a></td>
+                                                                        <td>
+                                                                            <table>
+                                                                                <tbody>
+                                                                                    <ng-template ngFor let-indexAmendment [ngForOf]="masterDirectionSubIndex.SubIndexAmendments">
+                                                                                        <tr *ngIf="indexAmendment.APDIRCirculars || indexAmendment.UpdatedInsertedByRBI == true" class="ulli no-border">
+                                                                                            <td class="no-border">
+                                                                                                <ng-template ngFor let-item [ngForOf]="indexAmendment.APDIRCirculars.split(';;')">
+                                                                                                    <a class="und" *ngIf="item" href="{{aPDIRCircularServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}} dated {{item.split('||')[2] | date:'dd-MM-yyyy'}}</a><br />
+                                                                                                </ng-template>
+                                                                                            </td>
+                                                                                            <td class="no-border"><span>{{(indexAmendment.UpdatedInsertedByRBI == true) ? '(Updated / Inserted by RBI' + ((indexAmendment.UpdatedInsertedDateByRBI) ? ' on ' : '') + ((indexAmendment.UpdatedInsertedDateByRBI) ? (indexAmendment.UpdatedInsertedDateByRBI | date:'dd-MM-yyyy') + ')' : ')') : ''  }}</span></td>
+                                                                                            <td class="no-border text-nowrap"><a class="text-underline und" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.MasterDirectionIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                        </tr>
+                                                                                        <tr *ngIf="indexAmendment.Notifications" class="ulli no-border">
+                                                                                            <td class="no-border">
+                                                                                                <ng-template ngFor let-item [ngForOf]="indexAmendment.Notifications.split(';;')">
+                                                                                                    <a class="und" *ngIf="item" href="{{notificationServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}} dated {{item.split('||')[2] | date:'dd-MM-yyyy'}}</a><br />
+                                                                                                </ng-template>
+                                                                                            </td>
+                                                                                            <td class="no-border"><span *ngIf="!indexAmendment.APDIRCirculars">{{(indexAmendment.UpdatedInsertedByRBI == true) ? '(Updated / Inserted by RBI' + ((indexAmendment.UpdatedInsertedDateByRBI) ? ' on ' : '') + ((indexAmendment.UpdatedInsertedDateByRBI) ? (indexAmendment.UpdatedInsertedDateByRBI | date:'dd-MM-yyyy')  + ')' : ')') : ''  }}</span></td>
+                                                                                            <td class="no-border text-nowrap"><a class="text-underline und" *ngIf="!indexAmendment.APDIRCirculars && indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.MasterDirectionIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                        </tr>
+                                                                                    </ng-template>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </ng-template>
+                                                            </ng-template>
+                                                        </ng-template>
+                                                    </tbody>
+                                                </table>
+
+                                                <table class="table" *ngIf="isAllChapter">
+                                                    <thead class="thead_bg">
+                                                        <tr class="grey-mint ">
+                                                            <th colspan="4" scope="col">Index / Sub-index Content</th>
+                                                            <th scope="col" style="width:50%;">Index / Sub-index Amendment</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngIf="!masterDirectionIndexes">
+                                                            <td colspan="5" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                        </tr>
+                                                        <tr *ngIf="masterDirectionIndexes && masterDirectionIndexes.length == 0">
+                                                            <td colspan="5" class="text-center"><label>No Index Found!</label></td>
+                                                        </tr>
+                                                        <ng-template ngFor let-masterDirectionIndex let-j="index" [ngForOf]="masterDirectionIndexes" *ngIf="itemDetailMasterDirectionChapters.index === i">
+                                                            <tr (click)="ShowMasterDirectionSubIndex(j, masterDirectionIndex.MasterDirectionIndexId)">
+                                                                <td class="text-center text-nowrap"><a class="text-underline" (click)="ShowContent(masterDirectionIndex.MasterDirectionIndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{masterDirectionIndex.IndexNo}}</a></td>
+                                                                <td><a class="text-underline" (click)="ShowContent(masterDirectionIndex.MasterDirectionIndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{masterDirectionIndex.IndexName}}</a></td>
+                                                                <td>
+                                                                    <table>
+                                                                        <tbody>
+                                                                            <ng-template ngFor let-indexAmendment [ngForOf]="masterDirectionIndex.IndexAmendments">
+                                                                                <tr *ngIf="indexAmendment.APDIRCirculars || indexAmendment.UpdatedInsertedByRBI == true" class="ulli no-border">
+                                                                                    <td class="no-border">
+                                                                                        <ng-template ngFor let-item [ngForOf]="indexAmendment.APDIRCirculars.split(';;')">
+                                                                                            <a class="und" *ngIf="item" href="{{aPDIRCircularServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}} dated {{item.split('||')[2] | date:'dd-MM-yyyy'}}</a><br />
+                                                                                        </ng-template>
+                                                                                    </td>
+                                                                                    <td class="no-border"><span>{{(indexAmendment.UpdatedInsertedByRBI == true) ? '(Updated / Inserted by RBI' + ((indexAmendment.UpdatedInsertedDateByRBI) ? ' on ' : '') + ((indexAmendment.UpdatedInsertedDateByRBI) ? (indexAmendment.UpdatedInsertedDateByRBI | date:'dd-MM-yyyy') + ')' : ')') : ''  }}</span></td>
+                                                                                    <td class="no-border text-nowrap"><a class="text-underline und" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.MasterDirectionIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                </tr>
+                                                                                <tr *ngIf="indexAmendment.Notifications" class="ulli no-border">
+                                                                                    <td class="no-border">
+                                                                                        <ng-template ngFor let-item [ngForOf]="indexAmendment.Notifications.split(';;')">
+                                                                                            <a class="und" *ngIf="item" href="{{notificationServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}} dated {{item.split('||')[2] | date:'dd-MM-yyyy'}}</a><br />
+                                                                                        </ng-template>
+                                                                                    </td>
+                                                                                    <td class="no-border"><span *ngIf="!indexAmendment.APDIRCirculars">{{(indexAmendment.UpdatedInsertedByRBI == true) ? '(Updated / Inserted by RBI' + ((indexAmendment.UpdatedInsertedDateByRBI) ? ' on ' : '') + ((indexAmendment.UpdatedInsertedDateByRBI) ? (indexAmendment.UpdatedInsertedDateByRBI | date:'dd-MM-yyyy')  + ')' : ')') : ''  }}</span></td>
+                                                                                    <td class="no-border text-nowrap"><a class="text-underline und" *ngIf="!indexAmendment.APDIRCirculars && indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.MasterDirectionIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                </tr>
+                                                                            </ng-template>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <ng-template ngFor let-masterDirectionSubIndex let-k="index" [ngForOf]="masterDirectionSubIndexes" *ngIf="itemDetailMasterDirectionIndexes.index === j">
+                                                                <tr>
+                                                                    <td class="text-center text-nowrap"><a class="text-underline" (click)="ShowContent(masterDirectionIndex.MasterDirectionIndexId, masterDirectionSubIndex.MasterDirectionSubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{masterDirectionSubIndex.SubIndexNo}}</a></td>
+                                                                    <td><a class="text-underline" (click)="ShowContent(masterDirectionIndex.MasterDirectionIndexId, masterDirectionSubIndex.MasterDirectionSubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{masterDirectionSubIndex.SubIndexName}}</a></td>
+                                                                    <td>
+                                                                        <table>
+                                                                            <tbody>
+                                                                                <ng-template ngFor let-indexAmendment [ngForOf]="masterDirectionSubIndex.SubIndexAmendments">
+                                                                                    <tr *ngIf="indexAmendment.APDIRCirculars || indexAmendment.UpdatedInsertedByRBI == true" class="ulli no-border">
+                                                                                        <td class="no-border">
+                                                                                            <ng-template ngFor let-item [ngForOf]="indexAmendment.APDIRCirculars.split(';;')">
+                                                                                                <a class="und" *ngIf="item" href="{{aPDIRCircularServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}} dated {{item.split('||')[2] | date:'dd-MM-yyyy'}}</a><br />
+                                                                                            </ng-template>
+                                                                                        </td>
+                                                                                        <td class="no-border"><span>{{(indexAmendment.UpdatedInsertedByRBI == true) ? '(Updated / Inserted by RBI' + ((indexAmendment.UpdatedInsertedDateByRBI) ? ' on ' : '') + ((indexAmendment.UpdatedInsertedDateByRBI) ? (indexAmendment.UpdatedInsertedDateByRBI | date:'dd-MM-yyyy') + ')' : ')') : ''  }}</span></td>
+                                                                                        <td class="no-border text-nowrap"><a class="text-underline und" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.MasterDirectionIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                    </tr>
+                                                                                    <tr *ngIf="indexAmendment.Notifications" class="ulli no-border">
+                                                                                        <td class="no-border">
+                                                                                            <ng-template ngFor let-item [ngForOf]="indexAmendment.Notifications.split(';;')">
+                                                                                                <a class="und" *ngIf="item" href="{{notificationServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}} dated {{item.split('||')[2] | date:'dd-MM-yyyy'}}</a><br />
+                                                                                            </ng-template>
+                                                                                        </td>
+                                                                                        <td class="no-border"><span *ngIf="!indexAmendment.APDIRCirculars">{{(indexAmendment.UpdatedInsertedByRBI == true) ? '(Updated / Inserted by RBI' + ((indexAmendment.UpdatedInsertedDateByRBI) ? ' on ' : '') + ((indexAmendment.UpdatedInsertedDateByRBI) ? (indexAmendment.UpdatedInsertedDateByRBI | date:'dd-MM-yyyy')  + ')' : ')') : ''  }}</span></td>
+                                                                                        <td class="no-border text-nowrap"><a class="text-underline und" *ngIf="!indexAmendment.APDIRCirculars && indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.MasterDirectionIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                    </tr>
+                                                                                </ng-template>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </ng-template>
+                                                        </ng-template>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab2">
+                                <div class="select_fdi_menu top-padding-20px">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-6">
+                                            <select class="form-control" (change)="GetMasterCircularDetail(ddlMasterCircular.value, ddlMasterCircularDetailYear.value)" #ddlMasterCircular>
+                                                <option *ngFor="let item of masterCircularOfFEMASubModuleDetail" [value]="item.MasterCircularId">{{item.MasterCircularName}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1 no-padding-left">
+                                            <select class="form-control" (change)="GetMasterCircularDetail(ddlMasterCircular.value, ddlMasterCircularDetailYear.value)" [(ngModel)]="masterCircularYear" #ddlMasterCircularDetailYear>
+                                                <option *ngFor="let item of masterCircularDetailYears" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fdi_box_poupu top-padding-20px" *ngIf="masterCircularDetailPDFUrl">
+                                    <!--<iframe [src]='masterCircularDetailPDFUrl' class="w-100" height="390" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+                                    <iframe [src]='masterCircularDetailPDFUrl' class="w-100" id="iframe1" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab3">
+                                <div class="select_fdi_menu top-padding-20px">
+                                    <div class="row justify-content-between">
+                                        <div class="col-md-2">
+                                            <select class="form-control" (change)="OnAPDIRCircularYearChange(drpYear.value)" [(ngModel)]="aPDIRCircularYear" #drpYear>
+                                                <option *ngFor="let item of aPDIRCircularYears" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <form novalidate (ngSubmit)="SearchAPDIRCircular(frmAPDIRCircular)" [formGroup]="frmAPDIRCircular">
+                                                <span class="input-group-btn modules_searchs_wapper">
+                                                    <input class="modules_search form-control" placeholder="Search" type="text" formControlName="SearchText">
+                                                    <button class="modules_search_btn" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                                </span>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                                    <div class="tab-hg">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="thead_bg">
+                                                    <tr class="grey-mint text-nowrap">
+                                                        <th (click)="OnAPDIRCircularSort('APDIRCircularNo')" class="pointer-cursor">AP DIR Circular No. <i class="fa {{sortingAPDIRCircularField == 'APDIRCircularNo' ? (sortingAPDIRCircularDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                        <th (click)="OnAPDIRCircularSort('APDIRCircularName')" class="pointer-cursor">AP DIR Circular Name <i class="fa {{sortingAPDIRCircularField == 'APDIRCircularName' ? (sortingAPDIRCircularDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                        <th (click)="OnAPDIRCircularSort('APDIRCircularDate')" class="pointer-cursor">AP DIR Circular Date <i class="fa {{sortingAPDIRCircularField == 'APDIRCircularDate' ? (sortingAPDIRCircularDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngIf="!aPDIRCircularOfFEMASubModuleDetails">
+                                                        <td colspan="10" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                    </tr>
+                                                    <tr *ngIf="aPDIRCircularOfFEMASubModuleDetails && aPDIRCircularOfFEMASubModuleDetails.length == 0">
+                                                        <td colspan="10" class="text-center"><label>No Notification Found!</label></td>
+                                                    </tr>
+                                                    <ng-template ngFor let-aPDIRCircularOfFEMASubModuleDetail let-j="index" [ngForOf]="aPDIRCircularOfFEMASubModuleDetails">
+                                                        <tr>
+                                                            <td><a class="und" href="{{aPDIRCircularServerPath + aPDIRCircularOfFEMASubModuleDetail.APDIRCircularPDF}}" target="_blank">{{aPDIRCircularOfFEMASubModuleDetail.APDIRCircularNo}}</a></td>
+                                                            <td><a class="und" href="{{aPDIRCircularServerPath + aPDIRCircularOfFEMASubModuleDetail.APDIRCircularPDF}}" target="_blank">{{aPDIRCircularOfFEMASubModuleDetail.APDIRCircularName}}</a></td>
+                                                            <td>{{aPDIRCircularOfFEMASubModuleDetail.APDIRCircularDate | date:'dd-MM-yyyy'}}</td>
+                                                        </tr>
+                                                    </ng-template>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row top-padding-20px">
+                                    <div class="col-md-12">
+                                        <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab4">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 select_fdi_menu top-padding-20px">
+                                        <select class="form-control" (change)="OnChangeRBIFAQ(ddlRBIFAQ.value)" #ddlRBIFAQ>
+                                            <option *ngFor="let item of rBIFAQ" [value]="item.FAQId">{{item.TopicName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="fdi_box_poupu top-padding-20px" *ngIf="rBIFAQPDFUrl">
+                                    <!--<iframe [src]='rBIFAQPDFUrl' class="w-100" height="390" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+                                    <iframe [src]='rBIFAQPDFUrl' class="w-100" id="iframe2" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="modal fade poupu_modules poupu_modules03" id="indexAmendment" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="opacity: 1 !important;z-index: 9999 !important;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="overflow:inherit; border: 1px solid black !important;">
+                <div class="modal-body">
+                    <div class="modules_poupu_titel" style="right:27px; position:relative;">
+                        <a (click)="PreviousContent()" *ngIf="isPreviousButton" class="pre-btn"><span class="left-arrow"><</span> Previous</a>&nbsp;&nbsp;&nbsp;
+                        <a (click)="NextContent()" *ngIf="isNextButton" class="nex-btn">Next <span class="right-arrow">></span></a>
+                        <button type="button" class="pointer-cursor close-button close-round" data-dismiss="modal" aria-label="Close" title="CLOSE" style="line-height: 0.1;">x</button>
+                    </div>
+                    <hr />
+                    <div class="fdi_box_poupu pop-up">
+                        <div class="modules_tabel no-border modules_tabel03">
+                            <div [innerHTML]='indexAmendmentContent | safeHtml'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <div class="modal fade poupu_modules poupu_modules03" id="indexAmendment" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="opacity: 1 !important;z-index: 9999 !important;">
+        <div class="modal-dialog inn_pop" role="document">
+            <div class="modal-content" style="overflow:inherit;  box-shadow:2px 2px 36px -2px rgba(0,0,0,0.75);">
+                <div class="modal-body">
+                    <div class="modules_poupu_titel" style="right:27px; position:relative;">
+                       <div class="npbt-mob"> <label class="modal-header-title">{{popupHeaderTitle}}</label></div>
+                        <a (click)="PreviousContent()" *ngIf="isPreviousButton" class="pre-btn"><span class="left-arrow"><</span> Previous</a>&nbsp;&nbsp;&nbsp;
+                        <a (click)="NextContent()" *ngIf="isNextButton" class="nex-btn">Next <span class="right-arrow">></span></a>
+                        <button type="button" class="pointer-cursor close-button close-round" data-dismiss="modal" aria-label="Close" title="CLOSE" style="line-height: 0.1;">x</button>
+                    </div>
+                    <hr />
+                    <div class="fdi_box_poupu pop-up">
+                        <div class="modules_tabel no-border modules_tabel03">
+                            <div [innerHTML]='indexAmendmentContent | safeHtml'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

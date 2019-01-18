@@ -1,0 +1,33 @@
+﻿<div class="content" style="margin-top:12%;">
+    <form (ngSubmit)="Login(frmLogin)" [formGroup]="frmLogin" class="login-form" novalidate>
+        <h4 class="form-title font-green account-title">Login to your account</h4>
+        <div *ngIf="errorMessage" class="alert alert-danger">
+            <a class="close" data-close="alert"></a>
+            <span [innerHtml]="errorMessage"></span>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="control-label visible-ie8 visible-ie9">UserName</label>
+                    <input type="text" placeholder="UserName" class="form-control form-control-solid placeholder-no-fix btn-text-height" formControlName="UserName" autofocus />
+                    <span class="help-block has-error" *ngIf="frmLogin.controls.UserName.errors?.required && isSubmited"> Please enter username </span>
+                    <span class="help-block has-error" *ngIf="frmLogin.controls.UserName.errors?.email && !frmLogin.controls.UserName.errors?.required && isSubmited"> Please enter proper username </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="control-label visible-ie8 visible-ie9">Password</label>
+                    <input type="password" placeholder="Password" class="form-control form-control-solid placeholder-no-fix btn-text-height" formControlName="Password" />
+                    <span class="help-block has-error" *ngIf="frmLogin.controls.Password.errors?.required && isSubmited"> Please enter password </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group text-right">
+            <!--<a [routerLink]="['/admin/forgotpassword']" style="color: #32c8db !important;" class="forget-password pull-left">Forgot Password?</a>-->
+            <button type="submit" id="btnLogin" class="btn green">Login</button>
+        </div>
+    </form>
+</div>

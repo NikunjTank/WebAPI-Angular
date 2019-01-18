@@ -1,0 +1,98 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>Master Direction Index Details
+        </div>
+    </div>
+    <div class="portlet-body form label-color">
+        <div class="form-body">
+            <h4 class="form-section no-margin">Master Direction</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-4 no-space text-right"><label><b>Master Direction Name</b> : </label></div>
+                        <div class="col-md-8 no-space"><label class="text-left-margin">{{masterDirection.MasterDirectionName}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>Year</b> : </label></div>
+                        <div class="col-md-6 no-space"><label class="text-left-margin">{{masterDirection.Year}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>PDF</b> : </label></div>
+                        <div class="col-md-6 no-space"><a href="{{masterDirectionPDFPath + masterDirection.PDF}}" class="text-left-margin" target="_blank">{{(masterDirection.PDF) ? masterDirection.PDF.split('_')[1] : masterDirection.PDF}}</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body form label-color">
+        <div class="form-body">
+            <h4 class="form-section no-margin">Master Direction Chapter</h4>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-4 no-space text-right"><label><b>Chapter</b> : </label></div>
+                        <div class="col-md-8 no-space"><label class="text-left-margin">{{masterDirectionChapter.Chapter}}</label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Master Direction Index
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitMasterDirectionIndex(frmMasterDirectionIndex)" [formGroup]="frmMasterDirectionIndex">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="SaveAfterIndexId" id="txtSaveAfterIndexId">
+                            <option *ngFor="let item of masterDirectionIndexes" [value]="item.MasterDirectionIndexId">{{item.IndexName}}</option>
+                        </select>
+                        <label for="txtSaveAfterIndexId">Save After</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input  margin-bottom">
+                        <input type="text" class="form-control" formControlName="IndexNo" id="txtIndexNo" />
+                        <label for="txtIndexNo">Index No.</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmMasterDirectionIndex.controls.IndexNo.errors?.required && isSubmited"> Please enter Index No. </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input  margin-bottom">
+                        <input type="text" class="form-control" formControlName="IndexName" id="txtIndexName" />
+                        <label for="txtIndexName">Index Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmMasterDirectionIndex.controls.IndexName.errors?.required && isSubmited"> Please enter Index Name </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input no-margin">
+                        <label for="txtIndexContent">Index Content</label>
+                        <ckeditor formControlName="IndexContent"
+                                  [readonly]="false"
+                                  debounce="500">
+                        </ckeditor>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmMasterDirectionIndex.controls.IndexContent.errors?.required && isSubmited"> Please enter Index Content </span>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelMasterDirectionIndex()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

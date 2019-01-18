@@ -1,0 +1,80 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>Before AP DIR Circular Details
+        </div>
+    </div>
+    <div class="portlet-body form label-color">
+        <div class="form-body">
+            <h4 class="form-section no-margin">AP DIR Circular</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-8 no-space text-right"><label><b>AP DIR Circular No</b> : </label></div>
+                        <div class="col-md-4 no-space"><label class="text-left-margin">{{aPDIRCircular.APDIRCircularNo}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>AP DIR Circular Name</b> : </label></div>
+                        <div class="col-md-6 no-space"><label class="text-left-margin">{{aPDIRCircular.APDIRCircularName}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>AP DIR Circular Date</b> : </label></div>
+                        <div class="col-md-6 no-space"><label class="text-left-margin">{{aPDIRCircular.APDIRCircularDate | date:'dd-MM-yyyy'}}</label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-8 no-space text-right"><label><b>AP DIR Circular EfectiveDate</b> : </label></div>
+                        <div class="col-md-4 no-space"><label class="text-left-margin">{{aPDIRCircular.APDIRCircularEffectiveDate | date:'dd-MM-yyyy'}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>Year</b> : </label></div>
+                        <div class="col-md-6 no-space"><label class="text-left-margin">{{aPDIRCircular.APDIRCircularYearName}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>PDF</b> : </label></div>
+                        <div class="col-md-6 no-space"><a href="{{pdfServerPath + aPDIRCircular.APDIRCircularPDF}}" class="text-left-margin" target="_blank">{{(aPDIRCircular.APDIRCircularPDF) ? aPDIRCircular.APDIRCircularPDF.split('_')[1] : aPDIRCircular.APDIRCircularPDF}}</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Before AP DIR Circular
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitAPDIRCircularBefore(frmAPDIRCircularBefore)" [formGroup]="frmAPDIRCircularBefore">
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="APDIRCircularId" id="APDIRCircularId">
+                            <option *ngFor="let item of aPDIRCirculars" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtAPDIRCircularId">Before AP DIR Circular</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmAPDIRCircularBefore.controls.APDIRCircularId.errors?.required && isSubmited"> Please select Before AP DIR Circular </span>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelAPDIRCircularBefore()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

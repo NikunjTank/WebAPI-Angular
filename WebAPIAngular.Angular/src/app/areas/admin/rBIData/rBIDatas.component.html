@@ -1,0 +1,118 @@
+﻿<div class="row header-bottom-margin">
+    <div class="col-md-offset-6 col-md-6 text-right">
+        <a [routerLink]="['/admin/secure/rbidata']">
+            <span class="add-button btn default full-width pull-right" style="margin-top: 4px;"><i class="fa fa-plus"></i> Add</span>
+        </a>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>RBI Datas ({{totalRecords}})
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-1">
+                <select class="form-control" (change)="OnPageSizeChange()" [(ngModel)]="drpPageSize">
+                    <option *ngFor="let size of pageSizes">{{size}}</option>
+                </select>
+            </div>
+            <div class="col-sm-3 col-sm-offset-8">
+                <form novalidate (ngSubmit)="SearchRBIData(frmRBIData)" [formGroup]="frmRBIData">
+                    <div class="input-group stylish-input-group">
+                        <input type="text" class="form-control" placeholder="Search here" formControlName="SearchText" #txtSearch>
+                        <span class="input-group-addon">
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-scrollable">
+            <input type="hidden" id="hdnCurrentPage" value="0" />
+            <table class="table table-striped table-responsive table-advance table-hover">
+                <thead>
+                    <tr class="grey-mint">
+                        <th style="width: 40px;">RBI Data Detail</th>
+                        <th class="text-center" style="width: 70px;">Action</th>
+                        <th (click)="OnRBIDataSort('RBIDataName')" class="pointer-cursor">RBI Data Name <i class="fa {{sortingRBIDataField == 'RBIDataName' ? (sortingRBIDataDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                        <th class="text-center">RBI Data Excel</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!rBIDatas">
+                        <td colspan="4" class="text-center"><label>Loading data. Please wait...</label></td>
+                    </tr>
+                    <tr *ngIf="rBIDatas && rBIDatas.length == 0">
+                        <td colspan="4" class="text-center"><label>No RBI Data Found!</label></td>
+                    </tr>
+                    <ng-template ngFor let-rBIData let-i="index" [ngForOf]="rBIDatas">
+                        <tr class="text-nowrap">
+                            <td class="text-center">
+                                <i *ngIf="(rBIData.RBIDataName == 'RBI External Commercial Borrowings Data' || rBIData.RBIDataName == 'RBI Overseas Direct Investment Data')" class="fa fa-chevron-right pointer-cursor rotate plus-color font-16 margin-right-10 {{itemDetailRBIDatas.index === i ? 'down' : ''}}" (click)="ShowRBIDataDetail(i, rBIData.RBIDataId)"></i>
+                                <a *ngIf="(rBIData.RBIDataName == 'RBI External Commercial Borrowings Data' || rBIData.RBIDataName == 'RBI Overseas Direct Investment Data')" (click)="AddRBIDataDetail(rBIData.RBIDataId, i)" title="Add RBIData"><i class="fa fa-plus pointer-cursor plus-color font-16"></i></a>
+                            </td>
+                            <td class="text-center">
+                                <a (click)="EditRBIData(rBIData.RBIDataId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                <a title="Delete" (click)="DeleteRBIData(rBIData.RBIDataId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                            </td>
+                            <td>{{rBIData.RBIDataName}}</td>
+                            <!--<td class="text-center"><a href="{{excelRBIDataServerPath + rBIData.Excel}}" target="_blank">{{(rBIData.Excel) ? rBIData.Excel.substr(rBIData.Excel.indexOf('_') + 1) : rBIData.Excel}}</a></td>-->
+                            <td class="text-center"><a href="{{excelRBIDataServerPath + rBIData.Excel}}" target="_blank"><i class="fa fa-file-excel-o font-16" style="color:green;"></i></a></td>
+                        </tr>
+                        <tr class="text-nowrap {{itemDetailRBIDatas.index === i ? '' : 'hide'}}">
+                            <td></td>
+                            <td colspan="4">
+                                <div class="table-scrollable" style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                                    <table class="table table-striped table-responsive table-advance table-hover">
+                                        <thead>
+                                            <tr class="grey-mint">
+                                                <th class="text-center" style="width: 70px;">Action</th>
+                                                <th (click)="OnRBIDataDetailSort(rBIDataDetail.RBIDataId,'Month')" class="pointer-cursor">Month <i class="fa {{sortingRBIDataDetailField == 'Month' ? (sortingRBIDataDetailDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                <th (click)="OnRBIDataDetailSort(rBIDataDetail.RBIDataId,'Year')" class="pointer-cursor">Year <i class="fa {{sortingRBIDataDetailField == 'Year' ? (sortingRBIDataDetailDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                <th class="text-center">RBI Data Excel</th>
+                                                <th class="text-center">RBI Data PDF</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="!rBIDataDetails">
+                                                <td colspan="5" class="text-center"><label>Loading data. Please wait...</label></td>
+                                            </tr>
+                                            <tr *ngIf="rBIDataDetails && rBIDataDetails.length == 0">
+                                                <td colspan="5" class="text-center"><label>No RBI Data Detail Found!</label></td>
+                                            </tr>
+                                            <ng-template ngFor let-rBIDataDetail let-j="index" [ngForOf]="rBIDataDetails">
+                                                <tr class="text-nowrap">
+                                                    <td class="text-center">
+                                                        <a (click)="EditRBIDataDetail(rBIData.RBIDataId, rBIDataDetail.RBIDataDetailId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                                        <a title="Delete" (click)="DeleteRBIDataDetail(rBIData.RBIDataId, rBIDataDetail.RBIDataDetailId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                                                    </td>
+                                                    <td>{{rBIDataDetail.Month}}</td>
+                                                    <td>{{rBIDataDetail.Year}}</td>
+                                                    <!--<td><a href="{{excelServerPath + rBIDataDetail.Excel}}" target="_blank">{{(rBIDataDetail.Excel) ? rBIDataDetail.Excel.substr(rBIDataDetail.Excel.indexOf('_') + 1) : rBIDataDetail.Excel}}</a></td>
+                                                    <td><a href="{{pdfServerPath + rBIDataDetail.PDF}}" target="_blank">{{(rBIDataDetail.PDF) ? rBIDataDetail.PDF.substr(rBIDataDetail.PDF.indexOf('_') + 1) : rBIDataDetail.PDF}}</a></td>-->
+                                                    <td class="text-center"><a href="{{excelServerPath + rBIDataDetail.Excel}}" target="_blank"><i class="fa fa-file-excel-o font-16" style="color:green;"></i></a></td>
+                                                    <td class="text-center"><a href="{{pdfServerPath + rBIDataDetail.PDF}}" target="_blank"><i class="fa fa-file-pdf-o font-16" style="color:red;"></i></a></td>
+                                                </tr>
+                                            </ng-template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

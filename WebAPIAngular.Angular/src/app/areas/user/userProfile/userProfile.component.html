@@ -1,0 +1,202 @@
+﻿<div class="inner_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="inner_page_titel text-center">Profile Setting</div>
+            </div>
+        </div>
+        <!--<div class="row justify-content-md-center">
+            <div class="col-md-12">
+                <div class="card  l_r_from contact_us_wapper  no-padding">
+                    <div class="search_result">
+                        <div class="card">
+                            <div class="row justify-content-center">
+                                <div class="col-md-10">
+                                    <div *ngIf="errorMessage" class="col-md-12 alert alert-danger">
+                                        <a class="close" data-close="alert"></a>
+                                        <span [innerHtml]="errorMessage"></span>
+                                    </div>
+                                    <div *ngIf="successMessage" class="col-md-12 alert alert-success">
+                                        <a class="close" data-close="alert"></a>
+                                        <span [innerHtml]="successMessage"></span>
+                                    </div>
+                                    <form (ngSubmit)="OnSubmitUpdateProfile(frmProfile)" [formGroup]="frmProfile" novalidate>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group form-md-line-input no-margin">
+                                                    <label>UserName</label>
+                                                    <input type="text" class="form-control" formControlName="UserName" />
+                                                </div>
+                                                <span class="help-block has-error" *ngIf="frmProfile.controls.UserName.errors?.required && isSubmited"> Please enter UserName </span>
+                                                <span class="help-block has-error" *ngIf="frmProfile.controls.UserName.errors?.email && !frmProfile.controls.UserName.errors?.required && isSubmited"> Please enter proper UserName </span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group form-md-line-input no-margin">
+                                                    <label>Mobile</label>
+                                                    <input type="text" class="form-control" formControlName="Mobile" />
+                                                </div>
+                                                <span class="help-block has-error" *ngIf="frmProfile.controls.Mobile.errors?.required && isSubmited"> Please enter Mobile </span>
+                                            </div>
+                                        </div>
+                                        <div class="row top-padding-20px">
+                                            <div class="col-md-6">
+                                                <div class="form-group form-md-line-input no-margin">
+                                                    <label>FirstName</label>
+                                                    <input type="text" class="form-control" formControlName="FirstName" />
+                                                </div>
+                                                <span class="help-block has-error" *ngIf="frmProfile.controls.FirstName.errors?.required && isSubmited"> Please enter FirstName </span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group form-md-line-input no-margin">
+                                                    <label>LastName</label>
+                                                    <input type="text" class="form-control" formControlName="LastName" />
+                                                </div>
+                                                <span class="help-block has-error" *ngIf="frmProfile.controls.LastName.errors?.required && isSubmited"> Please enter LastName </span>
+                                            </div>
+                                        </div>
+                                        <div class="row top-padding-20px">
+                                            <div class="col-md-6">
+                                                <div class="form-group form-md-line-input no-margin">
+                                                    <label>Gender</label>
+                                                    <select class="custom-select" formControlName="Gender">
+                                                        <option value="">Select your Gender</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Male">Male </option>
+                                                    </select>
+                                                </div>
+                                                <span class="help-block has-error" *ngIf="frmProfile.controls.Gender.errors?.required && isSubmited"> Please select Gender </span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group form-md-line-input no-margin">
+                                                    <label>CompanyName</label>
+                                                    <input type="text" class="form-control" formControlName="CompanyName" />
+                                                </div>
+                                                <span class="help-block has-error" *ngIf="frmProfile.controls.CompanyName.errors?.required && isSubmited"> Please enter CompanyName </span>
+                                            </div>
+                                        </div>
+                                        <div class="row top-padding-20px">
+                                            <div class="col-md-6">
+                                                <div class="form-group form-md-line-input no-margin">
+                                                    <label>Professional Qualification</label>
+                                                    <select class="custom-select" formControlName="ProfessionalQualificationId">
+                                                        <option *ngFor="let item of professionalQualifications" [value]="item.Value">{{item.Text}}</option>
+                                                    </select>
+                                                </div>
+                                                <span class="help-block has-error" *ngIf="frmProfile.controls.ProfessionalQualificationId.errors?.required && isSubmited"> Please select Professional Qualification </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-actions top-padding-20px">
+                                            <input class="btn btn-primary" type="submit" value="Save Profile">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="card  l_r_from contact_us_wapper  no-padding">
+            <div class="search_result">
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <div *ngIf="errorMessage" class="col-md-12 alert alert-danger">
+                            <a class="close" data-close="alert"></a>
+                            <span [innerHtml]="errorMessage"></span>
+                        </div>
+                        <div *ngIf="successMessage" class="col-md-12 alert alert-success">
+                            <a class="close" data-close="alert"></a>
+                            <span [innerHtml]="successMessage"></span>
+                        </div>
+                        <form (ngSubmit)="OnSubmitUpdateProfile(frmProfile)" [formGroup]="frmProfile" novalidate>
+                            <div class="row prof-top-pad">
+                                <fieldset class="the-fieldset col-lg-12">
+                                    <legend class="the-legend">Login Information</legend>
+                                    <div class="row leg-row">
+                                        <div class="col-lg-6 col-md-12">
+
+                                            <div class="form-group form-md-line-input no-margin">
+                                                <label class="prof-lab">UserName</label>
+                                                <input type="text" class="form-control prof-form" formControlName="UserName" />
+                                            </div>
+
+                                            <span class="help-block has-error" *ngIf="frmProfile.controls.UserName.errors?.required && isSubmited"> Please enter UserName </span>
+                                            <span class="help-block has-error" *ngIf="frmProfile.controls.UserName.errors?.email && !frmProfile.controls.UserName.errors?.required && isSubmited"> Please enter proper UserName </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="form-group form-md-line-input no-margin prof-tp">
+                                                <label class="prof-lab">Mobile</label>
+                                                <input type="text" class="form-control prof-form" formControlName="Mobile" />
+                                            </div>
+                                            <span class="help-block has-error" *ngIf="frmProfile.controls.Mobile.errors?.required && isSubmited"> Please enter Mobile </span>
+                                        </div>
+
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="row prof-top-pad">
+                                <fieldset class="the-fieldset col-lg-12">
+                                    <legend class="the-legend">Personal Information</legend>
+                                    <div class="row leg-row">
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="form-group form-md-line-input no-margin prof-tp">
+                                                <label class="prof-lab">FirstName</label>
+                                                <input type="text" class="form-control prof-form" formControlName="FirstName" />
+                                            </div>
+                                            <span class="help-block has-error" *ngIf="frmProfile.controls.FirstName.errors?.required && isSubmited"> Please enter FirstName </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="form-group form-md-line-input no-margin prof-tp">
+                                                <label class="prof-lab">LastName</label>
+                                                <input type="text" class="form-control prof-form" formControlName="LastName" />
+                                            </div>
+                                            <span class="help-block has-error" *ngIf="frmProfile.controls.LastName.errors?.required && isSubmited"> Please enter LastName </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="form-group form-md-line-input no-margin prof-tp pt10">
+                                                <label class="prof-lab">Gender</label>
+                                                <select class="custom-select prof-form" formControlName="Gender">
+                                                    <option value="">Select your Gender</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Male">Male </option>
+                                                </select>
+                                            </div>
+                                            <span class="help-block has-error" *ngIf="frmProfile.controls.Gender.errors?.required && isSubmited"> Please select Gender </span>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="row prof-top-pad">
+                                <fieldset class="the-fieldset col-lg-12">
+                                    <legend class="the-legend">Professional Information</legend>
+                                    <div class="row leg-row">
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="form-group form-md-line-input no-margin prof-tp">
+                                                <label class="prof-lab">CompanyName</label>
+                                                <input type="text" class="form-control prof-form" formControlName="CompanyName" />
+                                            </div>
+                                            <span class="help-block has-error" *ngIf="frmProfile.controls.CompanyName.errors?.required && isSubmited"> Please enter CompanyName </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="form-group form-md-line-input no-margin prof-tp">
+                                                <label class="prof-lab">Professional Qualification</label>
+                                                <select class="custom-select prof-form " formControlName="ProfessionalQualificationId">
+                                                    <option *ngFor="let item of professionalQualifications" [value]="item.Value">{{item.Text}}</option>
+                                                </select>
+                                            </div>
+                                            <span class="help-block has-error" *ngIf="frmProfile.controls.ProfessionalQualificationId.errors?.required && isSubmited"> Please select Professional Qualification </span>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="form-actions prof-top-pad ">
+                                <input class="btn btn-primary" type="submit" value="Save Profile">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

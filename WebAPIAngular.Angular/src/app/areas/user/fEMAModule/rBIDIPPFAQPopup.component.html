@@ -1,0 +1,45 @@
+﻿<div class="poupu_modules poupu_modules05" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="fdi_box_poupu">
+                    <div class="card">
+                        <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 20px;">
+                            <li role="presentation" class="border-top-bottom" (click)="OnClickModuleTab('rbifaq')"><a href="#tab1" [class.tab-active]="moduleTab == 'rbifaq'" aria-controls="tab1" role="tab" data-toggle="tab">RBI FAQs</a></li>
+                            <li role="presentation" class="border-top-bottom" (click)="OnClickModuleTab('dippfaq')"><a href="#tab2" [class.tab-active]="moduleTab == 'dippfaq'" aria-controls="tab2" role="tab" data-toggle="tab">DIPP FAQs</a></li>
+                        </ul>
+                        <div class="tab-content no-padding">
+                            <div role="tabpanel" class="tab-pane active" id="tab1">
+                                <div class="select_fdi_menu">
+                                    <div class="form-group">
+                                        <select class="form-control" (change)="OnChangeRBIFAQ(ddlRBIFAQ.value)" #ddlRBIFAQ>
+                                            <option *ngFor="let item of rBIFAQ" [value]="item.FAQId">{{item.TopicName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="fdi_box_poupu" *ngIf="rBIFAQPDFUrl">
+                                    <iframe [src]='rBIFAQPDFUrl' class="w-100" height="470" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab2">
+                                <div class="select_fdi_menu">
+                                    <div class="form-group">
+                                        <select class="form-control" (change)="OnChangeDIPPFAQ(ddlDIPPFAQ.value)" #ddlDIPPFAQ>
+                                            <option *ngFor="let item of dIPPFAQ" [value]="item.FAQId">{{item.TopicName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="fdi_box_poupu" *ngIf="dIPPFAQPDFUrl">
+                                    <iframe [src]='dIPPFAQPDFUrl' class="w-100" height="470" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

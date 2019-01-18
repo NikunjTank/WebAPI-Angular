@@ -1,0 +1,137 @@
+﻿<div class="poupu_modules" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="fdi_box_poupu">
+                    <div class="card">
+                        <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>
+                                            Calculation of Average Maturity - An Illustration
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Loan Amount (USD)</label>
+                                        <input type="text" class="form-control" [(ngModel)]="loanAmount" (keyup)="LoanAmountChange()" [disabled]="isDisabledAverageMaturityDetails"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="thead_bg">
+                                                    <tr class="grey-mint">
+                                                        <th style="width: 225px;">Date of Drawal</th>
+                                                        <th>Drawal Amount</th>
+                                                        <th>Repayment Amount</th>
+                                                        <th>Balance</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let field of averageMaturityDetails; let i = index" class="text-center">
+                                                        <td class="vertical-middle">
+                                                            <div class="input-group date-wd" style="height: 32px;">
+                                                                <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(field.DrawalDate) ? (field.DrawalDate.day + '-' + field.DrawalDate.month + '-' + field.DrawalDate.year) : ''" />
+                                                                <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                                                    <button class="btn btn-outline-secondary cal" (click)="field.IsDrawalDateDatePicker = !field.IsDrawalDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledAverageMaturityDetails">
+                                                                        <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <ngb-datepicker #dp (select)="field.IsDrawalDateDatePicker = !field.IsDrawalDateDatePicker; OnChangeAverageMaturityDetails(i)" [minDate]="field.DrawalMinimumDate" [(ngModel)]="field.DrawalDate" *ngIf="field.IsDrawalDateDatePicker">
+                                                            </ngb-datepicker>
+                                                        </td>
+                                                        <td class="vertical-middle"><input [(ngModel)]="field.DrawalAmount" class="form-control" type="text" name="{{field.DrawalAmount}}" (keyup)="OnChangeAverageMaturityDetails(i)" [disabled]="isDisabledAverageMaturityDetails"/></td>
+                                                        <td class="vertical-middle"><input [(ngModel)]="field.RepaymentAmount" class="form-control" type="text" name="{{field.RepaymentAmount}}" (keyup)="OnChangeAverageMaturityDetails(i)" [disabled]="isDisabledAverageMaturityDetails"/></td>
+                                                        <td class="vertical-middle"><input [(ngModel)]="field.BalanceAmount" class="form-control" type="text" name="{{field.BalanceAmount}}" disabled /></td>
+                                                        <td class="vertical-middle"><i class="fa fa-trash pointer-cursor" style="color:red;" (click)="deleteAverageMaturityDetail(i)"></i></td>
+                                                    </tr>
+                                                    <tr class="text-center">
+                                                        <td class="vertical-middle">
+                                                            <div class="input-group date-wd" style="height: 32px;">
+                                                                <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(averageMaturityDetailRecent.DrawalDate) ? (averageMaturityDetailRecent.DrawalDate.day + '-' + averageMaturityDetailRecent.DrawalDate.month + '-' + averageMaturityDetailRecent.DrawalDate.year) : ''" />
+                                                                <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                                                    <button class="btn btn-outline-secondary cal" (click)="averageMaturityDetailRecent.IsDrawalDateDatePicker = !averageMaturityDetailRecent.IsDrawalDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledAverageMaturityDetails">
+                                                                        <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <ngb-datepicker #dp (select)="averageMaturityDetailRecent.IsDrawalDateDatePicker = !averageMaturityDetailRecent.IsDrawalDateDatePicker;" [minDate]="averageMaturityDetailRecent.DrawalMinimumDate" [(ngModel)]="averageMaturityDetailRecent.DrawalDate" *ngIf="averageMaturityDetailRecent.IsDrawalDateDatePicker">
+                                                            </ngb-datepicker>
+                                                        </td>
+                                                        <td class="vertical-middle"><input [(ngModel)]="averageMaturityDetailRecent.DrawalAmount" class="form-control" type="text" name="{{averageMaturityDetailRecent.DrawalAmount}}" (keyup)="OnChangeAverageMaturityDetail()" [disabled]="isDisabledAverageMaturityDetails"/></td>
+                                                        <td class="vertical-middle"><input [(ngModel)]="averageMaturityDetailRecent.RepaymentAmount" class="form-control" type="text" name="{{averageMaturityDetailRecent.RepaymentAmount}}" (keyup)="OnChangeAverageMaturityDetail()" [disabled]="isDisabledAverageMaturityDetails"/></td>
+                                                        <td class="vertical-middle"><input [(ngModel)]="averageMaturityDetailRecent.BalanceAmount" class="form-control" type="text" name="{{averageMaturityDetailRecent.BalanceAmount}}" disabled /></td>
+                                                        <td class="vertical-middle"><i class="fa fa-plus pointer-cursor" (click)="addAverageMaturityDetail()"></i></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <div class="col-md-4">
+                                    <div class="form-group d-f f-r">
+                                        <input class="btn btn-default resp-btn" type="button" value="Reset" (click)="AverageMaturityDetailsReset()">
+                                        <input class="btn btn-default resp-btn mr0" type="button" value="Submit" (click)="AverageMaturityDetailsSubmit()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="isDisabledAverageMaturityDetails">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="thead_bg">
+                                                    <tr class="grey-mint">
+                                                        <th style="width: 225px;">Date of Drawal</th>
+                                                        <th>Drawal</th>
+                                                        <th>Repayment</th>
+                                                        <th>Balance</th>
+                                                        <th>No. of Days balance with the borrower</th>
+                                                        <th>Product</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of averageMaturityDetailsData; let i = index" class="text-center">
+                                                        <td class="vertical-middle text-nowrap">{{item.DrawalDate.day + '-' + item.DrawalDate.month + '-' + item.DrawalDate.year}}</td>
+                                                        <td class="vertical-middle text-right">{{item.DrawalAmount}}</td>
+                                                        <td class="vertical-middle text-right">{{item.RepaymentAmount}}</td>
+                                                        <td class="vertical-middle text-right">{{item.BalanceAmount}}</td>
+                                                        <td class="vertical-middle text-right">{{item.NoofDaysBalance}}</td>
+                                                        <td class="vertical-middle text-right">{{item.Product}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="5" class="vertical-middle text-right font-weight-bold">Average Maturity</td>
+                                                        <td class="vertical-middle text-right font-weight-bold">{{totalAverageMaturity}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end" *ngIf="isDisabledAverageMaturityDetails">
+                                <div class="col-md-4">
+                                    <div class="form-group d-f f-r">
+                                        <input class="btn btn-default resp-btn mr0" type="button" value="Download PDF" (click)="AverageMaturityDetailsDownloadPDF()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

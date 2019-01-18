@@ -1,0 +1,103 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>Index Amendment Details
+        </div>
+    </div>
+    <div class="portlet-body form label-color">
+        <div class="form-body">
+            <h4 class="form-section no-margin">Regulation</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>Regulation Number</b> : </label></div>
+                        <div class="col-md-6 no-space"><label class="text-left-margin">{{regulation.RegulationNumber}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-4 no-space text-right"><label><b>Regulation Name</b> : </label></div>
+                        <div class="col-md-8 no-space"><label class="text-left-margin">{{regulation.RegulationName}}</label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>Year</b> : </label></div>
+                        <div class="col-md-6 no-space"><label class="text-left-margin">{{regulation.Year}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-4 no-space text-right"><label><b>Publication Date</b> : </label></div>
+                        <div class="col-md-8 no-space"><label class="text-left-margin">{{regulation.PublicationDate | date:'dd-MM-yyyy'}}</label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Index Amendment
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitIndexAmendment(frmIndexAmendment)" [formGroup]="frmIndexAmendment">
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-md-line-input no-margin">
+                        <!--<select class="form-control" formControlName="NotificationId" id="txtNotificationId">
+                            <option *ngFor="let item of notifications" [value]="item.Value">{{item.Text}}</option>
+                        </select>-->
+                        <label for="txtNotificationId">Notification</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedNotifications"
+                                                 formControlName="NotificationIds"
+                                                 [data]="notifications"
+                                                 [settings]="notificationDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmIndexAmendment.controls.NotificationIds.errors?.required && isSubmited"> Please select Notification </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="IndexId" id="txtIndexId" (change)="OnIndexChange(drpIndex.value)" #drpIndex>
+                            <option *ngFor="let item of femaIndexes" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtIndexId">Index</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmIndexAmendment.controls.IndexId.errors?.required && isSubmited"> Please select Index </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="SubIndexId" id="txtSubIndexId">
+                            <option *ngFor="let item of femaSubIndexes" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtSubIndexId">SubIndex</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmIndexAmendment.controls.SubIndexId.errors?.required && isSubmited"> Please select SubIndex </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input no-margin">
+                        <label for="txtIndexAmendmentContent">Index Amendment Content</label>
+                        <ckeditor formControlName="IndexAmendmentContent"
+                                  [readonly]="false"
+                                  debounce="500">
+                        </ckeditor>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmIndexAmendment.controls.IndexAmendmentContent.errors?.required && isSubmited"> Please enter Index Amendment Content </span>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelIndexAmendment()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

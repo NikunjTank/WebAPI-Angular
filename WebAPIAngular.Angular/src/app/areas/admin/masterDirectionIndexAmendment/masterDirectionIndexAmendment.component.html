@@ -1,0 +1,157 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>Master Direction Index Amendment Details
+        </div>
+    </div>
+    <div class="portlet-body form label-color">
+        <div class="form-body">
+            <h4 class="form-section no-margin">Master Direction</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-4 no-space text-right"><label><b>Master Direction Name</b> : </label></div>
+                        <div class="col-md-8 no-space"><label class="text-left-margin">{{masterDirection.MasterDirectionName}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>Year</b> : </label></div>
+                        <div class="col-md-6 no-space"><label class="text-left-margin">{{masterDirection.Year}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>PDF</b> : </label></div>
+                        <div class="col-md-6 no-space"><a href="{{masterDirectionPDFPath + masterDirection.PDF}}" class="text-left-margin" target="_blank">{{(masterDirection.PDF) ? masterDirection.PDF.split('_')[1] : masterDirection.PDF}}</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Master Direction Index Amendment
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitMasterDirectionIndexAmendment(frmMasterDirectionIndexAmendment)" [formGroup]="frmMasterDirectionIndexAmendment">
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="Year" id="txtYear">
+                            <option *ngFor="let item of masterDirectionIndexAmendmentYears" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtYear">Year</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmMasterDirectionIndexAmendment.controls.Year.errors?.required && isSubmited"> Please enter Year </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="MasterDirectionChapterId" id="txtMasterDirectionChapterId" (change)="OnChapterChange(drpChapter.value)" #drpChapter>
+                            <option *ngFor="let item of masterDirectionChapters" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtMasterDirectionChapterId">Master Direction Chapter</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmMasterDirectionIndexAmendment.controls.MasterDirectionChapterId.errors?.required && isSubmited"> Please select Master Direction Chapter </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="MasterDirectionIndexId" id="txtIndexId" (change)="OnIndexChange(drpIndex.value)" #drpIndex>
+                            <option *ngFor="let item of masterDirectionIndexes" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtIndexId">Master Direction Index</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmMasterDirectionIndexAmendment.controls.MasterDirectionIndexId.errors?.required && isSubmited"> Please select Master Direction Index </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="MasterDirectionSubIndexId" id="txtMasterDirectionSubIndexId">
+                            <option *ngFor="let item of masterDirectionSubIndexes" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtMasterDirectionSubIndexId">Master Direction SubIndex</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmMasterDirectionIndexAmendment.controls.MasterDirectionSubIndexId.errors?.required && isSubmited"> Please select Master Direction SubIndex </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-md-line-input no-margin">
+                        <!--<select class="form-control" formControlName="APDIRCircularId" id="txtAPDIRCircularId" (change)="OnAPDIRCircularChange(frmMasterDirectionIndexAmendment)">
+                            <option *ngFor="let item of aPDIRCirculars" [value]="item.Value">{{item.Text}}</option>
+                        </select>-->
+                        <label for="txtAPDIRCircularId">AP DIR Circular</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedAPDIRCirculars"
+                                                 formControlName="APDIRCircularIds"
+                                                 [data]="aPDIRCirculars"
+                                                 [settings]="aPDIRCircularDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-md-line-input no-margin">
+                        <!--<select class="form-control" formControlName="NotificationId" id="txtNotificationId" (change)="OnNotificationChange(frmMasterDirectionIndexAmendment)">
+                            <option *ngFor="let item of notifications" [value]="item.Value">{{item.Text}}</option>
+                        </select>-->
+                        <label for="txtNotificationId">Notification</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedNotifications"
+                                                 formControlName="NotificationIds"
+                                                 [data]="notifications"
+                                                 [settings]="notificationDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <!--<span class="help-block has-error" *ngIf="frmMasterDirectionIndexAmendment.controls.NotificationId.errors?.required && isSubmited"> Please select Notification </span>-->
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="UpdatedInsertedByRBI" id="txtUpdatedInsertedByRBI">
+                            <option *ngFor="let item of updatedInsertedByRBI" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtUpdatedInsertedByRBI">Updated / Inserted by RBI</label>
+                    </div>
+                </div>
+                <div class="col-md-3" *ngIf="frmMasterDirectionIndexAmendment.value.UpdatedInsertedByRBI == 'true' || frmMasterDirectionIndexAmendment.value.UpdatedInsertedByRBI == true">
+                    <label for="txtUpdatedInsertedDateByRBI" class="no-margin" style="color: #888;">Updated / Inserted Date by RBI</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="dd-mm-yyyy" [minDate]="minDate" name="dp" formControlName="UpdatedInsertedDateByRBI" [value]="(frmMasterDirectionIndexAmendment.controls.UpdatedInsertedDateByRBI.value) ? (frmMasterDirectionIndexAmendment.controls.UpdatedInsertedDateByRBI.value.day + '-' + frmMasterDirectionIndexAmendment.controls.UpdatedInsertedDateByRBI.value.month + '-' + frmMasterDirectionIndexAmendment.controls.UpdatedInsertedDateByRBI.value.year) : null" readonly="readonly" #d="ngbDatepicker" ngbDatepicker>
+                        <div class="input-group-btn" style="vertical-align: bottom !important;">
+                            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                                <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                            </button>
+                        </div>
+                        <div class="input-group-btn" style="padding: 0 5px !important; vertical-align: bottom !important;">
+                            <span class="input-group-btn">
+                                <button class="btn blue bold" type="button" (click)="ClearDate()"><i class="fa fa-remove"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-9">
+                    <span class="help-block has-error" *ngIf="isAPDIRCircularNotification && isSubmited"> Please select AP DIR Circular / Notification /  Updated / Inserted Date by RBI</span>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input no-margin">
+                        <label for="txtIndexAmendmentContent">Index Amendment Content</label>
+                        <ckeditor formControlName="IndexAmendmentContent"
+                                  [readonly]="false"
+                                  debounce="500">
+                        </ckeditor>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmMasterDirectionIndexAmendment.controls.IndexAmendmentContent.errors?.required && isSubmited"> Please enter Index Amendment Content </span>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelMasterDirectionIndexAmendment()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

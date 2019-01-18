@@ -1,0 +1,79 @@
+﻿<div class="poupu_modules05" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="select_fdi_menu">
+                    <div class="row justify-content-center">
+                        <div class="col-md-3 mob-pb5">
+                            <select class="form-control" (change)="OnChangeSector(ddlSector.value)" #ddlSector>
+                                <option *ngFor="let item of sectors" [value]="item.Value">{{item.Text}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3" *ngIf="subSectors.length > 0">
+                            <select class="form-control" (change)="OnChangeSubSector(ddlSubSector.value)" #ddlSubSector>
+                                <option *ngFor="let item of subSectors" [value]="item.Value">{{item.Text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                    <div class="tab-hg" style="max-height: calc(100vh - 175px);">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead_bg">
+                                    <tr class="grey-mint text-nowrap">
+                                        <th>Year</th>
+                                        <th>PressNote No.</th>
+                                        <th>Notification No.</th>
+                                        <th>AP DIR Circular No.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngIf="!sectorDetails">
+                                        <td colspan="5" class="text-center"><label>Loading data. Please wait...</label></td>
+                                    </tr>
+                                    <tr *ngIf="sectorDetails && sectorDetails.length == 0">
+                                        <td colspan="5" class="text-center"><label>No Sector Detail Found!</label></td>
+                                    </tr>
+                                    <tr *ngFor='let sectorDetail of sectorDetails' class="text-nowrap">
+                                        <td>{{sectorDetail.Year}}</td>
+                                        <td>
+                                            <span *ngIf="!sectorDetail.PressNoteNos || sectorDetail.PressNoteNos.length <= 0 || !sectorDetail.PressNoteNos[0]">---</span>
+                                            <ng-template ngFor let-item let-i="index" [ngForOf]="sectorDetail.PressNoteNos">
+                                                <ul>
+                                                    <li class="ulli">
+                                                        <a href="{{pressNotePDFServerPath + sectorDetail.PressNotePDFs[i]}}" target="_blank">{{item}}</a>
+                                                    </li>
+                                                </ul>
+                                            </ng-template>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="!sectorDetail.PressNoteNos || sectorDetail.NotificationNos.length <= 0 || !sectorDetail.NotificationNos[0]">---</span>
+                                            <ng-template ngFor let-item let-i="index" [ngForOf]="sectorDetail.NotificationNos">
+                                                <ul>
+                                                    <li class="ulli">
+                                                        <a href="{{notificationPDFServerPath + sectorDetail.NotificationPDFs[i]}}" target="_blank">{{item}}</a>
+                                                    </li>
+                                                </ul>
+                                            </ng-template>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="!sectorDetail.PressNoteNos || sectorDetail.APDIRCircularNos.length <= 0 || !sectorDetail.APDIRCircularNos[0]">---</span>
+                                            <ng-template ngFor let-item let-i="index" [ngForOf]="sectorDetail.APDIRCircularNos">
+                                                <ul>
+                                                    <li class="ulli">
+                                                        <a href="{{aPDIRCircularPDFServerPath + sectorDetail.APDIRCircularPDFs[i]}}" target="_blank">{{item}}</a>
+                                                    </li>
+                                                </ul>
+                                            </ng-template>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

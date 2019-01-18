@@ -1,0 +1,831 @@
+﻿<div class="poupu_modules" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin lia" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form novalidate (ngSubmit)="OnSubmitLOEligibilityCalculator(frmLOEligibilityCalculator)" [formGroup]="frmLOEligibilityCalculator" *ngIf="!isBO && !isPO">
+                    <div class="row">
+                        <div class="col-md-6 mob-pb5">
+                            <div class="form-group form-md-line-input no-margin">
+                                <label>Nature of Office to be established</label>
+                                <select class="custom-select" (change)="OnChangeNatureOfOffice()" formControlName="NatureOfOfficeId" [(ngModel)]="natureOfOfficeId" [disabled]="isDisabledLOBOPOEligibility">
+                                    <option *ngFor="let item of natureOfOffices" [value]="item.Value">{{item.Text}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mob-pb5" *ngIf="isLO">
+                            <div class="form-group form-md-line-input no-margin">
+                                <label>Applicant Entity</label>
+                                <select class="custom-select" formControlName="ApplicantEntityId">
+                                    <option *ngFor="let item of applicantEntities" [value]="item.Value">{{item.Text}}</option>
+                                </select>
+                            </div>
+                            <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.ApplicantEntityId.errors?.required && isSubmited"> Please select Applicant Entity </span>
+                        </div>
+                    </div>
+                    <div *ngIf="isLO">
+                        <div class="row top-padding-20px">
+                            <div class="col-md-12 margin-bottom-10px">
+                                <label class="font-20px">Business of Applicant Company:</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mob-pb5">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>Sectoral Cap</label>
+                                    <select class="custom-select" formControlName="SectoralCapId">
+                                        <option *ngFor="let item of sectoralCaps" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.SectoralCapId.errors?.required && isSubmited"> Please select Sectoral Cap </span>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>Sector</label>
+                                    <select class="custom-select" formControlName="SectorId">
+                                        <option *ngFor="let item of sectors" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.SectorId.errors?.required && isSubmited"> Please select Sector </span>
+                            </div>
+                        </div>
+                        <div class="row top-padding-20px">
+                            <div class="col-md-6 mob-pb5">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>Applicant's Country of registeration / citizenship</label>
+                                    <select class="custom-select" (change)="OnChangeApplicantCountry()" formControlName="ApplicantCountryId">
+                                        <option *ngFor="let item of applicantCountries" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.ApplicantCountryId.errors?.required && isSubmited"> Please select Applicant's Country of registeration / citizenship </span>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>State / Region in India in which office shall be established</label>
+                                    <select class="custom-select" formControlName="StateOfIndiaId">
+                                        <option *ngFor="let item of statesOfIndia" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.StateOfIndiaId.errors?.required && isSubmited"> Please select State / Region in India in which office shall be established </span>
+                            </div>
+                        </div>
+                        <div class="row top-padding-20px">
+                            <div class="col-md-12 margin-bottom-10px">
+                                <label class="font-20px">Profit Making Criteria & Net Worth Criteria:</label>
+                            </div>
+                            <div class="col-md-12 margin-bottom-10px">
+                                <label class="font-17px">Profit Making Track Record:</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mob-pb5">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>1st Year</label>
+                                    <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="ProfitMaking1stYear">
+                                        <option *ngFor="let item of profitMakings1stYear" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.ProfitMaking1stYear.errors?.required && isSubmited"> Please select 1st Year </span>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>2nd Year</label>
+                                    <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="ProfitMaking2ndYear">
+                                        <option *ngFor="let item of profitMakings2ndYear" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.ProfitMaking2ndYear.errors?.required && isSubmited"> Please select 2nd Year </span>
+                            </div>
+                            <div class="col-md-4 mob-pb5">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>3rd Year</label>
+                                    <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="ProfitMaking3rdYear">
+                                        <option *ngFor="let item of profitMakings3rdYear" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.ProfitMaking3rdYear.errors?.required && isSubmited"> Please select 3rd Year </span>
+                            </div>
+                        </div>
+                        <div class="row top-padding-20px">
+                            <div class="col-md-12">
+                                <label class="font-17px margin-bottom-10px">Net Worth:</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mob-pb5">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>1st Year</label>
+                                    <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="NetWorth1stYear">
+                                        <option *ngFor="let item of netWorths1stYear" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.NetWorth1stYear.errors?.required && isSubmited"> Please select 1st Year </span>
+                            </div>
+                            <div class="col-md-4 mob-pb5">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>2nd Year</label>
+                                    <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="NetWorth2ndYear">
+                                        <option *ngFor="let item of netWorths2ndYear" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.NetWorth2ndYear.errors?.required && isSubmited"> Please select 2nd Year </span>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>3rd Year</label>
+                                    <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="NetWorth3rdYear">
+                                        <option *ngFor="let item of netWorths3rdYear" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.NetWorth3rdYear.errors?.required && isSubmited"> Please select 3rd Year </span>
+                            </div>
+                        </div>
+                        <div *ngIf="isSubsidiaryCompanyLO">
+                            <div class="row top-padding-20px">
+                                <div class="col-md-12">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>Whether Subsidiary of Another Company (If loss / Networth less than USD 50000)</label>
+                                        <select class="custom-select" formControlName="WhetherSubsidiaryOfAnotherCompany">
+                                            <option *ngFor="let item of whetherSubsidiaryOfAnotherCompany" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.WhetherSubsidiaryOfAnotherCompany.errors?.required && isSubmited"> Please select Whether Subsidiary Of Another Company </span>
+                                </div>
+                            </div>
+                            <div class="row top-padding-20px">
+                                <div class="col-md-12 margin-bottom-10px">
+                                    <label class="font-20px">Whether Parent satisfies the Track Record and Net Worth Criteria:</label>
+                                </div>
+                                <div class="col-md-12 margin-bottom-10px">
+                                    <label class="font-17px">Profit Making Track Record:</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>1st Year</label>
+                                        <select class="custom-select" formControlName="SubSidiaryCompanyProfitMaking1stYear">
+                                            <option *ngFor="let item of subSidiaryCompanyProfitMakings1stYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.SubSidiaryCompanyProfitMaking1stYear.errors?.required && isSubmited"> Please select 1st Year </span>
+                                </div>
+                                <div class="col-md-4 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>2nd Year</label>
+                                        <select class="custom-select" formControlName="SubSidiaryCompanyProfitMaking2ndYear">
+                                            <option *ngFor="let item of subSidiaryCompanyProfitMakings2ndYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.SubSidiaryCompanyProfitMaking2ndYear.errors?.required && isSubmited"> Please select 2nd Year </span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>3rd Year</label>
+                                        <select class="custom-select" formControlName="SubSidiaryCompanyProfitMaking3rdYear">
+                                            <option *ngFor="let item of subSidiaryCompanyProfitMakings3rdYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.SubSidiaryCompanyProfitMaking3rdYear.errors?.required && isSubmited"> Please select 3rd Year </span>
+                                </div>
+                            </div>
+                            <div class="row top-padding-20px">
+                                <div class="col-md-12 margin-bottom-10px">
+                                    <label class="font-17px">Net Worth:</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>1st Year</label>
+                                        <select class="custom-select" formControlName="SubSidiaryCompanyNetWorth1stYear">
+                                            <option *ngFor="let item of subSidiaryCompanyNetWorths1stYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.SubSidiaryCompanyNetWorth1stYear.errors?.required && isSubmited"> Please select 1st Year </span>
+                                </div>
+                                <div class="col-md-4 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>2nd Year</label>
+                                        <select class="custom-select" formControlName="SubSidiaryCompanyNetWorth2ndYear">
+                                            <option *ngFor="let item of subSidiaryCompanyNetWorths2ndYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.SubSidiaryCompanyNetWorth2ndYear.errors?.required && isSubmited"> Please select 2nd Year </span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>3rd Year</label>
+                                        <select class="custom-select" formControlName="SubSidiaryCompanyNetWorth3rdYear">
+                                            <option *ngFor="let item of subSidiaryCompanyNetWorths3rdYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.SubSidiaryCompanyNetWorth3rdYear.errors?.required && isSubmited"> Please select 3rd Year </span>
+                                </div>
+                            </div>
+                            <div class="row top-padding-20px">
+                                <div class="col-md-12">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>Whether Letter of Comfort available</label>
+                                        <select class="custom-select" formControlName="WhetherLetterOfComfortAvailable">
+                                            <option *ngFor="let item of whetherLetterOfComfortAvailable" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmLOEligibilityCalculator.controls.WhetherLetterOfComfortAvailable.errors?.required && isSubmited"> Please select Whether Letter of Comfort available </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row top-padding-20px justify-content-end" *ngIf="isLO">
+                            <div class="col-md-4">
+                                <div class="form-group d-f f-r">
+                                    <input class="btn btn-default resp-btn" type="button" value="Reset" (click)="OnClickReset()">
+                                    <input class="btn btn-default resp-btn mr0" type="submit" value="Submit">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form novalidate (ngSubmit)="OnSubmitBOEligibilityCalculator(frmBOEligibilityCalculator)" [formGroup]="frmBOEligibilityCalculator" *ngIf="!isLO && !isPO">
+                    <div *ngIf="isBO">
+                        <div class="row">
+                            <div class="col-md-6 mob-pb5">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>Nature of Office to be established</label>
+                                    <select class="custom-select" (change)="OnChangeNatureOfOffice()" formControlName="NatureOfOfficeId" [(ngModel)]="natureOfOfficeId">
+                                        <option *ngFor="let item of natureOfOffices" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mob-pb5">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>Place of Establishment of Branch Office</label>
+                                    <select class="custom-select" formControlName="PlaceOfEstablishmentId">
+                                        <option *ngFor="let item of placeOfEstablishmentOfBO" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.PlaceOfEstablishmentId.errors?.required && isSubmited"> Please select Place Of Establishment</span>
+                            </div>
+                        </div>
+                        <div *ngIf="frmBOEligibilityCalculator.value.PlaceOfEstablishmentId">
+                            <div class="row top-padding-20px">
+                                <div class="col-md-6 ">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>Applicant Entity</label>
+                                        <select class="custom-select" formControlName="ApplicantEntityId">
+                                            <option *ngFor="let item of applicantEntities" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.ApplicantEntityId.errors?.required && isSubmited"> Please select Applicant Entity </span>
+                                </div>
+                            </div>
+                            <div class="row top-padding-20px">
+                                <div class="col-md-12 margin-bottom-10px">
+                                    <label class="font-20px">Business of Applicant Company:</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>Sectoral Cap</label>
+                                        <select class="custom-select" formControlName="SectoralCapId">
+                                            <option *ngFor="let item of sectoralCaps" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.SectoralCapId.errors?.required && isSubmited"> Please select Sectoral Cap </span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>Sector</label>
+                                        <select class="custom-select" formControlName="SectorId">
+                                            <option *ngFor="let item of sectors" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.SectorId.errors?.required && isSubmited"> Please select Sector </span>
+                                </div>
+                            </div>
+                            <div class="row top-padding-20px">
+                                <div class="col-md-6 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>Applicant's Country of registeration / citizenship</label>
+                                        <select class="custom-select" (change)="OnChangeApplicantCountry()" formControlName="ApplicantCountryId">
+                                            <option *ngFor="let item of applicantCountries" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.ApplicantCountryId.errors?.required && isSubmited"> Please select Applicant's Country of registeration / citizenship </span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>State / Region in India in which office shall be established</label>
+                                        <select class="custom-select" formControlName="StateOfIndiaId">
+                                            <option *ngFor="let item of statesOfIndia" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.StateOfIndiaId.errors?.required && isSubmited"> Please select State / Region in India in which office shall be established </span>
+                                </div>
+                            </div>
+                            <div class="row top-padding-20px">
+                                <div class="col-md-12 margin-bottom-10px">
+                                    <label class="font-20px">Profit Making Criteria & Net Worth Criteria:</label>
+                                </div>
+                                <div class="col-md-12 margin-bottom-10px">
+                                    <label class="font-17px">Profit Making Track Record:</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>1st Year</label>
+                                        <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="ProfitMaking1stYear">
+                                            <option *ngFor="let item of profitMakings1stYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.ProfitMaking1stYear.errors?.required && isSubmited"> Please select 1st Year </span>
+                                </div>
+                                <div class="col-md-2 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>2nd Year</label>
+                                        <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="ProfitMaking2ndYear">
+                                            <option *ngFor="let item of profitMakings2ndYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.ProfitMaking2ndYear.errors?.required && isSubmited"> Please select 2nd Year </span>
+                                </div>
+                                <div class="col-md-2 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>3rd Year</label>
+                                        <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="ProfitMaking3rdYear">
+                                            <option *ngFor="let item of profitMakings3rdYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.ProfitMaking3rdYear.errors?.required && isSubmited"> Please select 3rd Year </span>
+                                </div>
+                                <div class="col-md-2 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>4th Year</label>
+                                        <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="ProfitMaking4thYear">
+                                            <option *ngFor="let item of profitMakings4thYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.ProfitMaking4thYear.errors?.required && isSubmited"> Please select 4th Year </span>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>5th Year</label>
+                                        <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="ProfitMaking5thYear">
+                                            <option *ngFor="let item of profitMakings5thYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.ProfitMaking5thYear.errors?.required && isSubmited"> Please select 5th Year </span>
+                                </div>
+                            </div>
+                            <div class="row top-padding-20px">
+                                <div class="col-md-12">
+                                    <label class="font-17px margin-bottom-10px">Net Worth:</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>1st Year</label>
+                                        <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="NetWorth1stYear">
+                                            <option *ngFor="let item of netWorths1stYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.NetWorth1stYear.errors?.required && isSubmited"> Please select 1st Year </span>
+                                </div>
+                                <div class="col-md-2 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>2nd Year</label>
+                                        <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="NetWorth2ndYear">
+                                            <option *ngFor="let item of netWorths2ndYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.NetWorth2ndYear.errors?.required && isSubmited"> Please select 2nd Year </span>
+                                </div>
+                                <div class="col-md-2 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>3rd Year</label>
+                                        <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="NetWorth3rdYear">
+                                            <option *ngFor="let item of netWorths3rdYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.NetWorth3rdYear.errors?.required && isSubmited"> Please select 3rd Year </span>
+                                </div>
+                                <div class="col-md-2 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>4th Year</label>
+                                        <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="NetWorth4thYear">
+                                            <option *ngFor="let item of netWorths4thYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.NetWorth4thYear.errors?.required && isSubmited"> Please select 4th Year </span>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>5th Year</label>
+                                        <select class="custom-select" (change)="OnChangeProfitMakingAndNetWorth()" formControlName="NetWorth5thYear">
+                                            <option *ngFor="let item of netWorths5thYear" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.NetWorth5thYear.errors?.required && isSubmited"> Please select 5th Year </span>
+                                </div>
+                            </div>
+                            <div *ngIf="isSubsidiaryCompanyBO">
+                                <div class="row top-padding-20px">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-md-line-input no-margin">
+                                            <label>Whether Subsidiary of Another Company (If loss / Networth less than USD 50000)</label>
+                                            <select class="custom-select" formControlName="WhetherSubsidiaryOfAnotherCompany">
+                                                <option *ngFor="let item of whetherSubsidiaryOfAnotherCompany" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.WhetherSubsidiaryOfAnotherCompany.errors?.required && isSubmited"> Please select Whether Subsidiary Of Another Company </span>
+                                    </div>
+                                </div>
+                                <div class="row top-padding-20px">
+                                    <div class="col-md-12 margin-bottom-10px">
+                                        <label class="font-20px">Whether Parent satisfies the Track Record and Net Worth Criteria:</label>
+                                    </div>
+                                    <div class="col-md-12 margin-bottom-10px">
+                                        <label class="font-17px">Profit Making Track Record:</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 mob-pb5">
+                                        <div class="form-group form-md-line-input no-margin">
+                                            <label>1st Year</label>
+                                            <select class="custom-select" formControlName="SubSidiaryCompanyProfitMaking1stYear">
+                                                <option *ngFor="let item of subSidiaryCompanyProfitMakings1stYear" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.SubSidiaryCompanyProfitMaking1stYear.errors?.required && isSubmited"> Please select 1st Year </span>
+                                    </div>
+                                    <div class="col-md-2 mob-pb5">
+                                        <div class="form-group form-md-line-input no-margin">
+                                            <label>2nd Year</label>
+                                            <select class="custom-select" formControlName="SubSidiaryCompanyProfitMaking2ndYear">
+                                                <option *ngFor="let item of subSidiaryCompanyProfitMakings2ndYear" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.SubSidiaryCompanyProfitMaking2ndYear.errors?.required && isSubmited"> Please select 2nd Year </span>
+                                    </div>
+                                    <div class="col-md-2 mob-pb5">
+                                        <div class="form-group form-md-line-input no-margin">
+                                            <label>3rd Year</label>
+                                            <select class="custom-select" formControlName="SubSidiaryCompanyProfitMaking3rdYear">
+                                                <option *ngFor="let item of subSidiaryCompanyProfitMakings3rdYear" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.SubSidiaryCompanyProfitMaking3rdYear.errors?.required && isSubmited"> Please select 3rd Year </span>
+                                    </div>
+                                    <div class="col-md-2 mob-pb5">
+                                        <div class="form-group form-md-line-input no-margin">
+                                            <label>4th Year</label>
+                                            <select class="custom-select" formControlName="SubSidiaryCompanyProfitMaking4thYear">
+                                                <option *ngFor="let item of subSidiaryCompanyProfitMakings4thYear" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.SubSidiaryCompanyProfitMaking4thYear.errors?.required && isSubmited"> Please select 4th Year </span>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group form-md-line-input no-margin">
+                                            <label>5th Year</label>
+                                            <select class="custom-select" formControlName="SubSidiaryCompanyProfitMaking5thYear">
+                                                <option *ngFor="let item of subSidiaryCompanyProfitMakings5thYear" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.SubSidiaryCompanyProfitMaking5thYear.errors?.required && isSubmited"> Please select 5th Year </span>
+                                    </div>
+                                </div>
+                                <div class="row top-padding-20px">
+                                    <div class="col-md-12 margin-bottom-10px">
+                                        <label class="font-17px">Net Worth:</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 mob-pb5">
+                                        <div class="form-group form-md-line-input no-margin">
+                                            <label>1st Year</label>
+                                            <select class="custom-select" formControlName="SubSidiaryCompanyNetWorth1stYear">
+                                                <option *ngFor="let item of subSidiaryCompanyNetWorths1stYear" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.SubSidiaryCompanyNetWorth1stYear.errors?.required && isSubmited"> Please select 1st Year </span>
+                                    </div>
+                                    <div class="col-md-2 mob-pb5">
+                                        <div class="form-group form-md-line-input no-margin">
+                                            <label>2nd Year</label>
+                                            <select class="custom-select" formControlName="SubSidiaryCompanyNetWorth2ndYear">
+                                                <option *ngFor="let item of subSidiaryCompanyNetWorths2ndYear" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.SubSidiaryCompanyNetWorth2ndYear.errors?.required && isSubmited"> Please select 2nd Year </span>
+                                    </div>
+                                    <div class="col-md-2 mob-pb5">
+                                        <div class="form-group form-md-line-input no-margin">
+                                            <label>3rd Year</label>
+                                            <select class="custom-select" formControlName="SubSidiaryCompanyNetWorth3rdYear">
+                                                <option *ngFor="let item of subSidiaryCompanyNetWorths3rdYear" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.SubSidiaryCompanyNetWorth3rdYear.errors?.required && isSubmited"> Please select 3rd Year </span>
+                                    </div>
+                                    <div class="col-md-2 mob-pb5">
+                                        <div class="form-group form-md-line-input no-margin">
+                                            <label>4th Year</label>
+                                            <select class="custom-select" formControlName="SubSidiaryCompanyNetWorth4thYear">
+                                                <option *ngFor="let item of subSidiaryCompanyNetWorths4thYear" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.SubSidiaryCompanyNetWorth4thYear.errors?.required && isSubmited"> Please select 4th Year </span>
+                                    </div>
+                                    <div class="col-md-2 mob-pb5">
+                                        <div class="form-group form-md-line-input no-margin">
+                                            <label>5th Year</label>
+                                            <select class="custom-select" formControlName="SubSidiaryCompanyNetWorth5thYear">
+                                                <option *ngFor="let item of subSidiaryCompanyNetWorths5thYear" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.SubSidiaryCompanyNetWorth5thYear.errors?.required && isSubmited"> Please select 5th Year </span>
+                                    </div>
+                                </div>
+                                <div class="row top-padding-20px">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-md-line-input no-margin">
+                                            <label>Whether Letter of Comfort available</label>
+                                            <select class="custom-select" formControlName="WhetherLetterOfComfortAvailable">
+                                                <option *ngFor="let item of whetherLetterOfComfortAvailable" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.WhetherLetterOfComfortAvailable.errors?.required && isSubmited"> Please select Whether Letter of Comfort available </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="frmBOEligibilityCalculator.value.PlaceOfEstablishmentId == 2">
+                                <div class="row top-padding-20px">
+                                    <div class="col-md-12 margin-bottom-10px">
+                                        <label class="font-20px">Additional Criteria:</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mob-pb5">
+                                        <div class="form-group form-md-line-input no-margin">
+                                            <label>Whether BO's comply with Chapter XXII of Companies Act 2013</label>
+                                            <select class="custom-select" formControlName="WhetherBOsComplyWithChapterXXIIOfCompaniesAct2013">
+                                                <option *ngFor="let item of whetherBOsComplyWithChapterXXIIOfCompaniesAct2013" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.WhetherBOsComplyWithChapterXXIIOfCompaniesAct2013.errors?.required && isSubmited"> Please select Whether BO's comply with Chapter XXII of Companies Act 2013 </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group form-md-line-input no-margin">
+                                            <label>Whether BO funtion on Stand-alone basis</label>
+                                            <select class="custom-select" formControlName="WhetherBOFuntionOnStandAloneBasis">
+                                                <option *ngFor="let item of whetherBOFuntionOnStandAloneBasis" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmBOEligibilityCalculator.controls.WhetherBOFuntionOnStandAloneBasis.errors?.required && isSubmited"> Please select Whether BO funtion on Stand-alone basis </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row top-padding-20px justify-content-end" *ngIf="isBO && frmBOEligibilityCalculator.value.PlaceOfEstablishmentId">
+                            <div class="col-md-4">
+                                <div class="form-group d-f f-r">
+                                    <input class="btn btn-default resp-btn" type="button" value="Reset" (click)="OnClickReset()">
+                                    <input class="btn btn-default resp-btn mr0" type="submit" value="Submit">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form novalidate (ngSubmit)="OnSubmitPOEligibilityCalculator(frmPOEligibilityCalculator)" [formGroup]="frmPOEligibilityCalculator" *ngIf="!isLO && !isBO">
+                    <div *ngIf="isPO">
+                        <div class="row">
+                            <div class="col-md-6 mob-pb5">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>Nature of Office to be established</label>
+                                    <select class="custom-select" (change)="OnChangeNatureOfOffice()" formControlName="NatureOfOfficeId" [(ngModel)]="natureOfOfficeId">
+                                        <option *ngFor="let item of natureOfOffices" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>Applicant Entity</label>
+                                    <select class="custom-select" formControlName="ApplicantEntityId">
+                                        <option *ngFor="let item of applicantEntities" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmPOEligibilityCalculator.controls.ApplicantEntityId.errors?.required && isSubmited"> Please select Applicant Entity </span>
+                            </div>
+                        </div>
+                        <div class="row top-padding-20px">
+                            <div class="col-md-12 margin-bottom-10px">
+                                <label class="font-20px">Business of Applicant Company:</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mob-pb5">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>Sectoral Cap</label>
+                                    <select class="custom-select" formControlName="SectoralCapId">
+                                        <option *ngFor="let item of sectoralCaps" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmPOEligibilityCalculator.controls.SectoralCapId.errors?.required && isSubmited"> Please select Sectoral Cap </span>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>Sector</label>
+                                    <select class="custom-select" formControlName="SectorId">
+                                        <option *ngFor="let item of sectors" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmPOEligibilityCalculator.controls.SectorId.errors?.required && isSubmited"> Please select Sector </span>
+                            </div>
+                        </div>
+                        <div class="row top-padding-20px">
+                            <div class="col-md-6 mob-pb5">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>Applicant's Country of registeration / citizenship</label>
+                                    <select class="custom-select" (change)="OnChangeApplicantCountry()" formControlName="ApplicantCountryId">
+                                        <option *ngFor="let item of applicantCountries" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmPOEligibilityCalculator.controls.ApplicantCountryId.errors?.required && isSubmited"> Please select Applicant's Country of registeration / citizenship </span>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>State / Region in India in which office shall be established</label>
+                                    <select class="custom-select" formControlName="StateOfIndiaId">
+                                        <option *ngFor="let item of statesOfIndia" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmPOEligibilityCalculator.controls.StateOfIndiaId.errors?.required && isSubmited"> Please select State / Region in India in which office shall be established </span>
+                            </div>
+                        </div>
+                        <div class="row top-padding-20px">
+                            <div class="col-md-12 margin-bottom-10px">
+                                <label class="font-20px">Additional Criteria:</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input no-margin">
+                                    <label>Whether you have secured a contract from an Indian Company for executing the Contract</label>
+                                    <select class="custom-select" formControlName="WhetherYouHaveSecuredContractFromAnIndianCompanyForExecutingTheContract">
+                                        <option *ngFor="let item of whetherYouHaveSecuredContractFromAnIndianCompanyForExecutingTheContract" [value]="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                                <span class="help-block has-error" *ngIf="frmPOEligibilityCalculator.controls.WhetherYouHaveSecuredContractFromAnIndianCompanyForExecutingTheContract.errors?.required && isSubmited"> Please select Whether you have secured a contract from an Indian Company for executing the Contract </span>
+                            </div>
+                        </div>
+                        <div *ngIf="frmPOEligibilityCalculator.value.WhetherYouHaveSecuredContractFromAnIndianCompanyForExecutingTheContract == 122">
+                            <div class="row top-padding-20px">
+                                <div class="col-md-12 margin-bottom-10px">
+                                    <label class="font-20px">Funding Questions:</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>The project is funded directly by inward remittance from abroad</label>
+                                        <select class="custom-select" formControlName="FundedDirectlyByInwardRemittanceFromAbroad">
+                                            <option *ngFor="let item of fundedDirectlyByInwardRemittanceFromAbroad" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmPOEligibilityCalculator.controls.FundedDirectlyByInwardRemittanceFromAbroad.errors?.required && isSubmited"> The project is funded directly by inward remittance from abroad </span>
+                                </div>
+                                <div class="col-md-6" *ngIf="frmPOEligibilityCalculator.value.FundedDirectlyByInwardRemittanceFromAbroad == 124">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>The project is funded by a bilateral or multilateral International Financing Agency</label>
+                                        <select class="custom-select" formControlName="FundedByBilateralOrMultilateralInternationalFinancingAgency">
+                                            <option *ngFor="let item of fundedByBilateralOrMultilateralInternationalFinancingAgency" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmPOEligibilityCalculator.controls.FundedByBilateralOrMultilateralInternationalFinancingAgency.errors?.required && isSubmited"> The project is funded by a bilateral or multilateral International Financing Agency </span>
+                                </div>
+                            </div>
+                            <div class="row top-padding-20px" *ngIf="frmPOEligibilityCalculator.value.FundedDirectlyByInwardRemittanceFromAbroad == 124 && frmPOEligibilityCalculator.value.FundedByBilateralOrMultilateralInternationalFinancingAgency == 126">
+                                <div class="col-md-6 mob-pb5">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>The project has been cleared by an appropriate authority</label>
+                                        <select class="custom-select" formControlName="ClearedByAnAppropriateAuthority">
+                                            <option *ngFor="let item of clearedByAnAppropriateAuthority" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmPOEligibilityCalculator.controls.ClearedByAnAppropriateAuthority.errors?.required && isSubmited"> The project has been cleared by an appropriate authority </span>
+                                </div>
+                                <div class="col-md-6" *ngIf="frmPOEligibilityCalculator.value.ClearedByAnAppropriateAuthority == 128">
+                                    <div class="form-group form-md-line-input no-margin">
+                                        <label>A company or entity in India awarding the contract has been granted Term Loan by a Public Financial Institution or a bank in India for the project</label>
+                                        <select class="custom-select" formControlName="PublicFinancialInstitution">
+                                            <option *ngFor="let item of publicFinancialInstitution" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error" *ngIf="frmPOEligibilityCalculator.controls.PublicFinancialInstitution.errors?.required && isSubmited"> A company or entity in India awarding the contract has been granted Term Loan by a Public Financial Institution or a bank in India for the project </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row top-padding-20px justify-content-end" *ngIf="isPO">
+                            <div class="col-md-4">
+                                <div class="form-group d-f f-r">
+                                    <input class="btn btn-default resp-btn " type="button" value="Reset" (click)="OnClickReset()">
+                                    <input class="btn btn-default resp-btn mr0" type="submit" value="Submit">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" *ngIf="isDisabledLOBOPOEligibility && isLO">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead_bg">
+                                    <tr class="grey-mint text-center">
+                                        <th>A</th>
+                                        <th>{{natureOfOfficeName}}</th>
+                                        <th>User Selection</th>
+                                        <!--<th></th>-->
+                                        <th>Outcome</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of lOBOPOEligibilities; let i = index">
+                                        <td class="text-center">{{item.SrNo}}</td>
+                                        <td [class.font-bold]="i == 1 || i == 6 || i == 7 || i == 11 || i == 16 || i == 17 || i == 21 || (isSubsidiaryCompanyLO == true ? i == 26 : i == 15)">{{item.Question}}</td>
+                                        <td>{{item.UserSelection}}</td>
+                                        <!--<td>{{item.SingleOutcome}}</td>-->
+                                        <td>{{item.OverallOutcome}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="isDisabledLOBOPOEligibility && isBO">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead_bg">
+                                    <tr class="grey-mint text-center">
+                                        <th>A</th>
+                                        <th>{{natureOfOfficeName}}</th>
+                                        <th>User Selection</th>
+                                        <!--<th></th>-->
+                                        <th>Outcome</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of lOBOPOEligibilities; let i = index">
+                                        <td class="text-center">{{item.SrNo}}</td>
+                                        <td [class.font-bold]="i == 2 || i == 7 || i == 8 || i == 14 || (frmPOEligibilityCalculator.value.PlaceOfEstablishmentId == 2 && isSubsidiaryCompanyBO != true ? i == 23 : i == 22) || i == 28 || i == 35 || i == 38 || (isSubsidiaryCompanyBO == true ? i == 21 : i == 20)">{{item.Question}}</td>
+                                        <td>{{item.UserSelection}}</td>
+                                        <!--<td>{{item.SingleOutcome}}</td>-->
+                                        <td>{{item.OverallOutcome}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="isDisabledLOBOPOEligibility && isPO">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead_bg">
+                                    <tr class="grey-mint text-center">
+                                        <th>A</th>
+                                        <th>{{natureOfOfficeName}}</th>
+                                        <th>User Selection</th>
+                                        <!--<th></th>-->
+                                        <th>Outcome</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of lOBOPOEligibilities; let i = index">
+                                        <td class="text-center">{{item.SrNo}}</td>
+                                        <td [class.font-bold]="i == 1 || i == 6 || i == 8 || i == lOBOPOEligibilities.length - 1">{{item.Question}}</td>
+                                        <td>{{item.UserSelection}}</td>
+                                        <!--<td>{{item.SingleOutcome}}</td>-->
+                                        <td>{{item.OverallOutcome}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-end" *ngIf="isDisabledLOBOPOEligibility">
+                    <div class="col-md-4">
+                        <div class="form-group d-f f-r">
+                            <input class="btn btn-default resp-btn mr0" type="button" value="Download PDF" (click)="OnClickPrint()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

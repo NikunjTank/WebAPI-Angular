@@ -1,0 +1,252 @@
+﻿<div class="row header-bottom-margin">
+    <div class="col-md-offset-6 col-md-6 text-right">
+        <a [routerLink]="['/admin/secure/fdicircular']">
+            <span class="add-button btn default full-width pull-right" style="margin-top: 4px;"><i class="fa fa-plus"></i> Add</span>
+        </a>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>FDI Circular ({{totalRecords}})
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-1">
+                <select class="form-control" (change)="OnPageSizeChange()" [(ngModel)]="drpPageSize">
+                    <option *ngFor="let size of pageSizes">{{size}}</option>
+                </select>
+            </div>
+            <div class="col-sm-3 col-sm-offset-8">
+                <form novalidate (ngSubmit)="SearchFDICircular(frmFDICircular)" [formGroup]="frmFDICircular">
+                    <div class="input-group stylish-input-group">
+                        <input type="text" class="form-control" placeholder="Search here" formControlName="SearchText" #txtSearch>
+                        <span class="input-group-addon">
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-scrollable">
+            <input type="hidden" id="hdnCurrentPage" value="0" />
+            <table class="table table-striped table-responsive table-advance table-hover">
+                <thead>
+                    <tr class="grey-mint">
+                        <th style="width: 40px;">Chapter</th>
+                        <th style="width: 40px;">Index Amendment</th>
+                        <th class="text-center" style="width: 70px;">Action</th>
+                        <th (click)="OnFDICircularSort('FDICircularName')" class="pointer-cursor">FDI Circular Name <i class="fa {{sortingFDICircularField == 'FDICircularName' ? (sortingFDICircularDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                        <th (click)="OnFDICircularSort('Year')" class="pointer-cursor">Year <i class="fa {{sortingFDICircularField == 'Year' ? (sortingFDICircularDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                        <th class="text-center">FDI Circular PDF</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!fDICirculars">
+                        <td colspan="7" class="text-center"><label>Loading data. Please wait...</label></td>
+                    </tr>
+                    <tr *ngIf="fDICirculars && fDICirculars.length == 0">
+                        <td colspan="7" class="text-center"><label>No FDI Circular Found!</label></td>
+                    </tr>
+                    <ng-template ngFor let-fDICircular let-i="index" [ngForOf]="fDICirculars">
+                        <tr class="text-nowrap">
+                            <td class="text-center">
+                                <i class="fa fa-chevron-right pointer-cursor rotate plus-color font-16 margin-right-10 {{itemDetailFDICirculars1.index === i ? 'down' : ''}}" (click)="ShowFDIChapter(i, fDICircular.FDICircularId)"></i>
+                                <a (click)="AddFDIChapter(fDICircular.FDICircularId, i)" title="Add Chapter"><i class="fa fa-plus pointer-cursor plus-color font-16"></i></a>
+                            </td>
+                            <td class="text-center">
+                                <i class="fa fa-chevron-right pointer-cursor rotate plus-color font-16 margin-right-10 {{itemDetailFDICirculars2.index === i ? 'down' : ''}}" (click)="ShowFDICircularIndexAmendment(i, fDICircular.FDICircularId)"></i>
+                                <a (click)="AddFDICircularIndexAmendment(fDICircular.FDICircularId, i)" title="Add IndexAmendment"><i class="fa fa-plus pointer-cursor plus-color font-16"></i></a>
+                            </td>
+                            <td class="text-center">
+                                <a (click)="EditFDICircular(fDICircular.FDICircularId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                <a title="Delete" (click)="DeleteFDICircular(fDICircular.FDICircularId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                            </td>
+                            <td>{{fDICircular.FDICircularName}}</td>
+                            <td>{{fDICircular.Year}}</td>
+                            <!--<td class="text-center"><a href="{{pdfServerPath + fDICircular.PDF}}" target="_blank">{{(fDICircular.PDF) ? fDICircular.PDF.substr(fDICircular.PDF.indexOf('_') + 1) : fDICircular.PDF}}</a></td>-->
+                            <td class="text-center"><a href="{{pdfServerPath + fDICircular.PDF}}" target="_blank"><i class="fa fa-file-pdf-o font-16" style="color:red;"></i></a></td>
+                        </tr>
+                        <tr class="text-nowrap {{itemDetailFDICirculars1.index === i || itemDetailFDICirculars2.index === i ? '' : 'hide'}}">
+                            <td></td>
+                            <td colspan="6">
+                                <div class="panel panel-default table-scrollable {{itemDetailFDICirculars1.index === i ? '' : 'hide'}}" style="margin-top: 0 !important;">
+                                    <div class="panel-heading"><b>Chapter</b></div>
+                                    <div class="panel-body">
+                                        <table class="table table-striped table-responsive table-advance table-hover">
+                                            <thead>
+                                                <tr class="grey-mint">
+                                                    <th style="width: 40px;">Index</th>
+                                                    <th class="text-center" style="width: 70px;">Action</th>
+                                                    <th (click)="OnFDIChapterSort(fDICircular.FDICircularId,'Chapter')" class="pointer-cursor">Chapter <i class="fa {{sortingFDIChapterField == 'Chapter' ? (sortingFDIChapterDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngIf="!fDIChapters">
+                                                    <td colspan="6" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                </tr>
+                                                <tr *ngIf="fDIChapters && fDIChapters.length == 0">
+                                                    <td colspan="6" class="text-center"><label>No Chapter Found!</label></td>
+                                                </tr>
+                                                <ng-template ngFor let-fDIChapter let-j="index" [ngForOf]="fDIChapters">
+                                                    <tr class="text-nowrap">
+                                                        <td class="text-center">
+                                                            <i class="fa fa-chevron-right pointer-cursor rotate plus-color font-16 margin-right-10 {{itemDetailChapters.index === j ? 'down' : ''}}" (click)="ShowFDICircularIndex(j, fDIChapter.FDIChapterId)"></i>
+                                                            <a (click)="AddFDICircularIndex(fDICircular.FDICircularId, fDIChapter.FDIChapterId, j)" title="Add Index"><i class="fa fa-plus pointer-cursor plus-color font-16"></i></a>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a (click)="EditFDIChapter(fDICircular.FDICircularId, fDIChapter.FDIChapterId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                                            <a title="Delete" (click)="DeleteFDIChapter(fDICircular.FDICircularId, fDIChapter.FDIChapterId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                                                        </td>
+                                                        <td>{{fDIChapter.Chapter}}</td>
+                                                    </tr>
+                                                    <tr class="text-nowrap {{itemDetailChapters.index === j ? '' : 'hide'}}">
+                                                        <td></td>
+                                                        <td colspan="6">
+                                                            <div class="panel panel-default table-scrollable {{itemDetailChapters.index === j ? '' : 'hide'}}" style="margin-top: 0 !important;">
+                                                                <div class="panel-heading"><b>Index</b></div>
+                                                                <div class="panel-body">
+                                                                    <table class="table table-striped table-responsive table-advance table-hover">
+                                                                        <thead>
+                                                                            <tr class="grey-mint">
+                                                                                <th style="width: 40px;">SubIndex</th>
+                                                                                <th class="text-center" style="width: 70px;">Action</th>
+                                                                                <th (click)="OnFDICircularIndexSort(fDIChapter.FDIChapterId,'IndexNo')" class="pointer-cursor">Index No <i class="fa {{sortingFDICircularIndexField == 'IndexNo' ? (sortingFDICircularIndexDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                                                <th (click)="OnFDICircularIndexSort(fDIChapter.FDIChapterId,'IndexName')" class="pointer-cursor">Index Name <i class="fa {{sortingFDICircularIndexField == 'IndexName' ? (sortingFDICircularIndexDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                                                <th>Index Content</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr *ngIf="!fDICircularIndexes">
+                                                                                <td colspan="6" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                            </tr>
+                                                                            <tr *ngIf="fDICircularIndexes && fDICircularIndexes.length == 0">
+                                                                                <td colspan="6" class="text-center"><label>No FDI Circular Index Found!</label></td>
+                                                                            </tr>
+                                                                            <ng-template ngFor let-fDICircularIndex let-k="index" [ngForOf]="fDICircularIndexes">
+                                                                                <tr class="text-nowrap">
+                                                                                    <td class="text-center">
+                                                                                        <i class="fa fa-chevron-right pointer-cursor rotate plus-color font-16 margin-right-10 {{itemDetailIndexes.index === k ? 'down' : ''}}" (click)="ShowFDICircularSubIndex(k, fDICircularIndex.FDICircularIndexId)"></i>
+                                                                                        <a (click)="AddFDICircularSubIndex(fDICircular.FDICircularId, fDIChapter.FDIChapterId, fDICircularIndex.FDICircularIndexId, k)" title="Add SubIndex"><i class="fa fa-plus pointer-cursor plus-color font-16"></i></a>
+                                                                                    </td>
+                                                                                    <td class="text-center">
+                                                                                        <a (click)="EditFDICircularIndex(fDICircular.FDICircularId,fDIChapter.FDIChapterId, fDICircularIndex.FDICircularIndexId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                                                                        <a title="Delete" (click)="DeleteFDICircularIndex(fDIChapter.FDIChapterId, fDICircularIndex.FDICircularIndexId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                                                                                    </td>
+                                                                                    <td>{{fDICircularIndex.IndexNo}}</td>
+                                                                                    <td>{{fDICircularIndex.IndexName}}</td>
+                                                                                    <td><a *ngIf="fDICircularIndex.IndexContent" (click)="ShowContent('Index Content',fDICircularIndex.IndexContent)">View Content</a></td>
+                                                                                </tr>
+                                                                                <tr class="text-nowrap {{itemDetailIndexes.index === k ? '' : 'hide'}}">
+                                                                                    <td></td>
+                                                                                    <td colspan="6">
+                                                                                        <div class="table-scrollable" style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                                                                                            <table class="table table-striped table-responsive table-advance table-hover">
+                                                                                                <thead>
+                                                                                                    <tr class="grey-mint">
+                                                                                                        <th class="text-center" style="width: 70px;">Action</th>
+                                                                                                        <th (click)="OnFDICircularSubIndexSort(fDICircularIndex.FDICircularIndexId,'SubIndexNo')" class="pointer-cursor">SubIndex No <i class="fa {{sortingFDICircularSubIndexField == 'SubIndexNo' ? (sortingFDICircularSubIndexDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                                                                        <th (click)="OnFDICircularSubIndexSort(fDICircularIndex.FDICircularIndexId,'SubIndexName')" class="pointer-cursor">SubIndex Name <i class="fa {{sortingFDICircularSubIndexField == 'SubIndexName' ? (sortingFDICircularSubIndexDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                                                                        <th>SubIndex Content</th>
+                                                                                                        <!--<th (click)="OnFDICircularSubIndexSort(fDICircularIndex.FDICircularIndexId,'SortId')" class="pointer-cursor">Sort Id <i class="fa {{sortingFDICircularSubIndexField == 'SortId' ? (sortingFDICircularSubIndexDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>-->
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    <tr *ngIf="!fDICircularSubIndexes">
+                                                                                                        <td colspan="5" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                                                    </tr>
+                                                                                                    <tr *ngIf="fDICircularSubIndexes && fDICircularSubIndexes.length == 0">
+                                                                                                        <td colspan="5" class="text-center"><label>No FDI Circular SubIndex Found!</label></td>
+                                                                                                    </tr>
+                                                                                                    <ng-template ngFor let-fDICircularSubIndex let-l="index" [ngForOf]="fDICircularSubIndexes">
+                                                                                                        <tr class="text-nowrap">
+                                                                                                            <td class="text-center">
+                                                                                                                <a (click)="EditFDICircularSubIndex(fDICircular.FDICircularId, fDIChapter.FDIChapterId, fDICircularIndex.FDICircularIndexId, fDICircularSubIndex.FDICircularSubIndexId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                                                                                                <a title="Delete" (click)="DeleteFDICircularSubIndex(fDICircularIndex.FDICircularIndexId, fDICircularSubIndex.FDICircularSubIndexId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                                                                                                            </td>
+                                                                                                            <td>{{fDICircularSubIndex.SubIndexNo}}</td>
+                                                                                                            <td>{{fDICircularSubIndex.SubIndexName}}</td>
+                                                                                                            <td><a *ngIf="fDICircularSubIndex.SubIndexContent" (click)="ShowContent('SubIndex Content',fDICircularSubIndex.SubIndexContent)">View Content</a></td>
+                                                                                                            <!--<td>{{fDICircularSubIndex.SortId}}</td>-->
+                                                                                                        </tr>
+                                                                                                    </ng-template>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </ng-template>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default table-scrollable {{itemDetailFDICirculars2.index === i ? '' : 'hide'}}" style="margin-top: 0 !important;">
+                                    <div class="panel-heading"><b>Index Amendment</b></div>
+                                    <div class="panel-body">
+                                        <table class="table table-striped table-responsive table-advance table-hover">
+                                            <thead>
+                                                <tr class="grey-mint">
+                                                    <th class="text-center" style="width: 70px;">Action</th>
+                                                    <th (click)="OnFDICircularIndexAmendmentSort(fDICircular.FDICircularId,'Year')" class="pointer-cursor">Year <i class="fa {{sortingFDICircularIndexAmendmentField == 'Year' ? (sortingFDICircularIndexAmendmentDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <!--<th (click)="OnFDICircularIndexAmendmentSort(fDICircular.FDICircularId,'PressNoteNo')" class="pointer-cursor">PressNote No. <i class="fa {{sortingFDICircularIndexAmendmentField == 'PressNoteNo' ? (sortingFDICircularIndexAmendmentDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>-->
+                                                    <th>PressNote No.</th>
+                                                    <th (click)="OnFDICircularIndexAmendmentSort(fDICircular.FDICircularId,'Chapter')" class="pointer-cursor">Chapter <i class="fa {{sortingFDICircularIndexAmendmentField == 'Chapter' ? (sortingFDICircularIndexAmendmentDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th (click)="OnFDICircularIndexAmendmentSort(fDICircular.FDICircularId,'IndexNo')" class="pointer-cursor">Index No. <i class="fa {{sortingFDICircularIndexAmendmentField == 'IndexNo' ? (sortingFDICircularIndexAmendmentDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th (click)="OnFDICircularIndexAmendmentSort(fDICircular.FDICircularId,'SubIndexNo')" class="pointer-cursor">SubIndex No. <i class="fa {{sortingFDICircularIndexAmendmentField == 'SubIndexNo' ? (sortingFDICircularIndexAmendmentDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th>Index Amendment Content</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngIf="!fDICircularIndexAmendments">
+                                                    <td colspan="7" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                </tr>
+                                                <tr *ngIf="fDICircularIndexAmendments && fDICircularIndexAmendments.length == 0">
+                                                    <td colspan="7" class="text-center"><label>No FDI Circular Index Amendment Found!</label></td>
+                                                </tr>
+                                                <ng-template ngFor let-fDICircularIndexAmendment let-j="index" [ngForOf]="fDICircularIndexAmendments">
+                                                    <tr class="text-nowrap">
+                                                        <td class="text-center">
+                                                            <a (click)="EditFDICircularIndexAmendment(fDICircular.FDICircularId, fDICircularIndexAmendment.FDICircularIndexAmendmentId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                                            <a title="Delete" (click)="DeleteFDICircularIndexAmendment(fDICircular.FDICircularId, fDICircularIndexAmendment.FDICircularIndexAmendmentId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                                                        </td>
+                                                        <td>{{fDICircularIndexAmendment.Year}}</td>
+                                                        <td>
+                                                            <label *ngFor="let item of fDICircularIndexAmendment.PressNotes.split(';;'); let i=index;">
+                                                                {{(i > 0) ? ', ' + item.split('||')[1] : item.split('||')[1]}}
+                                                            </label>
+                                                        </td>
+                                                        <td>{{fDICircularIndexAmendment.Chapter}}</td>
+                                                        <td>{{fDICircularIndexAmendment.IndexNo}}</td>
+                                                        <td>{{fDICircularIndexAmendment.SubIndexNo}}</td>
+                                                        <td><a *ngIf="fDICircularIndexAmendment.IndexAmendmentContent" (click)="ShowContent('Index Amendment Content',fDICircularIndexAmendment.IndexAmendmentContent)">View Content</a></td>
+                                                    </tr>
+                                                </ng-template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

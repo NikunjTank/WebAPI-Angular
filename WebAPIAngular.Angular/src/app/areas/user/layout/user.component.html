@@ -1,0 +1,287 @@
+﻿<!--<div class="header_top_bare">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-9 col-sm-9">
+                <div class="latest_new">Latest News :</div>
+                <div class="latest_new_text">
+                    <marquee behavior="scroll" direction="left" onMouseOver="this.stop();" onMouseOut="this.start();" style="width: 70%">
+                        <span>Press Note No.1 (2018 Series) - </span> Review of Foreign Direct Investment (FDI) Policy on various sectors
+                    </marquee>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <div class="language_wapper">
+                    <div class="dropdown">
+                        <button class="dropbtn">English</button>
+                        <div class="dropdown-content"> <a href="javascript:void(0)">Link 1</a> <a href="javascript:void(0)">Link 2</a> <a href="javascript:void(0)">Link 3</a> </div>
+                    </div>
+                    <div class="footer_bottom_menu">
+                        <ul>
+                            <li> <a href="javascript:void(0)"> <i class="fa fa-facebook" aria-hidden="true"></i> </a> </li>
+                            <li> <a href="javascript:void(0)"> <i class="fa fa-twitter" aria-hidden="true"></i> </a> </li>
+                            <li> <a href="javascript:void(0)"> <i class="fa fa-linkedin" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<header>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8 col-sm-8">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" [routerLink]="['/']"> <img src="/assets/images/logo.png" alt="Logo" /> </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item" [class.active]="router.url.search('aboutus') != -1"><a class="nav-link" [routerLink]="['/aboutus']">About Us </a> </li>
+                            <li class="nav-item" [class.active]="router.url.search('femamodules') != -1"> <a class="nav-link" [routerLink]="['/user/secure/femamodules']">FEMA Module </a> </li>
+                            <li class="nav-item" [class.active]="router.url.search('contactus') != -1"> <a class="nav-link" [routerLink]="['/contactus']">Contact Us </a> </li>
+                            <li class="nav-item" [class.active]="router.url.search('postquery') != -1"> <a class="nav-link" [routerLink]="['/user/secure/postquery']">Post A Query </a> </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="login_btn after_login_user">
+                    <ul>
+                        <li class="dropdown_user">
+                            <div class="dropdown">
+                                <button class="dropbtn">{{((userProfile.FirstName) ? userProfile.FirstName : 'Loading. . .') + ' ' + ((userProfile.LastName) ? userProfile.LastName : '')}}</button>
+                                <div class="dropdown-content"><a (click)="Logout()"><i class="fa fa-sign-out"></i> Logout</a></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="midel_wapper_top fdi_page">
+    <div class="midel_wapper">
+        <router-outlet></router-outlet>
+        <spinner></spinner>
+    </div>
+</div>
+<footer>
+    <div class="footer_top">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="footer_top_menu">
+                        <ul>
+                            <li> <a href="javascript:void(0)"> Career </a> </li>
+                            <li> <a href="javascript:void(0)"> Our Team </a> </li>
+                            <li> <a href="javascript:void(0)"> Contact Us </a> </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="footer_bottom_menu">
+                        <ul>
+                            <li> Follow Us : </li>
+                            <li> <a href="javascript:void(0)"> <i class="fa fa-facebook" aria-hidden="true"></i> </a> </li>
+                            <li> <a href="javascript:void(0)"> <i class="fa fa-twitter" aria-hidden="true"></i> </a> </li>
+                            <li> <a href="javascript:void(0)"> <i class="fa fa-linkedin" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer_bootom">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="copyright_text">Copyright © Demstify Fema 2018</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="footer_bootom_menu2">
+                        <ul>
+                            <li> <a href="javascript:void(0)"> Privacy Policy </a> </li>
+                            <li> <span>|</span> </li>
+                            <li> <a href="javascript:void(0)"> Testimonials </a> </li>
+                            <li> <span>|</span> </li>
+                            <li> <a href="javascript:void(0)"> Terms & Conditions </a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>-->
+<nav class="navbar-primary collapsed" id="scrollable_div1" [class.collapsed]="isSidebarOpened" *ngIf="fEMAModules">
+    <a href="javascript:void(0)" class="btn-expand-collapse" style="z-index: 10;" (click)="isSidebarOpened = !isSidebarOpened"><span class="fa fa-bars" aria-hidden="true"></span><span class="nav-label ml12">FEMA MODULE</span></a>
+    <perfect-scrollbar style="max-height: 100vh;" [config]="config">
+        <ul class="navbar-primary-menu">
+            <li>
+                <ng-template ngFor let-fEMAModule let-i="index" [ngForOf]="fEMAModules">
+                    <a href="javascript:void(0)" [class.active]="fEMAModule.FieldId == fEMAModuleId" placement="right" ngbTooltip="{{(isSidebarOpened) ? fEMAModule.FieldName : ''}}" (click)="OnClickFEMAModule(fEMAModule.FieldId)"><div class="demystyfy_menu inn">{{fEMAModule.Alias}}</div><div class="nav-label fs-12">{{fEMAModule.FieldName}}</div></a>
+                </ng-template>
+            </li>
+        </ul>
+    </perfect-scrollbar>
+</nav>
+
+<div class="main-content" [class.main-content-hidden]="!fEMAModules">
+    <div class="header_top_bare">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-2 col-md-3 col-sm-4 col-12 fema-logo pr0">
+                    <a class="navbar-brand no-pad no-margin" [routerLink]="['/']"> <img src="/assets/images/demystify - logo.png" alt="Logo" /> </a>
+                </div>
+                <div class="col-lg-10 col-md-9 col-sm-8 col-12">
+                    <div class="latest_new ">Latest News :</div>
+                    <div class="marquee">
+                        <p>
+                            <ng-template ngFor let-news [ngForOf]="latestNews">
+                                <label class="pointer-cursor" (click)="OpenLatestNewsPDF(news.PDFPath)"><span class="col-theam pr15" *ngIf="news.Number">{{news.Number}}</span><span *ngIf="news.Name">{{news.Name}}</span></label> <br />
+                            </ng-template>
+                        </p>
+                    </div>
+                </div>
+                <!--<div class="col-md-1 col-sm-2">
+                    <div class="language_wapper">
+                        <div class="dropdown">
+                            <button class="dropbtn">English</button>
+                            <div class="dropdown-content"> <a href="javascript:void(0)">Link 1</a> <a href="javascript:void(0)">Link 2</a> <a href="javascript:void(0)">Link 3</a> </div>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <header>
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-4 col-md-4 col-12">
+                    <!--<nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" [routerLink]="['/']"> <img src="/assets/images/logo.png" alt="Logo" /> </a>
+                    </nav>-->
+                </div>
+                <div class="col-lg-4 col-md-4 col-4">
+                    <!--<div class="text-center after_login_user">
+                        <ul>
+                            <li class="qk">
+                                <div class="dropdown">
+                                    <button class="quickbtn"><i class="fa fa-plus"></i></button>
+                                    <div class="dropdown-content quick">
+                                        <a class="nav-link qk-cap" [class.active]="router.url.search('femamodules') != -1" [routerLink]="['/user/secure/femamodules']"><i class="fa fa-list-ul side-i"></i>FEMA Module</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>-->
+                </div>
+                <div class="col-lg-4 col-md-12 col-12">
+                    <div class="login_btn after_login_user">
+                        <ul>
+                            <li class="dropdown_user">
+                                <div class="dropdown">
+                                    <button class="dropbtn">{{((userProfile.FirstName) ? userProfile.FirstName : 'Loading. . .') + ' ' + ((userProfile.LastName) ? userProfile.LastName : '')}}</button>
+                                    <div class="dropdown-content">
+                                        <a class="nav-link" [class.active]="router.url.search('aboutus') != -1" [routerLink]="['/aboutus']">About Us </a>
+                                        <a class="nav-link" [class.active]="router.url.search('femamodules') != -1" [routerLink]="['/user/secure/femamodules']" [queryParams]="{ fEMAModuleId: 1 }">FEMA Module</a>
+                                        <a class="nav-link" [class.active]="router.url.search('contactus') != -1" [routerLink]="['/contactus']">Contact US</a>
+                                        <a class="nav-link" [class.active]="router.url.search('postquery') != -1" [routerLink]="['/user/secure/postquery']">Post A Query </a>
+                                        <a class="nav-link" [class.active]="router.url.search('userprofile') != -1" [routerLink]="['/user/secure/userprofile']">Profile Setting </a>
+                                        <a class="tp-brdr" (click)="Logout()"><i class="fa fa-sign-out"></i> Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input value="activate scrollator" id="activate_scrollator1" type="hidden" style="display:none;">
+    </header>
+    <router-outlet></router-outlet>
+    <spinner></spinner>
+
+    <div class="container-fluid" *ngIf="IsLoggedIn()">
+        <div class="row justify-content-end">
+            <div class="fema-chat">
+                <div *ngIf="isOpenChat">
+                    <div class="card brdr-support">
+                        <div class="card-body fema-chat-body w-290">
+                            <div class="chat-header"> Demystify Fema <a href="javascript:void(0)" (click)="CloseChatBox()"><i class="fa fa-minus chat-minimize"></i></a></div>
+                            <div class="text-center">
+                                <p class="wel-msg"> Welcome to Demystify Live Support</p>
+                            </div>
+                            <div class="p-16" *ngIf="isSuccessSupportTicketCreated">
+                                <div>
+                                    <a class="close" data-close="alert"></a>
+                                    <div class="support-suc"><i class="fa fa-check-circle"></i></div>
+                                    <div class="text-center fs-13"> Your support ticket successfully created.</div><br />
+                                    <button class="btn btn-primary start-chat-btn fs-13" id="btnRegister" style="margin-top: 0 !important; width:100%; height:32px;" type="button" (click)="CreateNewSupportTicket()"> Create new support ticket </button>
+                                </div>
+                            </div>
+                            <form novalidate (ngSubmit)="OnSubmitSupportTicket(frmSupportTicket)" [formGroup]="frmSupportTicket" *ngIf="!isSuccessSupportTicketCreated">
+                                <div class="p-16">
+                                    <div class="form-group mb0">
+                                        <div><label class="fema-lbl">Department</label></div>
+                                        <select class="form-control no-focus chat-drop" formControlName="DepartmentId">
+                                            <option *ngFor="let item of departments" [value]="item.Value">{{item.Text}}</option>
+                                        </select>
+                                        <span class="help-block has-error" *ngIf="frmSupportTicket.controls.DepartmentId.errors?.required && isSubmited"> Please select Department </span>
+                                    </div>
+                                    <div class="form-group mb0 mt-14">
+                                        <div><label class="fema-lbl">Message</label></div>
+                                        <textarea class="form-control no-focus fs-13" formControlName="Query" rows="3"></textarea>
+                                        <span class="help-block has-error" *ngIf="frmSupportTicket.controls.Query.errors?.required && isSubmited"> Please enter Message </span>
+                                    </div>
+                                    <div class="form-group mt10 mb0">
+                                        <button class="btn btn-primary start-chat-btn" id="btnRegister" style="margin-top: 0 !important; width:100%" type="submit"> Send </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!isOpenChat">
+                    <p class="f-r" (click)="OpenChatBox()">
+                        <button type="button" class="btn btn-outline-primary fema-chat-btn">
+                            <i class="fa fa-comment fema-support-icon"> </i> <span class="fs-15"> Online Chat with Us </span>
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-poz">
+        <div class="footer_bootom" [class.footer_bootom-none-left]="!fEMAModules">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <div class="copyright_text">Copyright © Demstify Fema 2018</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="footer_bootom_menu2 text-center">
+                            <ul>
+                                <li> <a href="javascript:void(0)"> Privacy Policy </a> </li>
+                                <li> <span>|</span> </li>
+                                <li> <a href="javascript:void(0)"> Testimonials </a> </li>
+                                <li> <span>|</span> </li>
+                                <li> <a href="javascript:void(0)"> Terms & Conditions </a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="footer_bottom_menu">
+                            <ul>
+                                <li> Follow Us : </li>
+                                <li> <a href="javascript:void(0)"> <i class="fa fa-facebook" aria-hidden="true"></i> </a> </li>
+                                <li> <a href="javascript:void(0)"> <i class="fa fa-twitter" aria-hidden="true"></i> </a> </li>
+                                <li> <a href="javascript:void(0)"> <i class="fa fa-linkedin" aria-hidden="true"></i> </a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>

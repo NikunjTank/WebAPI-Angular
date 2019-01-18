@@ -1,0 +1,107 @@
+﻿<div class="modalLRForm <!--poupu_modules--> poupu_modules05" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="fdi_box_poupu">
+                    <div class="select_fdi_menu top-padding-20px">
+                        <div class="row justify-content-end">
+                            <div class="col-md-3">
+                                <div class="form-group no-margin">
+                                    <form novalidate (ngSubmit)="SearchKeyDefinitionEvent(frmKeyDefinitionEvent)" [formGroup]="frmKeyDefinitionEvent">
+                                        <span class="input-group-btn modules_searchs_wapper">
+                                            <input class="modules_search" placeholder="Search" type="text" formControlName="SearchText">
+                                            <button class="modules_search_btn" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                        </span>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                        <div class="tab-hg">
+                            <div class="table-responsive">
+                                <table class="table no-margin">
+                                    <thead class="thead_bg">
+                                        <tr class="grey-mint text-nowrap">
+                                            <th (click)="OnKeyDefinitionEventSort('EventName')" class="pointer-cursor">Event Name <i class="fa {{sortingKeyDefinitionEventField == 'EventName' ? (sortingKeyDefinitionEventDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                            <th (click)="OnKeyDefinitionEventSort('EventDate')" class="pointer-cursor">Event Date <i class="fa {{sortingKeyDefinitionEventField == 'EventDate' ? (sortingKeyDefinitionEventDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                            <th>Event Vide</th>
+                                            <th (click)="OnKeyDefinitionEventSort('EventAuthorNote')" class="pointer-cursor">Event Author Note <i class="fa {{sortingKeyDefinitionEventField == 'EventAuthorNote' ? (sortingKeyDefinitionEventDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngIf="!keyDefinitionEvents">
+                                            <td colspan="10" class="text-center"><label>Loading data. Please wait...</label></td>
+                                        </tr>
+                                        <tr *ngIf="keyDefinitionEvents && keyDefinitionEvents.length == 0">
+                                            <td colspan="10" class="text-center"><label>No Key Event Found!</label></td>
+                                        </tr>
+                                        <ng-template ngFor let-keyDefinitionEvent let-j="index" [ngForOf]="keyDefinitionEvents">
+                                            <tr>
+                                                <td>{{keyDefinitionEvent.EventName}}</td>
+                                                <td>{{keyDefinitionEvent.EventDate | date:'dd-MM-yyyy'}}</td>
+                                                <!--<td *ngIf="keyDefinitionEvent.ModuleId == 1"><a class="und" href="{{notificationPDFServerPath + keyDefinitionEvent.NotificationPDF}}" target="_blank">{{keyDefinitionEvent.NotificationNumber}}</a></td>
+                                                <td *ngIf="keyDefinitionEvent.ModuleId == 2">{{keyDefinitionEvent.GSRNotificationNo}}</td>
+                                                <td *ngIf="keyDefinitionEvent.ModuleId == 3"><a class="und" href="{{fDICircularPDFServerPath + keyDefinitionEvent.FDICircularPDF}}" target="_blank">{{keyDefinitionEvent.FDICircularName}}</a></td>
+                                                <td *ngIf="keyDefinitionEvent.ModuleId == 4"><a class="und" href="{{pressNotePDFServerPath + keyDefinitionEvent.PressNotePDF}}" target="_blank">{{keyDefinitionEvent.PressNoteNo}}</a></td>
+                                                <td *ngIf="keyDefinitionEvent.ModuleId == 5"><a class="und" href="{{actPDFServerPath + keyDefinitionEvent.ActPDF}}" target="_blank">{{keyDefinitionEvent.ActLongTitle}}</a></td>
+                                                <td *ngIf="keyDefinitionEvent.ModuleId == 6"><a class="und" href="{{masterDirectionPDFServerPath + keyDefinitionEvent.MasterDirectionPDF}}" target="_blank">{{keyDefinitionEvent.MasterDirectionName}}</a></td>
+                                                <td *ngIf="keyDefinitionEvent.ModuleId == 7"><a class="und" href="{{aPDIRCircularPDFServerPath + keyDefinitionEvent.APDIRCircularPDF}}" target="_blank">{{keyDefinitionEvent.APDIRCircularNo + (keyDefinitionEvent.APDIRCircularDate ? (' (' + (keyDefinitionEvent.APDIRCircularDate | date:'dd-MM-yyyy') + ')') : '')}}</a></td>
+                                                <td *ngIf="keyDefinitionEvent.ModuleId == 8"></td>-->
+                                                <td>
+                                                    <ng-template ngFor let-moduleId [ngForOf]="keyDefinitionEvent.ModuleIds.split(',')">
+                                                        <span *ngIf="moduleId == 1">
+                                                            <span *ngFor="let item of keyDefinitionEvent.Notifications.split(';;'); let i=index;">
+                                                                <a class="und" href="{{notificationPDFServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}}</a><span *ngIf="i < (keyDefinitionEvent.Notifications.split(';;').length - 1)" style="margin: 0 5px;">,</span><br *ngIf="i == (keyDefinitionEvent.Notifications.split(';;').length - 1)"/>
+                                                            </span>
+                                                        </span>
+                                                        <span *ngIf="moduleId == 2">
+                                                            <span *ngFor="let item of keyDefinitionEvent.GSRNotifications.split(';;'); let i=index;">
+                                                                <a class="und" href="{{gSRNotificationPDFServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}}</a><span *ngIf="i < (keyDefinitionEvent.GSRNotifications.split(';;').length - 1)" style="margin: 0 5px;">,</span><br *ngIf="i == keyDefinitionEvent.GSRNotifications.split(';;').length - 1" />
+                                                            </span>
+                                                        </span>
+                                                        <span *ngIf="moduleId == 3">
+                                                            <span *ngFor="let item of keyDefinitionEvent.FDICirculars.split(';;'); let i=index;">
+                                                                <a class="und" href="{{fDICircularPDFServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}}</a><span *ngIf="i < (keyDefinitionEvent.FDICirculars.split(';;').length - 1)" style="margin: 0 5px;">,</span><br *ngIf="i == keyDefinitionEvent.FDICirculars.split(';;').length - 1" />
+                                                            </span>
+                                                        </span>
+                                                        <span *ngIf="moduleId == 4">
+                                                            <span *ngFor="let item of keyDefinitionEvent.PressNotes.split(';;'); let i=index;">
+                                                                <a class="und" href="{{pressNotePDFServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}}</a><span *ngIf="i < (keyDefinitionEvent.PressNotes.split(';;').length - 1)" style="margin: 0 5px;">,</span><br *ngIf="i == keyDefinitionEvent.PressNotes.split(';;').length - 1" />
+                                                            </span>
+                                                        </span>
+                                                        <span *ngIf="moduleId == 5">
+                                                            <span *ngFor="let item of keyDefinitionEvent.Acts.split(';;'); let i=index;">
+                                                                <a class="und" href="{{actPDFServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}}</a><span *ngIf="i < (keyDefinitionEvent.Acts.split(';;').length - 1)" style="margin: 0 5px;">,</span><br *ngIf="i == keyDefinitionEvent.Acts.split(';;').length - 1" />
+                                                            </span>
+                                                        </span>
+                                                        <span *ngIf="moduleId == 6">
+                                                            <span *ngFor="let item of keyDefinitionEvent.MasterDirections.split(';;'); let i=index;">
+                                                                <a class="und" href="{{masterDirectionPDFServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}}</a><span *ngIf="i < (keyDefinitionEvent.MasterDirections.split(';;').length - 1)" style="margin: 0 5px;">,</span><br *ngIf="i == keyDefinitionEvent.MasterDirections.split(';;').length - 1" />
+                                                            </span>
+                                                        </span>
+                                                        <span *ngIf="moduleId == 7">
+                                                            <span *ngFor="let item of keyDefinitionEvent.APDIRCirculars.split(';;'); let i=index;">
+                                                                <a class="und" href="{{aPDIRCircularPDFServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1] + (item.split('||')[2] ? (' (' + (item.split('||')[2] | date:'dd-MM-yyyy') + ')') : '')}}</a><span *ngIf="i < (keyDefinitionEvent.APDIRCirculars.split(';;').length - 1)" style="margin: 0 5px;">,</span><br *ngIf="i == keyDefinitionEvent.APDIRCirculars.split(';;').length - 1" />
+                                                            </span>
+                                                        </span>
+                                                    </ng-template>
+                                                </td>
+                                                <td>{{keyDefinitionEvent.EventAuthorNote}}</td>
+                                            </tr>
+                                        </ng-template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row top-padding-20px">
+                        <div class="col-md-12">
+                            <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

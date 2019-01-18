@@ -1,0 +1,38 @@
+﻿<div class="<!--poupu_modules05-->" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="fdi_box_poupu" *ngIf="searchedExcelUrl || searchedWordUrl">
+                    <div class="row justify-content-center">
+                        <div class="col-md-2 form-group">
+                            <a href="{{searchedExcelUrl}}" *ngIf="searchedExcelUrl" target="_blank"><i class="fa fa-file-excel-o" style="color:green;margin-right:7px;font-size:27px;float:left;"></i></a>
+                            <a href="{{searchedWordUrl}}" *ngIf="searchedWordUrl" target="_blank"><i class="fa fa-file-word-o" style="color:dodgerblue;margin-right:7px;font-size:27px;float:right;"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="fdi_box_poupu" *ngIf="searchedPDFUrl">
+                    <iframe [src]='searchedPDFUrl' class="w-100" id="iframe" frameborder="0"
+                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </div>
+                <div *ngIf="searchedContent">
+                    <div class="modules_poupu_titel">
+                        <label class="float-left">{{searchedContentTitle}}</label>
+                        <!--<a (click)="PreviousContent()" *ngIf="isPreviousButton" class="pre-btn"><span class="left-arrow"><</span> Previous</a>&nbsp;&nbsp;&nbsp;
+                        <a (click)="NextContent()" *ngIf="isNextButton" class="nex-btn">Next <span class="right-arrow">></span></a>-->
+                        <a (click)="PreviousContent()" class="pre-btn" style="left:15px;"><span class="left-arrow"><</span> Previous</a>&nbsp;&nbsp;&nbsp;
+                        <a (click)="NextContent()" class="nex-btn" style="right:0px;">Next <span class="right-arrow">></span></a>
+                    </div>
+                    <hr />
+                    <div class="fdi_box_poupu pop-up">
+                        <div class="modules_tabel no-border modules_tabel03">
+                            <div [innerHTML]='searchedContent | safeHtml'></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="no-detail-found" *ngIf="!searchedPDFUrl && !searchedContent">
+                    No pdf found.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+﻿<div class="poupu_modules poupu_modules05" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="select_fdi_menu">
+                    <div class="row justify-content-center">
+                        <div class="col-md-2">
+                            <label style="margin-right:10px;font-size: 16px;">Consolidated sheet: </label><a *ngIf="rBIDataExcelFullPath" href="{{rBIDataExcelFullPath}}" target="_blank"><i class="fa fa-file-excel-o" style="color:green;font-size:20px;margin-top:10px;"></i></a>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center top-padding-20px">
+                        <div class="col-md-3">
+                            <select class="form-control" id="exampleFormControlSelect1" (change)="OnChangeRBIDataDetailYear(ddlYear.value)" #ddlYear>
+                                <option *ngFor="let item of rBIDataDetailYears" [value]="item.Value">{{item.Text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center top-padding-20px">
+                        <div class="col-md-3">
+                            <select class="form-control" id="exampleFormControlSelect1" (change)="OnChangeRBIDataDetailMonth(ddlMonth.value)" #ddlMonth>
+                                <option *ngFor="let item of rBIDataDetailMonths" [value]="item.Value">{{item.Text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center top-padding-20px">
+                        <div class="col-md-2 text-center">
+                            <a *ngIf="rBIDataDetail.PDF" href="{{rBIDataDetailPDFServerPath + rBIDataDetail.PDF}}" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:30px;font-size:27px;"></i></a>
+                            <a *ngIf="rBIDataDetail.Excel" href="{{rBIDataDetailExcelServerPath + rBIDataDetail.Excel}}" target="_blank"><i class="fa fa-file-excel-o" style="color:green;font-size:27px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

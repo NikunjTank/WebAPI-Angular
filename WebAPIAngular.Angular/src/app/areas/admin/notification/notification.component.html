@@ -1,0 +1,137 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Notification
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitNotification(frmNotification)" [formGroup]="frmNotification">
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="RegulationId" id="txtRegulationId">
+                            <option *ngFor="let item of regulations" [value]="item.RegulationId">{{item.RegulationNumber}}</option>
+                        </select>
+                        <label for="txtRegulationId">Regulation</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="NotificationNumber" id="txtNotificationNumber" />
+                        <label for="txtNotificationNumber">Notification Number</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmNotification.controls.NotificationNumber.errors?.required && isSubmited"> Please enter Notification Number </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="NotificationName" id="txtNotificationName" />
+                        <label for="txtNotificationName">Notification Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmNotification.controls.NotificationName.errors?.required && isSubmited"> Please enter Notification Name </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="NotificationTypeId" id="txtNotificationTypeId">
+                            <option *ngFor="let item of notificationTypes" [value]="item.NotificationTypeId">{{item.NotificationTypeName}}</option>
+                        </select>
+                        <label for="txtNotificationTypeId">Notification Type</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmNotification.controls.NotificationTypeId.errors?.required && isSubmited"> Please select Notification Type </span>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <label for="txtNotificationDate" class="no-margin">Notification Date</label>
+                        <input class="form-control" placeholder="dd-mm-yyyy" name="dp" [minDate]="minDate" formControlName="NotificationDate" [value]="(frmNotification.controls.NotificationDate.value) ? (frmNotification.controls.NotificationDate.value.day + '-' + frmNotification.controls.NotificationDate.value.month + '-' + frmNotification.controls.NotificationDate.value.year) : frmNotification.controls.NotificationDate.value" readonly="readonly" #d1="ngbDatepicker" ngbDatepicker>
+                        <div class="input-group-btn" style="vertical-align: bottom !important;">
+                            <button class="btn btn-outline-secondary" (click)="d1.toggle()" type="button">
+                                <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                            </button>
+                        </div>
+                        <div class="input-group-btn" style="padding: 0 5px !important; vertical-align: bottom !important;">
+                            <span class="input-group-btn">
+                                <button class="btn blue bold" type="button" (click)="ClearNotificationDate()"><i class="fa fa-remove"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmNotification.controls.NotificationDate.errors?.required && isSubmited"> Please enter Notification Date </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <label for="txtNotificationEffectiveDate" class="no-margin">Notification Effective Date</label>
+                        <input class="form-control" placeholder="dd-mm-yyyy" name="dp" [minDate]="minDate" formControlName="NotificationEffectiveDate" [value]="(frmNotification.controls.NotificationEffectiveDate.value) ? (frmNotification.controls.NotificationEffectiveDate.value.day + '-' + frmNotification.controls.NotificationEffectiveDate.value.month + '-' + frmNotification.controls.NotificationEffectiveDate.value.year) : frmNotification.controls.NotificationEffectiveDate.value" readonly="readonly" #d2="ngbDatepicker" ngbDatepicker>
+                        <div class="input-group-btn" style="vertical-align: bottom !important;">
+                            <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button">
+                                <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                            </button>
+                        </div>
+                        <div class="input-group-btn" style="padding: 0 5px !important; vertical-align: bottom !important;">
+                            <span class="input-group-btn">
+                                <button class="btn blue bold" type="button" (click)="ClearNotificationEffectiveDate()"><i class="fa fa-remove"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmNotification.controls.NotificationEffectiveDate.errors?.required && isSubmited"> Please enter Notification Effective Date </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="GSRNo" id="txtGSRNo" />
+                        <label for="txtGSRNo">GSR No.</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmNotification.controls.GSRNo.errors?.required && isSubmited"> Please enter GSR No. </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <label for="txtGSRDate" class="no-margin">GSR Date</label>
+                        <input class="form-control" placeholder="dd-mm-yyyy" name="dp" [minDate]="minDate" formControlName="GSRDate" [value]="(frmNotification.controls.GSRDate.value) ? (frmNotification.controls.GSRDate.value.day + '-' + frmNotification.controls.GSRDate.value.month + '-' + frmNotification.controls.GSRDate.value.year) : frmNotification.controls.GSRDate.value" readonly="readonly" #d3="ngbDatepicker" ngbDatepicker>
+                        <div class="input-group-btn" style="vertical-align: bottom !important;">
+                            <button class="btn btn-outline-secondary" (click)="d3.toggle()" type="button">
+                                <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                            </button>
+                        </div>
+                        <div class="input-group-btn" style="padding: 0 5px !important; vertical-align: bottom !important;">
+                            <span class="input-group-btn">
+                                <button class="btn blue bold" type="button" (click)="ClearGSRDate()"><i class="fa fa-remove"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmNotification.controls.GSRDate.errors?.required && isSubmited"> Please enter GSR Date </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="MasterDirectionId" id="txtMasterDirection">
+                            <option *ngFor="let item of masterDirections" [value]="item.MasterDirectionId">{{item.MasterDirectionName}}</option>
+                        </select>
+                        <label for="txtMasterDirection">Master Direction</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Upload Notification PDF : </label>
+                        <input type="file" (change)="notificationPDFChange($event)" placeholder="Upload Notification PDF" class="form-control" accept=".pdf">
+                        <a href="{{notificationPDFServerPath + notificationPDFName}}" *ngIf="notificationPDFName && frmNotification.value.NotificationId" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;"></i>{{(notificationPDFName) ? (notificationPDFName.split('_')[1]) ? notificationPDFName.split('_')[1] : notificationPDFName.split('_')[0] : notificationPDFName}}</a>
+                        <input type="hidden" formControlName="NotificationPDF" />
+                        <span class="help-block has-error" *ngIf="frmNotification.controls.NotificationPDF.errors?.required && isSubmited"> Please Upload Notification PDF file </span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Upload GSR PDF : </label>
+                        <input type="file" (change)="gSRPDFChange($event)" placeholder="Upload GSR PDF" class="form-control" accept=".pdf">
+                        <a href="{{gSRPDFServerPath + gSRPDFName}}" *ngIf="gSRPDFName && frmNotification.value.NotificationId" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;"></i>{{(gSRPDFName) ? (gSRPDFName.split('_')[1]) ? gSRPDFName.split('_')[1] : gSRPDFName.split('_')[0] : gSRPDFName}}</a>
+                        <input type="hidden" formControlName="GSRPDF" />
+                        <!--<span class="help-block has-error" *ngIf="frmNotification.controls.GSRPDF.errors?.required && isSubmited"> Please Upload GSR PDF file </span>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelNotification()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

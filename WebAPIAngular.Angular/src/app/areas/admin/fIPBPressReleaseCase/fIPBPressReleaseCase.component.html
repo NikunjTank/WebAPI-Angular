@@ -1,0 +1,41 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} FIPB Press Release Case
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitFIPBPressReleaseCase(frmFIPBPressReleaseCase)" [formGroup]="frmFIPBPressReleaseCase">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="MinistryName" id="txtMinistryName" />
+                        <label for="txtMinistryName">Ministry Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFIPBPressReleaseCase.controls.MinistryName.errors?.required && isSubmited"> Please enter Ministry Name </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="MeetingNo_Detail" id="txtMeetingNo_Detail" />
+                        <label for="txtMeetingNo_Detail">Meeting No. / Detail</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFIPBPressReleaseCase.controls.MeetingNo_Detail.errors?.required && isSubmited"> Please enter Meeting No. / Detail </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Upload PDF : </label>
+                        <input type="file" (change)="fileChange($event)" placeholder="Upload file" class="form-control" accept=".pdf">
+                        <a href="{{pdfServerPath + fIPBPressReleaseCasePDFName}}" *ngIf="fIPBPressReleaseCasePDFName && frmFIPBPressReleaseCase.value.FIPBPressReleaseCaseId" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;"></i>{{(fIPBPressReleaseCasePDFName) ? fIPBPressReleaseCasePDFName.substr(fIPBPressReleaseCasePDFName.indexOf('_') + 1) : fIPBPressReleaseCasePDFName}}</a>
+                        <input type="hidden" formControlName="PDF" />
+                        <span class="help-block has-error" *ngIf="frmFIPBPressReleaseCase.controls.PDF.errors?.required && isSubmited"> Please Upload PDF file </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelFIPBPressReleaseCase()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

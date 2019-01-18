@@ -1,0 +1,98 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>Sector Detail Details
+        </div>
+    </div>
+    <div class="portlet-body form label-color">
+        <div class="form-body">
+            <h4 class="form-section no-margin">Sector</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-4 no-space text-right"><label><b>Name</b> : </label></div>
+                        <div class="col-md-8 no-space"><label class="text-left-margin">{{sector.Name}}</label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Sector Detail
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitSectorDetail(frmSectorDetail)" [formGroup]="frmSectorDetail">
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="SubSectorId" id="txtSubSectorId">
+                            <option *ngFor="let item of subSectors" [value]="item.SubSectorId">{{item.Name}}</option>
+                        </select>
+                        <label for="txtSubSectorId">Sub Sector</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="Year" id="txtYear">
+                            <option *ngFor="let item of sectorDetailYears" [value]="item.YearId">{{item.YearName}}</option>
+                        </select>
+                        <label for="txtYear">Year</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmSectorDetail.controls.Year.errors?.required && isSubmited"> Please enter Year </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-md-line-input no-margin">
+                        <!--<select class="form-control" formControlName="PressNoteId" id="txtPressNoteId" #drpPressNote>
+                            <option *ngFor="let item of pressNotes" [value]="item.PressNoteId">{{item.PressNoteNo}}</option>
+                        </select>-->
+                        <label for="txtPressNoteId">PressNote</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedPressNotes"
+                                                 formControlName="PressNoteId"
+                                                 [data]="pressNotes"
+                                                 [settings]="pressNoteDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <!--<span class="help-block has-error" *ngIf="frmSectorDetail.controls.PressNoteId.errors?.required && isSubmited"> Please select PressNote </span>-->
+                </div>
+                <div class="col-md-3">
+                    <div class="form-md-line-input no-margin">
+                        <!--<select class="form-control" formControlName="NotificationId" id="txtNotificationId">
+                            <option *ngFor="let item of notifications" [value]="item.NotificationId">{{item.NotificationNumber}}</option>
+                        </select>-->
+                        <label for="txtNotificationId">Notification</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedNotifications"
+                                                 formControlName="NotificationId"
+                                                 [data]="notifications"
+                                                 [settings]="notificationDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-md-line-input no-margin">
+                        <!--<select class="form-control" formControlName="APDIRCircularId" id="txtAPDIRCircularId">
+                            <option *ngFor="let item of aPDIRCirculars" [value]="item.APDIRCircularId">{{item.APDIRCircularNo + (item.APDIRCircularDate ? (' (' + (item.APDIRCircularDate | date:'dd-MM-yyyy') + ')') : '')}}</option>
+                        </select>-->
+                        <label for="txtAPDIRCircularId">AP DIR Circular</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedAPDIRCirculars"
+                                                 formControlName="APDIRCircularId"
+                                                 [data]="aPDIRCirculars"
+                                                 [settings]="aPDIRCircularDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelSectorDetail()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

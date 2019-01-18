@@ -1,0 +1,82 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>Feters Code Details
+        </div>
+    </div>
+    <div class="portlet-body form label-color">
+        <div class="form-body">
+            <h4 class="form-section no-margin">Feters Code</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-4 no-space text-right"><label><b>Feters Code Name</b> : </label></div>
+                        <div class="col-md-8 no-space"><label class="text-left-margin">{{fetersCode.FetersCodeName}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>PDF</b> : </label></div>
+                        <div class="col-md-6 no-space"><a href="{{pdfServerPath + fetersCode.PDF}}" *ngIf="fetersCode.PDF" target="_blank" class="text-left-margin"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;"></i>{{(fetersCode.PDF) ? fetersCode.PDF.split('_')[1] : fetersCode.PDF}}</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Feters Code Detail
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitFetersCodeDetailGroup(frmFetersCodeDetailGroup)" [formGroup]="frmFetersCodeDetailGroup" *ngIf="(fetersCode.FetersCodeName != 'Liberalised Remittance Scheme Purpose Codes')">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input  margin-bottom">
+                        <input type="text" class="form-control" formControlName="GroupNo" id="txtGroupNo" />
+                        <label for="txtGroupNo">Group No</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFetersCodeDetailGroup.controls.GroupNo.errors?.required && isSubmited"> Please enter Group No </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input  margin-bottom">
+                        <input type="text" class="form-control" formControlName="PurposeGroupName" id="txtPurposeGroupName" />
+                        <label for="txtPurposeGroupName">Purpose Group Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFetersCodeDetailGroup.controls.PurposeGroupName.errors?.required && isSubmited"> Please enter Purpose Group Name </span>
+                </div>
+            </div>
+            
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelFetersCodeDetail()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+        <form novalidate (ngSubmit)="OnSubmitFetersCodeDetailLRS(frmFetersCodeDetailLRS)" [formGroup]="frmFetersCodeDetailLRS" *ngIf="(fetersCode.FetersCodeName == 'Liberalised Remittance Scheme Purpose Codes')">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input  margin-bottom">
+                        <input type="text" class="form-control" formControlName="LRSItem" id="txtLRSItem" />
+                        <label for="txtLRSItem">LRS Item</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFetersCodeDetailLRS.controls.LRSItem.errors?.required && isSubmited"> Please enter LRS Item </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input  margin-bottom">
+                        <input type="text" class="form-control" formControlName="LRSFetersCode" id="txtLRSFetersCode" />
+                        <label for="txtLRSFetersCode">LRS Feters Code</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFetersCodeDetailLRS.controls.LRSFetersCode.errors?.required && isSubmited"> Please enter LRS Feters Code </span>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelFetersCodeDetail()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

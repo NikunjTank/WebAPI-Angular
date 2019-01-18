@@ -1,0 +1,178 @@
+﻿<div class="row header-bottom-margin">
+    <div class="col-md-offset-6 col-md-6 text-right">
+        <a [routerLink]="['/admin/secure/apdircircular']">
+            <span class="add-button btn default full-width pull-right" style="margin-top: 4px;"><i class="fa fa-plus"></i> Add</span>
+        </a>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>AP DIR Circulars ({{totalRecords}})
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-1">
+                <select class="form-control" (change)="OnPageSizeChange()" [(ngModel)]="drpPageSize">
+                    <option *ngFor="let size of pageSizes">{{size}}</option>
+                </select>
+            </div>
+            <div class="col-sm-3 col-sm-offset-8">
+                <form novalidate (ngSubmit)="SearchAPDIRCircular(frmAPDIRCircular)" [formGroup]="frmAPDIRCircular">
+                    <div class="input-group stylish-input-group">
+                        <input type="text" class="form-control" placeholder="Search here" formControlName="SearchText" #txtSearch>
+                        <span class="input-group-addon">
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-scrollable">
+            <input type="hidden" id="hdnCurrentPage" value="0" />
+            <table class="table table-striped table-responsive table-advance table-hover">
+                <thead>
+                    <tr class="grey-mint">
+                        <th style="width: 40px;">Before AP DIR Circular</th>
+                        <th style="width: 40px;">After AP DIR Circular</th>
+                        <th class="text-center" style="width: 70px;">Action</th>
+                        <th (click)="OnAPDIRCircularSort('Year')" class="pointer-cursor">Year <i class="fa {{sortingAPDIRCircularField == 'Year' ? (sortingAPDIRCircularDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                        <th (click)="OnAPDIRCircularSort('MasterDirectionName')" class="pointer-cursor">Master Direction Name <i class="fa {{sortingAPDIRCircularField == 'MasterDirectionName' ? (sortingAPDIRCircularDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                        <th (click)="OnAPDIRCircularSort('APDIRCircularNo')" class="pointer-cursor">AP DIR Circular No <i class="fa {{sortingAPDIRCircularField == 'APDIRCircularNo' ? (sortingAPDIRCircularDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                        <th (click)="OnAPDIRCircularSort('APDIRCircularName')" class="pointer-cursor">AP DIR Circular Name <i class="fa {{sortingAPDIRCircularField == 'APDIRCircularName' ? (sortingAPDIRCircularDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                        <th (click)="OnAPDIRCircularSort('APDIRCircularDate')" class="pointer-cursor">AP DIR Circular Date <i class="fa {{sortingAPDIRCircularField == 'APDIRCircularDate' ? (sortingAPDIRCircularDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                        <th (click)="OnAPDIRCircularSort('APDIRCircularEffectiveDate')" class="pointer-cursor">AP DIR Circular EfectiveDate <i class="fa {{sortingAPDIRCircularField == 'APDIRCircularEffectiveDate' ? (sortingAPDIRCircularDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                        <th class="text-center">AP DIR Circular PDF</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!aPDIRCirculars">
+                        <td colspan="10" class="text-center"><label>Loading data. Please wait...</label></td>
+                    </tr>
+                    <tr *ngIf="aPDIRCirculars && aPDIRCirculars.length == 0">
+                        <td colspan="10" class="text-center"><label>No AP DIR Circular Found!</label></td>
+                    </tr>
+                    <ng-template ngFor let-aPDIRCircular let-i="index" [ngForOf]="aPDIRCirculars">
+                        <tr class="text-nowrap">
+                            <td class="text-center">
+                                <i *ngIf="aPDIRCirculars && aPDIRCirculars.length > 1" class="fa fa-chevron-right pointer-cursor rotate plus-color font-16 margin-right-10 {{itemDetailAPDIRCirculars1.index === i ? 'down' : ''}}" (click)="ShowAPDIRCircularBefore(i, aPDIRCircular.APDIRCircularId)"></i>
+                                <a *ngIf="aPDIRCirculars && aPDIRCirculars.length > 1" (click)="AddAPDIRCircularBefore(aPDIRCircular.APDIRCircularId, i)" title="Add Before AP DIR Circular"><i class="fa fa-plus pointer-cursor plus-color font-16"></i></a>
+                            </td>
+                            <td class="text-center">
+                                <i *ngIf="aPDIRCirculars && aPDIRCirculars.length > 1" class="fa fa-chevron-right pointer-cursor rotate plus-color font-16 margin-right-10 {{itemDetailAPDIRCirculars2.index === i ? 'down' : ''}}" (click)="ShowAPDIRCircularAfter(i, aPDIRCircular.APDIRCircularId)"></i>
+                                <a *ngIf="aPDIRCirculars && aPDIRCirculars.length > 1" (click)="AddAPDIRCircularAfter(aPDIRCircular.APDIRCircularId, i)" title="Add After AP DIR Circular"><i class="fa fa-plus pointer-cursor plus-color font-16"></i></a>
+                            </td>
+                            <td class="text-center">
+                                <a (click)="EditAPDIRCircular(aPDIRCircular.APDIRCircularId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                <a title="Delete" (click)="DeleteAPDIRCircular(aPDIRCircular.APDIRCircularId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                            </td>
+                            <td>{{aPDIRCircular.APDIRCircularYearName}}</td>
+                            <td>{{aPDIRCircular.MasterDirectionName}}</td>
+                            <td>{{aPDIRCircular.APDIRCircularNo}}</td>
+                            <td>{{aPDIRCircular.APDIRCircularName}}</td>
+                            <td>{{aPDIRCircular.APDIRCircularDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{aPDIRCircular.APDIRCircularEffectiveDate | date:'dd-MM-yyyy'}}</td>
+                            <!--<td><a href="{{pdfServerPath + aPDIRCircular.APDIRCircularPDF}}" target="_blank">{{(aPDIRCircular.APDIRCircularPDF) ? aPDIRCircular.APDIRCircularPDF.substr(aPDIRCircular.APDIRCircularPDF.indexOf('_') + 1) : aPDIRCircular.APDIRCircularPDF}}</a></td>-->
+                            <td class="text-center"><a href="{{pdfServerPath + aPDIRCircular.APDIRCircularPDF}}" target="_blank"><i class="fa fa-file-pdf-o font-16" style="color:red;"></i></a></td>
+                        </tr>
+                        <tr class="text-nowrap {{itemDetailAPDIRCirculars1.index === i || itemDetailAPDIRCirculars2.index === i ? '' : 'hide'}}">
+                            <td></td>
+                            <td colspan="10">
+                                <div class="panel panel-default table-scrollable {{itemDetailAPDIRCirculars1.index === i ? '' : 'hide'}}" style="margin-top: 0 !important;">
+                                    <div class="panel-heading"><b>Before AP DIR Circular</b></div>
+                                    <div class="panel-body">
+                                        <table class="table table-striped table-responsive table-advance table-hover">
+                                            <thead>
+                                                <tr class="grey-mint">
+                                                    <th class="text-center" style="width: 70px;">Action</th>
+                                                    <th (click)="OnAPDIRCircularBeforeSort('Year')" class="pointer-cursor">Year <i class="fa {{sortingAPDIRCircularBeforeField == 'Year' ? (sortingAPDIRCircularBeforeDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th (click)="OnAPDIRCircularBeforeSort('APDIRCircularNo')" class="pointer-cursor">AP DIR Circular No <i class="fa {{sortingAPDIRCircularBeforeField == 'APDIRCircularNo' ? (sortingAPDIRCircularBeforeDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th (click)="OnAPDIRCircularBeforeSort('APDIRCircularName')" class="pointer-cursor">AP DIR Circular Name <i class="fa {{sortingAPDIRCircularBeforeField == 'APDIRCircularName' ? (sortingAPDIRCircularBeforeDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th (click)="OnAPDIRCircularBeforeSort('APDIRCircularDate')" class="pointer-cursor">AP DIR Circular Date <i class="fa {{sortingAPDIRCircularBeforeField == 'APDIRCircularDate' ? (sortingAPDIRCircularBeforeDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th (click)="OnAPDIRCircularBeforeSort('APDIRCircularEffectiveDate')" class="pointer-cursor">AP DIR Circular EfectiveDate <i class="fa {{sortingAPDIRCircularBeforeField == 'APDIRCircularEffectiveDate' ? (sortingAPDIRCircularBeforeDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th class="text-center">AP DIR Circular PDF</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngIf="!aPDIRCircularBefores">
+                                                    <td colspan="7" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                </tr>
+                                                <tr *ngIf="aPDIRCircularBefores && aPDIRCircularBefores.length == 0">
+                                                    <td colspan="7" class="text-center"><label>No Before AP DIR Circular Found!</label></td>
+                                                </tr>
+                                                <ng-template ngFor let-aPDIRCircularBefore let-j="index" [ngForOf]="aPDIRCircularBefores">
+                                                    <tr class="text-nowrap">
+                                                        <td class="text-center">
+                                                            <a (click)="EditAPDIRCircularBefore(aPDIRCircularBefore.APDIRCircularBeforeId, aPDIRCircular.APDIRCircularId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                                            <a title="Delete" (click)="DeleteAPDIRCircularBefore(aPDIRCircular.APDIRCircularId, aPDIRCircularBefore.APDIRCircularBeforeId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                                                        </td>
+                                                        <td>{{aPDIRCircularBefore.APDIRCircularYearName}}</td>
+                                                        <td>{{aPDIRCircularBefore.APDIRCircularNo}}</td>
+                                                        <td>{{aPDIRCircularBefore.APDIRCircularName}}</td>
+                                                        <td>{{aPDIRCircularBefore.APDIRCircularDate | date:'dd-MM-yyyy'}}</td>
+                                                        <td>{{aPDIRCircularBefore.APDIRCircularEffectiveDate | date:'dd-MM-yyyy'}}</td>
+                                                        <td class="text-center"><a href="{{pdfServerPath + aPDIRCircularBefore.APDIRCircularPDF}}" target="_blank"><i class="fa fa-file-pdf-o font-16" style="color:red;"></i></a></td>
+                                                    </tr>
+                                                </ng-template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default table-scrollable {{itemDetailAPDIRCirculars2.index === i ? '' : 'hide'}}" style="margin-top: 0 !important;">
+                                    <div class="panel-heading"><b>After AP DIR Circular</b></div>
+                                    <div class="panel-body">
+                                        <table class="table table-striped table-responsive table-advance table-hover">
+                                            <thead>
+                                                <tr class="grey-mint">
+                                                    <th class="text-center" style="width: 70px;">Action</th>
+                                                    <th (click)="OnAPDIRCircularAfterSort('Year')" class="pointer-cursor">Year <i class="fa {{sortingAPDIRCircularAfterField == 'Year' ? (sortingAPDIRCircularAfterDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th (click)="OnAPDIRCircularAfterSort('APDIRCircularNo')" class="pointer-cursor">AP DIR Circular No <i class="fa {{sortingAPDIRCircularAfterField == 'APDIRCircularNo' ? (sortingAPDIRCircularAfterDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th (click)="OnAPDIRCircularAfterSort('APDIRCircularName')" class="pointer-cursor">AP DIR Circular Name <i class="fa {{sortingAPDIRCircularAfterField == 'APDIRCircularName' ? (sortingAPDIRCircularAfterDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th (click)="OnAPDIRCircularAfterSort('APDIRCircularDate')" class="pointer-cursor">AP DIR Circular Date <i class="fa {{sortingAPDIRCircularAfterField == 'APDIRCircularDate' ? (sortingAPDIRCircularAfterDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th (click)="OnAPDIRCircularAfterSort('APDIRCircularEffectiveDate')" class="pointer-cursor">AP DIR Circular EfectiveDate <i class="fa {{sortingAPDIRCircularAfterField == 'APDIRCircularEffectiveDate' ? (sortingAPDIRCircularAfterDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th class="text-center">AP DIR Circular PDF</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngIf="!aPDIRCircularAfters">
+                                                    <td colspan="7" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                </tr>
+                                                <tr *ngIf="aPDIRCircularAfters && aPDIRCircularAfters.length == 0">
+                                                    <td colspan="7" class="text-center"><label>No After AP DIR Circular Found!</label></td>
+                                                </tr>
+                                                <ng-template ngFor let-aPDIRCircularAfter let-j="index" [ngForOf]="aPDIRCircularAfters">
+                                                    <tr class="text-nowrap">
+                                                        <td class="text-center">
+                                                            <a (click)="EditAPDIRCircularAfter(aPDIRCircularAfter.APDIRCircularAfterId, aPDIRCircular.APDIRCircularId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                                            <a title="Delete" (click)="DeleteAPDIRCircularAfter(aPDIRCircular.APDIRCircularId, aPDIRCircularAfter.APDIRCircularAfterId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                                                        </td>
+                                                        <td>{{aPDIRCircularAfter.APDIRCircularYearName}}</td>
+                                                        <td>{{aPDIRCircularAfter.APDIRCircularNo}}</td>
+                                                        <td>{{aPDIRCircularAfter.APDIRCircularName}}</td>
+                                                        <td>{{aPDIRCircularAfter.APDIRCircularDate | date:'dd-MM-yyyy'}}</td>
+                                                        <td>{{aPDIRCircularAfter.APDIRCircularEffectiveDate | date:'dd-MM-yyyy'}}</td>
+                                                        <td class="text-center"><a href="{{pdfServerPath + aPDIRCircularAfter.APDIRCircularPDF}}" target="_blank"><i class="fa fa-file-pdf-o font-16" style="color:red;"></i></a></td>
+                                                    </tr>
+                                                </ng-template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

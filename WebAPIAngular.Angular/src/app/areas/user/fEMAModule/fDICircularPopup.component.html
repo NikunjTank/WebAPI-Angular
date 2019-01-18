@@ -1,0 +1,415 @@
+﻿<div class="modalLRForm " id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="search_result">
+                    <div class="card">
+                        <ul class="nav nav-tabs justify-content-center" role="tablist">
+                            <li role="presentation" (click)="OnModuleTabClick('foreigndirectinvestmentpolicycirculars')"><a href="#tab1" [class.tab-active]="moduleTab == 'foreigndirectinvestmentpolicycirculars'" aria-controls="tab1" role="tab" data-toggle="tab">Foreign Direct Investment Policy Circulars</a></li>
+                            <li role="presentation" (click)="OnModuleTabClick('pressnotes')"><a href="#tab2" [class.tab-active]="moduleTab == 'pressnotes'" aria-controls="tab2" role="tab" data-toggle="tab">Press Notes</a></li>
+                            <li role="presentation" (click)="OnModuleTabClick('dippfaq')"><a href="#tab3" [class.tab-active]="moduleTab == 'dippfaq'" aria-controls="tab3" role="tab" data-toggle="tab">DIPP FAQs</a></li>
+                        </ul>
+                        <div class="tab-content no-padding">
+                            <div role="tabpanel" class="tab-pane active" id="tab1">
+                                <div class="search_result top-padding-20px" id="inn-pop">
+                                    <div class="card">
+                                        <ul class="nav nav-tabs no-margin" role="tablist">
+                                            <li role="presentation" (click)="OnGridViewIndexAmendmentTabClick('gridview')"><a href="#gridview" [class.tab-active]="gridviewIndexAmendmentTab == 'gridview'" aria-controls="gridview" role="tab" data-toggle="tab">Grid View</a></li>
+                                            <li role="presentation" (click)="OnGridViewIndexAmendmentTabClick('indexAmendment')"><a href="#contentAmendment" [class.tab-active]="gridviewIndexAmendmentTab == 'indexAmendment'" aria-controls="contentAmendment" role="tab" data-toggle="tab">Content / Amendments</a></li>
+                                        </ul>
+                                        <div class="tab-content no-padding">
+                                            <div role="tabpanel" class="tab-pane active" id="gridview">
+                                                <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                                                    <div class="tab-hg">
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead class="thead_bg">
+                                                                    <tr class="grey-mint text-nowrap">
+                                                                        <th scope="col">FDI Circular Name</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngIf="!fDICirculars">
+                                                                        <td colspan="8" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                    </tr>
+                                                                    <tr *ngIf="fDICirculars && fDICirculars.length == 0">
+                                                                        <td colspan="8" class="text-center"><label>No FDI Circular Found!</label></td>
+                                                                    </tr>
+                                                                    <ng-template ngFor let-fDICircular let-i="index" [ngForOf]="fDICirculars">
+                                                                        <tr>
+                                                                            <td><a class="und" href="{{fDICircularPDFServerPath + fDICircular.PDF}}" target="_blank">{{fDICircular.FDICircularName}}</a></td>
+                                                                        </tr>
+                                                                    </ng-template>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="contentAmendment">
+                                                <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                                                    <div class="tab-hg">
+                                                        <div class="table-responsive">
+                                                            <!--<table class="table">
+                                                                <thead class="thead_bg">
+                                                                    <tr class="grey-mint ">
+                                                                        <th scope="col">Chapter</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngIf="!fDICircularChapters">
+                                                                        <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                    </tr>
+                                                                    <tr *ngIf="fDICircularChapters && fDICircularChapters.length == 0">
+                                                                        <td colspan="3" class="text-center"><label>No Chapter Found!</label></td>
+                                                                    </tr>
+                                                                    <ng-template ngFor let-fDICircularChapter let-i="index" [ngForOf]="fDICircularChapters">
+                                                                        <tr (click)="ShowFDICircularIndex(i, fDICircularChapter.FDIChapterId)">
+                                                                            <td>{{fDICircularChapter.Chapter}}</td>
+                                                                        </tr>
+                                                                        <tr class=" {{itemDetailFDICircularChapters.index === i ? '' : 'd-none'}} ">
+                                                                            <td colspan="2">
+                                                                                <div class="table-scrollable" style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                                                                                    <table class="table">
+                                                                                        <thead class="thead_bg">
+                                                                                            <tr class="grey-mint ">
+                                                                                                <th scope="col">Index Name</th>
+                                                                                                <th scope="col">Index Amendment Content</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            <tr *ngIf="!fDICircularIndexes">
+                                                                                                <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                                            </tr>
+                                                                                            <tr *ngIf="fDICircularIndexes && fDICircularIndexes.length == 0">
+                                                                                                <td colspan="3" class="text-center"><label>No Index Found!</label></td>
+                                                                                            </tr>
+                                                                                            <ng-template ngFor let-fDICircularIndex let-i="index" [ngForOf]="fDICircularIndexes">
+                                                                                                <tr (click)="ShowFDICircularSubIndex(i, fDICircularIndex.FDICircularIndexId)">
+                                                                                                    <td><a class="text-underline" (click)="ShowContent(fDICircularIndex.FDICircularIndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{fDICircularIndex.IndexNo + ' ' + fDICircularIndex.IndexName}}</a></td>
+                                                                                                    <td>
+                                                                                                        <ul>
+                                                                                                            <li *ngFor="let indexAmendment of fDICircularIndex.IndexAmendments" class="ulli">
+                                                                                                                <a class="text-underline" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.FDICircularIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a>
+                                                                                                            </li>
+                                                                                                        </ul>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr class=" {{itemDetailFDICircularIndexes.index === i ? '' : 'd-none'}} ">
+                                                                                                    <td colspan="2">
+                                                                                                        <div class="table-scrollable" style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                                                                                                            <table class="table">
+                                                                                                                <thead class="thead_bg">
+                                                                                                                    <tr class="grey-mint ">
+                                                                                                                        <th scope="col">SubIndex Name</th>
+                                                                                                                        <th scope="col">Index Amendment Content</th>
+                                                                                                                    </tr>
+                                                                                                                </thead>
+                                                                                                                <tbody>
+                                                                                                                    <tr *ngIf="!fDICircularSubIndexes">
+                                                                                                                        <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                                                                    </tr>
+                                                                                                                    <tr *ngIf="fDICircularSubIndexes && fDICircularSubIndexes.length == 0">
+                                                                                                                        <td colspan="3" class="text-center"><label>No SubIndex Found!</label></td>
+                                                                                                                    </tr>
+                                                                                                                    <ng-template ngFor let-fDICircularSubIndex let-i="index" [ngForOf]="fDICircularSubIndexes">
+                                                                                                                        <tr>
+                                                                                                                            <td><a class="text-underline" (click)="ShowContent(fDICircularIndex.FDICircularIndexId, fDICircularSubIndex.FDICircularSubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{fDICircularSubIndex.SubIndexNo + ' ' + fDICircularSubIndex.SubIndexName}}</a></td>
+                                                                                                                            <td>
+                                                                                                                                <ul>
+                                                                                                                                    <li *ngFor="let indexAmendment of fDICircularSubIndex.SubIndexAmendments" class="ulli">
+                                                                                                                                        <a class="text-underline" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.FDICircularIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a>
+                                                                                                                                    </li>
+                                                                                                                                </ul>
+                                                                                                                            </td>
+                                                                                                                        </tr>
+                                                                                                                    </ng-template>
+                                                                                                                </tbody>
+                                                                                                            </table>
+                                                                                                        </div>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </ng-template>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </ng-template>
+                                                                </tbody>
+                                                            </table>-->
+                                                            <table class="table">
+                                                                <thead class="thead_bg">
+                                                                    <tr class="grey-mint ">
+                                                                        <th colspan="2" scope="col">Chapter / Index / Sub-index Content</th>
+                                                                        <th scope="col">Index / Sub-index Amendment</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngIf="!fDICircularChapters">
+                                                                        <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                    </tr>
+                                                                    <tr *ngIf="fDICircularChapters && fDICircularChapters.length == 0">
+                                                                        <td colspan="3" class="text-center"><label>No Chapter Found!</label></td>
+                                                                    </tr>
+                                                                    <ng-template ngFor let-fDICircularChapter let-i="index" [ngForOf]="fDICircularChapters">
+                                                                        <tr (click)="ShowFDICircularIndex(i, fDICircularChapter.FDIChapterId)" class="background-grey">
+                                                                            <td colspan="3">{{fDICircularChapter.Chapter}}</td>
+                                                                        </tr>
+                                                                        <ng-template ngFor let-fDICircularIndex let-j="index" [ngForOf]="fDICircularIndexes" *ngIf="itemDetailFDICircularChapters.index === i">
+                                                                            <tr (click)="ShowFDICircularSubIndex(j, fDICircularIndex.FDICircularIndexId)">
+                                                                                <td class="text-center text-nowrap"><a class="text-underline" (click)="ShowContent(fDICircularIndex.FDICircularIndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{fDICircularIndex.IndexNo}}</a></td>
+                                                                                <td><a class="text-underline" (click)="ShowContent(fDICircularIndex.FDICircularIndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{fDICircularIndex.IndexName}}</a></td>
+                                                                                <td>
+                                                                                    <table>
+                                                                                        <tbody>
+                                                                                            <ng-template ngFor let-indexAmendment [ngForOf]="fDICircularIndex.IndexAmendments">
+                                                                                                <tr *ngIf="indexAmendment.PressNotes" class="ulli no-border">
+                                                                                                    <td class="no-border">
+                                                                                                        <ng-template ngFor let-item [ngForOf]="indexAmendment.PressNotes.split(';;')">
+                                                                                                            <a class="und" href="{{pressNotePDFServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}} dated {{item.split('||')[2] | date:'dd-MM-yyyy'}}</a><br />
+                                                                                                        </ng-template>
+                                                                                                    </td>
+                                                                                                    <td class="no-border"><a class="text-underline und" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.FDICircularIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                                </tr>
+                                                                                            </ng-template>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <ng-template ngFor let-fDICircularSubIndex let-k="index" [ngForOf]="fDICircularSubIndexes" *ngIf="itemDetailFDICircularIndexes.index === j">
+                                                                                <tr>
+                                                                                    <td class="text-center text-nowrap"><a class="text-underline" (click)="ShowContent(fDICircularIndex.FDICircularIndexId, fDICircularSubIndex.FDICircularSubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{fDICircularSubIndex.SubIndexNo}}</a></td>
+                                                                                    <td><a class="text-underline" (click)="ShowContent(fDICircularIndex.FDICircularIndexId, fDICircularSubIndex.FDICircularSubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{fDICircularSubIndex.SubIndexName}}</a></td>
+                                                                                    <td>
+                                                                                        <table>
+                                                                                            <tbody>
+                                                                                                <ng-template ngFor let-indexAmendment [ngForOf]="fDICircularSubIndex.SubIndexAmendments">
+                                                                                                    <tr *ngIf="indexAmendment.PressNotes" class="ulli no-border">
+                                                                                                        <td class="no-border">
+                                                                                                            <ng-template ngFor let-item [ngForOf]="indexAmendment.PressNotes.split(';;')">
+                                                                                                                <a class="und" href="{{pressNotePDFServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}} dated {{item.split('||')[2] | date:'dd-MM-yyyy'}}</a><br />
+                                                                                                            </ng-template>
+                                                                                                        </td>
+                                                                                                        <td class="no-border"><a class="text-underline und" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.FDICircularIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                                    </tr>
+                                                                                                </ng-template>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </ng-template>
+                                                                        </ng-template>
+                                                                    </ng-template>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="select_fdi_menu top-padding-20px">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-6">
+                                            <select class="form-control" (change)="OnFDICircularChange(drpFDICircular.value)" #drpFDICircular>
+                                                <option *ngFor="let item of fDICirculars" [value]="item.FDICircularId">{{item.FDICircularName}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1 no-padding-left">
+                                            <a href="{{fDICircularPDFServerPath + fDICircularPDFName}}" target="_blank"><i class="fa fa-file-pdf-o" style="margin-left: 5px;color: red;font-size: 27px;margin-top: 2px"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="row top-padding-20px">
+                                        <div class="col-md-12">
+                                            <span *ngIf="fDICircularRBIFAQs.length > 0" style="margin-right:5px;">RBI FAQs:</span>
+                                            <span *ngFor="let item of fDICircularRBIFAQs">
+                                                <a href="{{fAQPDFServerPath + item.PDF}}" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;font-size:20px;"></i></a>
+                                            </span>
+                                            <span *ngIf="fDICircularDIPPFAQs.length > 0" style="margin-right:5px;">DIPP FAQs:</span>
+                                            <span *ngFor="let item of fDICircularDIPPFAQs">
+                                                <a href="{{fAQPDFServerPath + item.PDF}}" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;font-size:20px;"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                                        <div class="tab-hg">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead class="thead_bg">
+                                                        <tr class="grey-mint ">
+                                                            <th colspan="2" scope="col">Chapter / Index / Sub-index Content</th>
+                                                            <th scope="col">Index / Sub-index Amendment</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngIf="!fDICircularChapters">
+                                                            <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                        </tr>
+                                                        <tr *ngIf="fDICircularChapters && fDICircularChapters.length == 0">
+                                                            <td colspan="3" class="text-center"><label>No Chapter Found!</label></td>
+                                                        </tr>
+                                                        <ng-template ngFor let-fDICircularChapter let-i="index" [ngForOf]="fDICircularChapters">
+                                                            <tr (click)="ShowFDICircularIndex(i, fDICircularChapter.FDIChapterId)" class="background-grey">
+                                                                <td colspan="3">{{fDICircularChapter.Chapter}}</td>
+                                                            </tr>
+                                                            <ng-template ngFor let-fDICircularIndex let-j="index" [ngForOf]="fDICircularIndexes" *ngIf="itemDetailFDICircularChapters.index === i">
+                                                                <tr (click)="ShowFDICircularSubIndex(j, fDICircularIndex.FDICircularIndexId)">
+                                                                    <td class="text-center text-nowrap"><a class="text-underline" (click)="ShowContent(fDICircularIndex.FDICircularIndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{fDICircularIndex.IndexNo}}</a></td>
+                                                                    <td><a class="text-underline" (click)="ShowContent(fDICircularIndex.FDICircularIndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{fDICircularIndex.IndexName}}</a></td>
+                                                                    <td>
+                                                                        <table>
+                                                                            <tbody>
+                                                                                <ng-template ngFor let-indexAmendment [ngForOf]="fDICircularIndex.IndexAmendments">
+                                                                                    <tr *ngIf="indexAmendment.PressNoteNo" class="ulli no-border">
+                                                                                        <td class="no-border"><a class="und" href="{{pressNotePDFServerPath + indexAmendment.PDF}}" target="_blank">{{indexAmendment.PressNoteNo}} dated {{indexAmendment.PressNoteDate | date:'dd-MM-yyyy'}}</a></td>
+                                                                                        <td class="no-border"><a class="text-underline und" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.FDICircularIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                    </tr>
+                                                                                </ng-template>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <ng-template ngFor let-fDICircularSubIndex let-k="index" [ngForOf]="fDICircularSubIndexes" *ngIf="itemDetailFDICircularIndexes.index === j">
+                                                                    <tr>
+                                                                        <td class="text-center text-nowrap"><a class="text-underline" (click)="ShowContent(fDICircularIndex.FDICircularIndexId, fDICircularSubIndex.FDICircularSubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{fDICircularSubIndex.SubIndexNo}}</a></td>
+                                                                        <td><a class="text-underline" (click)="ShowContent(fDICircularIndex.FDICircularIndexId, fDICircularSubIndex.FDICircularSubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{fDICircularSubIndex.SubIndexName}}</a></td>
+                                                                        <td>
+                                                                            <table>
+                                                                                <tbody>
+                                                                                    <ng-template ngFor let-indexAmendment [ngForOf]="fDICircularSubIndex.SubIndexAmendments">
+                                                                                        <tr *ngIf="indexAmendment.PressNoteNo" class="ulli no-border">
+                                                                                            <td class="no-border"><a class="und" href="{{pressNotePDFServerPath + indexAmendment.PDF}}" target="_blank">{{indexAmendment.PressNoteNo}} dated {{indexAmendment.PressNoteDate | date:'dd-MM-yyyy'}}</a></td>
+                                                                                            <td class="no-border"><a class="text-underline und" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.FDICircularIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                        </tr>
+                                                                                    </ng-template>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </ng-template>
+                                                            </ng-template>
+                                                        </ng-template>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>-->
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab2">
+                                <div class="select_fdi_menu top-padding-20px">
+                                    <div class="row justify-content-between">
+                                        <div class="col-md-2">
+                                            <select class="form-control" (change)="OnPressNoteYearChange(drpYear.value)" [(ngModel)]="pressNoteYear" #drpYear>
+                                                <option *ngFor="let item of pressNoteYears" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <form novalidate (ngSubmit)="SearchPressNote(frmPressNote)" [formGroup]="frmPressNote">
+                                                <span class="input-group-btn modules_searchs_wapper">
+                                                    <input class="modules_search form-control" placeholder="Search" type="text" formControlName="SearchText">
+                                                    <button class="modules_search_btn" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                                </span>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                                    <div class="tab-hg">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="thead_bg">
+                                                    <tr class="grey-mint text-nowrap">
+                                                        <th (click)="OnPressNoteSort('PressNoteNo')" class="pointer-cursor">Press Note No <i class="fa {{sortingPressNoteField == 'PressNoteNo' ? (sortingPressNoteDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                        <th (click)="OnPressNoteSort('PressNoteName')" class="pointer-cursor">Press Note Name <i class="fa {{sortingPressNoteField == 'PressNoteName' ? (sortingPressNoteDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                        <th (click)="OnPressNoteSort('PressNoteDate')" class="pointer-cursor">Press Note Date <i class="fa {{sortingPressNoteField == 'PressNoteDate' ? (sortingPressNoteDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngIf="!pressNoteOfFEMASubModuleDetails">
+                                                        <td colspan="10" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                    </tr>
+                                                    <tr *ngIf="pressNoteOfFEMASubModuleDetails && pressNoteOfFEMASubModuleDetails.length == 0">
+                                                        <td colspan="10" class="text-center"><label>No Notification Found!</label></td>
+                                                    </tr>
+                                                    <ng-template ngFor let-pressNoteOfFEMASubModuleDetail let-j="index" [ngForOf]="pressNoteOfFEMASubModuleDetails">
+                                                        <tr>
+                                                            <td><a class="und" href="{{pressNoteServerPath + pressNoteOfFEMASubModuleDetail.PressNotePDF}}" target="_blank">{{pressNoteOfFEMASubModuleDetail.PressNoteNo}}</a></td>
+                                                            <td><a class="und" href="{{pressNoteServerPath + pressNoteOfFEMASubModuleDetail.PressNotePDF}}" target="_blank">{{pressNoteOfFEMASubModuleDetail.PressNoteName}}</a></td>
+                                                            <td>{{pressNoteOfFEMASubModuleDetail.PressNoteDate | date:'dd-MM-yyyy'}}</td>
+                                                        </tr>
+                                                    </ng-template>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row top-padding-20px">
+                                    <div class="col-md-12 text-right">
+                                        <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab3">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 select_fdi_menu top-padding-20px">
+                                        <select class="form-control" (change)="OnChangeDIPPFAQ(ddlDIPPFAQ.value)" #ddlDIPPFAQ>
+                                            <option *ngFor="let item of dIPPFAQ" [value]="item.FAQId">{{item.TopicName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="fdi_box_poupu top-padding-20px" *ngIf="dIPPFAQPDFUrl">
+                                    <!--<iframe [src]='dIPPFAQPDFUrl' class="w-100" height="460" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+                                    <iframe [src]='dIPPFAQPDFUrl' class="w-100" id="iframe" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="modal fade poupu_modules poupu_modules03" id="indexAmendment" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="opacity: 1 !important;z-index: 9999 !important;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="border: 1px solid black !important;">
+                <div class="modal-body">
+                    <div class="modules_poupu_titel" style="right:27px; position:relative;">
+                        <a (click)="PreviousContent()" *ngIf="isPreviousButton" class="pre-btn"><span class="left-arrow"><</span> Previous</a>&nbsp;&nbsp;&nbsp;
+                        <a (click)="NextContent()" *ngIf="isNextButton" class="nex-btn">Next <span class="right-arrow">></span></a>
+                        <button type="button" class="pointer-cursor font-20px close-button close-round" data-dismiss="modal" aria-label="Close" title="CLOSE" style="line-height: 0.1;">x</button>
+                    </div>
+                    <div class="fdi_box_poupu">
+                        <div class="modules_tabel no-border modules_tabel03">
+                            <div [innerHTML]='indexAmendmentContent | safeHtml'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <div class="modal fade poupu_modules poupu_modules03" id="indexAmendment" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="opacity: 1 !important;z-index: 9999 !important;">
+        <div class="modal-dialog inn_pop" role="document">
+            <div class="modal-content" style="overflow:inherit;  box-shadow:2px 2px 36px -2px rgba(0,0,0,0.75);">
+                <div class="modal-body">
+                    <div class="modules_poupu_titel" style="right:27px; position:relative;">
+                       <div class="npbt-mob"> <label class="modal-header-title">{{popupHeaderTitle}}</label></div>
+                        <a (click)="PreviousContent()" *ngIf="isPreviousButton" class="pre-btn"><span class="left-arrow"><</span> Previous</a>&nbsp;&nbsp;&nbsp;
+                        <a (click)="NextContent()" *ngIf="isNextButton" class="nex-btn">Next <span class="right-arrow">></span></a>
+                        <button type="button" class="pointer-cursor close-button close-round" data-dismiss="modal" aria-label="Close" title="CLOSE" style="line-height: 0.1;">x</button>
+                    </div>
+                    <hr />
+                    <div class="fdi_box_poupu pop-up">
+                        <div class="modules_tabel no-border modules_tabel03">
+                            <div [innerHTML]='indexAmendmentContent | safeHtml'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

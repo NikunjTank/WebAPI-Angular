@@ -1,0 +1,96 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} AP DIR Circular
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitAPDIRCircular(frmAPDIRCircular)" [formGroup]="frmAPDIRCircular">
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="MasterDirectionId" id="txtMasterDirection">
+                            <option *ngFor="let item of masterDirections" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtMasterDirection">Master Direction</label>
+                    </div>
+                    <!--<span class="help-block has-error" *ngIf="frmAPDIRCircular.controls.MasterDirectionId.errors?.required && isSubmited"> Please select Master Direction </span>-->
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="Year" id="txtYear">
+                            <option *ngFor="let item of aPDIRCircularYears" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtYear">Year</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmAPDIRCircular.controls.Year.errors?.required && isSubmited"> Please select Year </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="APDIRCircularNo" id="txtAPDIRCircularNo" />
+                        <label for="txtAPDIRCircularNo">AP DIR Circular No</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmAPDIRCircular.controls.APDIRCircularNo.errors?.required && isSubmited"> Please enter AP DIR Circular No </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="APDIRCircularName" id="txtAPDIRCircularName" />
+                        <label for="txtAPDIRCircularName">AP DIR Circular Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmAPDIRCircular.controls.APDIRCircularName.errors?.required && isSubmited"> Please enter AP DIR Circular Name </span>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <label for="txtAPDIRCircularDate" class="no-margin">AP DIR Circular Date</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="dd-mm-yyyy" [minDate]="minDate" name="dp" formControlName="APDIRCircularDate" [value]="(frmAPDIRCircular.controls.APDIRCircularDate.value) ? (frmAPDIRCircular.controls.APDIRCircularDate.value.day + '-' + frmAPDIRCircular.controls.APDIRCircularDate.value.month + '-' + frmAPDIRCircular.controls.APDIRCircularDate.value.year) : frmAPDIRCircular.controls.APDIRCircularDate.value" readonly="readonly" #d1="ngbDatepicker" ngbDatepicker>
+                        <div class="input-group-btn" style="vertical-align: bottom !important;">
+                            <button class="btn btn-outline-secondary" (click)="d1.toggle()" type="button">
+                                <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                            </button>
+                        </div>
+                        <div class="input-group-btn" style="padding: 0 5px !important; vertical-align: bottom !important;">
+                            <span class="input-group-btn">
+                                <button class="btn blue bold" type="button" (click)="ClearAPDIRCircularDate()"><i class="fa fa-remove"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmAPDIRCircular.controls.APDIRCircularDate.errors?.required && isSubmited"> Please enter AP DIR Circular Date </span>
+                </div>
+                <div class="col-md-3">
+                    <label for="txtAPDIRCircularEffectiveDate" class="no-margin">AP DIR Circular EffectiveDate</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="dd-mm-yyyy" [minDate]="minDate" name="dp" formControlName="APDIRCircularEffectiveDate" [value]="(frmAPDIRCircular.controls.APDIRCircularEffectiveDate.value) ? (frmAPDIRCircular.controls.APDIRCircularEffectiveDate.value.day + '-' + frmAPDIRCircular.controls.APDIRCircularEffectiveDate.value.month + '-' + frmAPDIRCircular.controls.APDIRCircularEffectiveDate.value.year) : frmAPDIRCircular.controls.APDIRCircularEffectiveDate.value" readonly="readonly" #d2="ngbDatepicker" ngbDatepicker>
+                        <div class="input-group-btn" style="vertical-align: bottom !important;">
+                            <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button">
+                                <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                            </button>
+                        </div>
+                        <div class="input-group-btn" style="padding: 0 5px !important; vertical-align: bottom !important;">
+                            <span class="input-group-btn">
+                                <button class="btn blue bold" type="button" (click)="ClearAPDIRCircularEffectiveDate()"><i class="fa fa-remove"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmAPDIRCircular.controls.APDIRCircularEffectiveDate.errors?.required && isSubmited"> Please enter AP DIR Circular EffectiveDate </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Upload PDF : </label>
+                        <input type="file" (change)="fileChange($event)" placeholder="Upload file" class="form-control" accept=".pdf">
+                        <a href="{{pdfServerPath + aPDIRCircularPDFName}}" *ngIf="aPDIRCircularPDFName && frmAPDIRCircular.value.APDIRCircularId" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;"></i>{{(aPDIRCircularPDFName) ? aPDIRCircularPDFName.substr(aPDIRCircularPDFName.indexOf('_') + 1) : aPDIRCircularPDFName}}</a>
+                        <input type="hidden" formControlName="APDIRCircularPDF" />
+                        <span class="help-block has-error" *ngIf="frmAPDIRCircular.controls.APDIRCircularPDF.errors?.required && isSubmited"> Please Upload PDF file </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelAPDIRCircular()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

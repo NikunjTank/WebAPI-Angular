@@ -1,0 +1,94 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} GSRNotification
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitGSRNotification(frmGSRNotification)" [formGroup]="frmGSRNotification">
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="RulesId" id="txtRulesId">
+                            <option *ngFor="let item of ruless" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtRulesId">Rules</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="GSRNotificationNo" id="txtGSRNotificationNo" />
+                        <label for="txtGSRNotificationNo">GSRNotification No</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmGSRNotification.controls.GSRNotificationNo.errors?.required && isSubmited"> Please enter GSRNotification No </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="GSRNotificationName" id="txtGSRNotificationName" />
+                        <label for="txtGSRNotificationName">GSRNotification Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmGSRNotification.controls.GSRNotificationName.errors?.required && isSubmited"> Please enter GSRNotification Name </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="GSRNotificationTypeId" id="txtGSRNotificationTypeId">
+                            <option *ngFor="let item of gSRNotificationTypes" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtGSRNotificationTypeId">GSRNotification Type</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmGSRNotification.controls.GSRNotificationTypeId.errors?.required && isSubmited"> Please select GSRNotification Type </span>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <label for="txtGSRNotificationDate" class="no-margin">GSRNotification Date</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="dd-mm-yyyy" name="dp" [minDate]="minDate" formControlName="GSRNotificationDate" [value]="(frmGSRNotification.controls.GSRNotificationDate.value) ? (frmGSRNotification.controls.GSRNotificationDate.value.day + '-' + frmGSRNotification.controls.GSRNotificationDate.value.month + '-' + frmGSRNotification.controls.GSRNotificationDate.value.year) : frmGSRNotification.controls.GSRNotificationDate.value" readonly="readonly" #d1="ngbDatepicker" ngbDatepicker>
+                        <div class="input-group-btn" style="vertical-align: bottom !important;">
+                            <button class="btn btn-outline-secondary" (click)="d1.toggle()" type="button">
+                                <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                            </button>
+                        </div>
+                        <div class="input-group-btn" style="padding: 0 5px !important; vertical-align: bottom !important;">
+                            <span class="input-group-btn">
+                                <button class="btn blue bold" type="button" (click)="ClearGSRNotificationDate()"><i class="fa fa-remove"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmGSRNotification.controls.GSRNotificationDate.errors?.required && isSubmited"> Please enter GSRNotification Date </span>
+                </div>
+                <div class="col-md-3">
+                    <label for="txtGSRNotificationEffectiveDate" class="no-margin">GSRNotification Effective Date</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="dd-mm-yyyy" name="dp" [minDate]="minDate" formControlName="GSRNotificationEffectiveDate" [value]="(frmGSRNotification.controls.GSRNotificationEffectiveDate.value) ? (frmGSRNotification.controls.GSRNotificationEffectiveDate.value.day + '-' + frmGSRNotification.controls.GSRNotificationEffectiveDate.value.month + '-' + frmGSRNotification.controls.GSRNotificationEffectiveDate.value.year) : frmGSRNotification.controls.GSRNotificationEffectiveDate.value" readonly="readonly" #d2="ngbDatepicker" ngbDatepicker>
+                        <div class="input-group-btn" style="vertical-align: bottom !important;">
+                            <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button">
+                                <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                            </button>
+                        </div>
+                        <div class="input-group-btn" style="padding: 0 5px !important; vertical-align: bottom !important;">
+                            <span class="input-group-btn">
+                                <button class="btn blue bold" type="button" (click)="ClearGSRNotificationEffectiveDate()"><i class="fa fa-remove"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmGSRNotification.controls.GSRNotificationEffectiveDate.errors?.required && isSubmited"> Please enter GSRNotification Effective Date </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Upload PDF : </label>
+                        <input type="file" (change)="fileChange($event)" placeholder="Upload file" class="form-control" accept=".pdf">
+                        <a href="{{pdfServerPath + gsrNotificationPDFName}}" *ngIf="gsrNotificationPDFName && frmGSRNotification.value.GSRNotificationId" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;"></i>{{(gsrNotificationPDFName) ? gsrNotificationPDFName.substr(gsrNotificationPDFName.indexOf('_') + 1) : gsrNotificationPDFName}}</a>
+                        <input type="hidden" formControlName="PDF" />
+                        <span class="help-block has-error" *ngIf="frmGSRNotification.controls.PDF.errors?.required && isSubmited"> Please Upload PDF file </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelGSRNotification()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

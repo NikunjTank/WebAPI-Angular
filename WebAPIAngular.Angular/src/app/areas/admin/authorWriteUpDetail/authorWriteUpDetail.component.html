@@ -1,0 +1,63 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>Author's Write Up Details
+        </div>
+    </div>
+    <div class="portlet-body form label-color">
+        <div class="form-body">
+            <h4 class="form-section no-margin">Author's Write Up</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>Topic Name</b> : </label></div>
+                        <div class="col-md-6 no-space"><label class="text-left-margin">{{authorWriteUp.TopicName}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>PDF</b> : </label></div>
+                        <div class="col-md-6 no-space"><a href="{{authorWriteUpPDFServerPath + authorWriteUp.PDF}}" *ngIf="authorWriteUp.PDF" class="text-left-margin" target="_blank">{{(authorWriteUp.PDF) ? authorWriteUp.PDF.substr(authorWriteUp.PDF.indexOf('_') + 1) : authorWriteUp.PDF}}</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Author's Write Up Detail
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitAuthorWriteUpDetail(frmAuthorWriteUpDetail)" [formGroup]="frmAuthorWriteUpDetail">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="SubTopicId" id="txtSubTopicId">
+                            <option *ngFor="let item of subTopics" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtLongTitle">SubTopic</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmAuthorWriteUpDetail.controls.SubTopicId.errors?.required && isSubmited"> Please select SubTopic </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Upload PDF : </label>
+                        <input type="file" (change)="fileChange($event)" placeholder="Upload file" class="form-control" accept=".pdf">
+                        <a href="{{authorWriteUpDetailPDFServerPath + authorWriteUpDetailPDFName}}" *ngIf="authorWriteUpDetailPDFName && frmAuthorWriteUpDetail.value.AuthorWriteUpDetailId" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;"></i>{{(authorWriteUpDetailPDFName) ? authorWriteUpDetailPDFName.substr(authorWriteUpDetailPDFName.indexOf('_') + 1) : authorWriteUpDetailPDFName}}</a>
+                        <input type="hidden" formControlName="PDF" />
+                        <span class="help-block has-error" *ngIf="frmAuthorWriteUpDetail.controls.PDF.errors?.required && isSubmited"> Please Upload PDF file </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelAuthorWriteUpDetail()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

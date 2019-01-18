@@ -1,0 +1,27 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Author's FAQ
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitAuthorFAQ(frmAuthorFAQ)" [formGroup]="frmAuthorFAQ">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="TopicId" id="txtTopicId">
+                            <option *ngFor="let item of topics" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtLongTitle">Topic</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmAuthorFAQ.controls.TopicId.errors?.required && isSubmited"> Please select Topic </span>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelAuthorFAQ()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

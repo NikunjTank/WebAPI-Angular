@@ -1,0 +1,115 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>FDI Circular Index Amendment Details
+        </div>
+    </div>
+    <div class="portlet-body form label-color">
+        <div class="form-body">
+            <h4 class="form-section no-margin">FDI Circular</h4>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-4 no-space text-right"><label><b>FDI Circular Name</b> : </label></div>
+                        <div class="col-md-8 no-space"><label class="text-left-margin">{{fDICircular.FDICircularName}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>Year</b> : </label></div>
+                        <div class="col-md-6 no-space"><label class="text-left-margin">{{fDICircular.Year}}</label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-4 no-space text-right"><label><b>PDF</b> : </label></div>
+                        <div class="col-md-8 no-space"><a href="{{pdfServerPath + fDICircular.PDF}}" *ngIf="fDICircular.PDF" target="_blank" class="text-left-margin"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;"></i>{{(fDICircular.PDF) ? fDICircular.PDF.split('_')[1] : fDICircular.PDF}}</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} FDI Circular Index Amendment
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitFDICircularIndexAmendment(frmFDICircularIndexAmendment)" [formGroup]="frmFDICircularIndexAmendment">
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="Year" id="txtYear" />
+                        <label for="txtYear">Year</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFDICircularIndexAmendment.controls.Year.errors?.required && isSubmited"> Please enter Year </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="FDIChapterId" id="txtFDIChapterId" (change)="OnChapterChange(drpChapter.value)" #drpChapter>
+                            <option *ngFor="let item of fDIChapters" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtFDIChapterId">FDI Chapter</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFDICircularIndexAmendment.controls.FDIChapterId.errors?.required && isSubmited"> Please select FDI Chapter </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="FDICircularIndexId" id="txtIndexId" (change)="OnIndexChange(drpIndex.value)" #drpIndex>
+                            <option *ngFor="let item of fDICircularIndexes" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtIndexId">FDI Circular Index</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFDICircularIndexAmendment.controls.FDICircularIndexId.errors?.required && isSubmited"> Please select FDI Circular Index </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="FDICircularSubIndexId" id="txtFDICircularSubIndexId">
+                            <option *ngFor="let item of fDICircularSubIndexes" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtFDICircularSubIndexId">FDI Circular SubIndex</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFDICircularIndexAmendment.controls.FDICircularSubIndexId.errors?.required && isSubmited"> Please select FDI Circular SubIndex </span>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-md-line-input no-margin">
+                        <!--<select class="form-control" formControlName="PressNoteId" id="txtPressNoteId">
+                            <option *ngFor="let item of pressNotes" [value]="item.Value">{{item.Text}}</option>
+                        </select>-->
+                        <label for="txtPressNoteId">Press Note</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedPressNotes"
+                                                 formControlName="PressNoteIds"
+                                                 [data]="pressNotes"
+                                                 [settings]="pressNoteDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFDICircularIndexAmendment.controls.PressNoteIds.errors?.required && isSubmited"> Please select Press Note </span>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input no-margin">
+                        <label for="txtIndexAmendmentContent">Index Amendment Content</label>
+                        <ckeditor formControlName="IndexAmendmentContent"
+                                  [readonly]="false"
+                                  debounce="500">
+                        </ckeditor>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFDICircularIndexAmendment.controls.IndexAmendmentContent.errors?.required && isSubmited"> Please enter Index Amendment Content </span>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelFDICircularIndexAmendment()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

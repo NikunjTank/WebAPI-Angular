@@ -1,0 +1,31 @@
+﻿<div class="<!--poupu_modules05-->" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div *ngIf="!nICCodes" class="no-detail-found">
+                    Loading data. Please wait...
+                </div>
+                <div *ngIf="nICCodes && nICCodes.length == 0" class="no-detail-found">
+                    No NIC Code found
+                </div>
+                <div class="search_result" *ngIf="nICCodes.length > 0">
+                    <div class="card">
+                        <ul class="nav nav-tabs justify-content-center" role="tablist" style="margin-bottom: 20px;">
+                            <li role="presentation" *ngFor="let item of nICCodes" (click)="OnClickNICCode(item.NICCodeId)"><a href="#{{item.NICCodeId}}" [class.tab-active]="moduleTab == item.NICCodeId" role="tab" data-toggle="tab">{{item.NICCodeName}}</a></li>
+                        </ul>
+                        <div class="tab-content no-padding">
+                            <div role="tabpanel" class="tab-pane active" [class.active]="moduleTab == item.NICCodeId" *ngFor="let item of nICCodes" id="{{item.NICCodeId}}">
+                                <div class="fdi_box_poupu" *ngIf="nICCodePDFUrl">
+                                    <!--<iframe [src]='nICCodePDFUrl' class="w-100" height="450" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+                                    <iframe [src]='nICCodePDFUrl' class="w-100" id="{{item.NICCodeName}}" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

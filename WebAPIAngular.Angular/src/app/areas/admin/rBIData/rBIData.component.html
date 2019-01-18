@@ -1,0 +1,36 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} RBI Data
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitRBIData(frmRBIData)" [formGroup]="frmRBIData">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="RBIDataName" id="txtRBIDataName">
+                            <option *ngFor="let item of rBIDataNames" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtRBIDataName">RBI Data Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmRBIData.controls.RBIDataName.errors?.required && isSubmited"> Please enter RBI Data Name </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Upload Excel : </label>
+                        <input type="file" (change)="fileChange($event)" placeholder="Upload file" class="form-control" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                        <a href="{{excelServerPath + rBIDataExcelName}}" *ngIf="rBIDataExcelName && frmRBIData.value.RBIDataId" target="_blank"><i class="fa fa-file-excel-o" style="color:dodgerblue;margin-right:7px;"></i>{{(rBIDataExcelName) ? rBIDataExcelName.substr(rBIDataExcelName.indexOf('_') + 1) : rBIDataExcelName}}</a>
+                        <input type="hidden" formControlName="Excel" />
+                        <span class="help-block has-error" *ngIf="frmRBIData.controls.Excel.errors?.required && isSubmited"> Please Upload Excel file </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelRBIData()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

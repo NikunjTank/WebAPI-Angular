@@ -1,0 +1,34 @@
+﻿<div class="container" (click)="OnSearchAutoCompleteFocusOut()">
+    <form novalidate (ngSubmit)="SearchData(frmSearch)" [formGroup]="frmSearch">
+        <div class="row justify-content-md-center" [class.top-sp]="searchData.length <= 0">
+            <div class="col-md-10">
+                <div class="input-group home_page_search">
+                    <input type="text" class="form-control" formControlName="SearchText" name="x" placeholder="Search for Latest Notifications, Forms, Acts, Rules..." (keyup)="OnSearchAutoCompleteKeyUp(frmSearch, $event)" (click)="OnSearchAutoCompleteClick(frmSearch, $event)" autocomplete="off" (keydown)="OnSearchAutoCompleteKeyDown($event)" id="txtSearch" autofocus />
+                    <!--(focusout)="OnSearchAutoCompleteFocusOut()"-->
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">  <i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                    </span>
+                </div>
+                <ul class="filter-select" *ngIf="searchAutoCompleteData.length > 0">
+                    <ng-template ngFor let-item let-i="index" [ngForOf]="searchAutoCompleteData">
+                        <li class="filter-select-list" (click)="OnSearchClick(item)" [class.filter-select-list-selected]="i == arrowkeyLocation" (mouseover)="arrowkeyLocation =  i" [innerHTML]='item | safeHtml'></li>
+                    </ng-template>
+                </ul>
+            </div>
+        </div>
+    </form>
+    <div class="row justify-content-md-center">
+        <div class="col-md-10 text-left">
+            <ul>
+                <ng-template ngFor let-search let-i="index" [ngForOf]="searchData">
+                    <li class="search-bar-box" (click)="ReadMore(i)"><h1 class="bar-head" *ngIf="search.Title">{{search.Title}}</h1>{{((search.Number) ? search.Number + ' ' : '') + ((search.Name) ? search.Name : '')}}</li>
+                </ng-template>
+            </ul>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-10 pb30 mid">
+            <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+        </div>
+    </div>
+</div>

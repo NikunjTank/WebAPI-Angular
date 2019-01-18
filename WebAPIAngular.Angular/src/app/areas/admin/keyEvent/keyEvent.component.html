@@ -1,0 +1,141 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Key Event
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitKeyDefinitionEvent(frmKeyDefinitionEvent)" [formGroup]="frmKeyDefinitionEvent">
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="EventName" id="txtEventName" />
+                        <label for="txtEventName">Event Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmKeyDefinitionEvent.controls.EventName.errors?.required && isSubmited"> Please enter Event Name </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="EventAuthorNote" id="txtEventAuthorNote" />
+                        <label for="txtEventAuthorNote">Event Author Note</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmKeyDefinitionEvent.controls.EventAuthorNote.errors?.required && isSubmited"> Please enter Event Author Note </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <label for="txtEventDate" class="no-margin">Event Date</label>
+                        <input class="form-control" placeholder="dd-mm-yyyy" name="dp" [minDate]="minDate" formControlName="EventDate" [value]="(frmKeyDefinitionEvent.controls.EventDate.value) ? (frmKeyDefinitionEvent.controls.EventDate.value.day + '-' + frmKeyDefinitionEvent.controls.EventDate.value.month + '-' + frmKeyDefinitionEvent.controls.EventDate.value.year) : frmKeyDefinitionEvent.controls.EventDate.value" readonly="readonly" #d1="ngbDatepicker" ngbDatepicker>
+                        <div class="input-group-btn" style="vertical-align: bottom !important;">
+                            <button class="btn btn-outline-secondary" (click)="d1.toggle()" type="button">
+                                <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                            </button>
+                        </div>
+                        <div class="input-group-btn" style="padding: 0 5px !important; vertical-align: bottom !important;">
+                            <span class="input-group-btn">
+                                <button class="btn blue bold" type="button" (click)="ClearEventDate()"><i class="fa fa-remove"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmKeyDefinitionEvent.controls.EventDate.errors?.required && isSubmited"> Please select Event Date </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-md-line-input no-margin">
+                        <label for="txtModuleId">Module</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedKeyDefinitionEventModules"
+                                                 formControlName="ModuleIds"
+                                                 [data]="keyDefinitionEventModules"
+                                                 [settings]="keyDefinitionEventModuleDropDownSettings"
+                                                 (onSelect)="onModuleSelect($event)"
+                                                 (onDeSelect)="onModuleDeSelect($event)">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmKeyDefinitionEvent.controls.ModuleIds.errors?.required && isSubmited"> Please select Module </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3" style="margin-bottom:15px;" *ngIf="isRegulation">
+                    <div class="form-md-line-input no-margin">
+                        <label for="txtRulesId">Notification</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedNotifications"
+                                                 formControlName="NotificationIds"
+                                                 [data]="notifications"
+                                                 [settings]="notificationsDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmKeyDefinitionEvent.controls.NotificationIds.errors?.required && isSubmited"> Please select Notification </span>
+                </div>
+                <div class="col-md-3" style="margin-bottom:15px;" *ngIf="isRules">
+                    <div class="form-md-line-input no-margin">
+                        <label for="txtRulesId">GSR Notification</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedGSRNotifications"
+                                                 formControlName="GSRNotificationIds"
+                                                 [data]="gSRNotifications"
+                                                 [settings]="gSRNotificationsDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmKeyDefinitionEvent.controls.GSRNotificationIds.errors?.required && isSubmited"> Please select GSR Notification </span>
+                </div>
+                <div class="col-md-3" style="margin-bottom:15px;" *ngIf="isFDICircular">
+                    <div class="form-md-line-input no-margin">
+                        <label for="txtRulesId">FDI Circular</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedFDICirculars"
+                                                 formControlName="FDICircularIds"
+                                                 [data]="fDICirculars"
+                                                 [settings]="fDICircularsDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmKeyDefinitionEvent.controls.FDICircularIds.errors?.required && isSubmited"> Please select FDI Circular </span>
+                </div>
+                <div class="col-md-3" style="margin-bottom:15px;" *ngIf="isPressNote">
+                    <div class="form-md-line-input no-margin">
+                        <label for="txtPressNoteId">Press Note</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedPressNotes"
+                                                 formControlName="PressNoteIds"
+                                                 [data]="pressNotes"
+                                                 [settings]="pressNotesDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmKeyDefinitionEvent.controls.PressNoteIds.errors?.required && isSubmited"> Please select Press Note </span>
+                </div>
+                <div class="col-md-3" style="margin-bottom:15px;" *ngIf="isAct">
+                    <div class="form-md-line-input no-margin">
+                        <label for="txtActId">Act</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedActNames"
+                                                 formControlName="ActIds"
+                                                 [data]="actNames"
+                                                 [settings]="actNamesDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmKeyDefinitionEvent.controls.ActIds.errors?.required && isSubmited"> Please select Act </span>
+                </div>
+                <div class="col-md-3" style="margin-bottom:15px;" *ngIf="isMasterDirection">
+                    <div class="form-md-line-input no-margin">
+                        <label for="txtMasterDirectionId">Master Direction</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedMasterDirections"
+                                                 formControlName="MasterDirectionIds"
+                                                 [data]="masterDirections"
+                                                 [settings]="masterDirectionsDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmKeyDefinitionEvent.controls.MasterDirectionIds.errors?.required && isSubmited"> Please select Master Direction </span>
+                </div>
+                <div class="col-md-3" style="margin-bottom:15px;" *ngIf="isAPDIRCircular">
+                    <div class="form-md-line-input no-margin">
+                        <label for="txtAPDIRCircularId">AP DIR Circular</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedAPDIRCirculars"
+                                                 formControlName="APDIRCircularIds"
+                                                 [data]="aPDIRCirculars"
+                                                 [settings]="aPDIRCircularsDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmKeyDefinitionEvent.controls.APDIRCircularIds.errors?.required && isSubmited"> Please select AP DIR Circular </span>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelKeyDefinitionEvent()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} FAQ Category
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitFAQCategory(frmFAQCategory)" [formGroup]="frmFAQCategory">
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="CategoryName" id="txtCategoryName" />
+                        <label for="txtCategoryName">Category Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFAQCategory.controls.CategoryName.errors?.required && isSubmited"> Please enter Category Name </span>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelFAQCategory()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

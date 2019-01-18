@@ -1,0 +1,86 @@
+﻿<div class="modalLRForm <!--poupu_modules poupu_modules05-->" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="fdi_box_poupu">
+                    <div class="select_fdi_menu top-padding-20px">
+                        <div class="row justify-content-end">
+                            <div class="col-md-3">
+                                <div class="form-group no-margin">
+                                    <form novalidate (ngSubmit)="SearchRBICompoundingOrder(frmRBICompoundingOrder)" [formGroup]="frmRBICompoundingOrder">
+                                        <span class="input-group-btn modules_searchs_wapper">
+                                            <input class="modules_search" placeholder="Search" type="text" formControlName="SearchText">
+                                            <button class="modules_search_btn" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                        </span>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                        <div class="tab-hg">
+                            <div class="table-responsive">
+                                <table class="table no-margin">
+                                    <thead class="thead_bg">
+                                        <tr class="grey-mint text-nowrap">
+                                            <th (click)="OnRBICompoundingOrderSort('ApplicantName')" class="pointer-cursor">Applicant Name <i class="fa {{sortingRBICompoundingOrderField == 'ApplicantName' ? (sortingRBICompoundingOrderDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                            <th (click)="OnRBICompoundingOrderSort('OrderGist')" class="pointer-cursor">Gist of the order <i class="fa {{sortingRBICompoundingOrderField == 'OrderGist' ? (sortingRBICompoundingOrderDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                            <th (click)="OnRBICompoundingOrderSort('Topic')" class="pointer-cursor">Topic <i class="fa {{sortingRBICompoundingOrderField == 'Topic' ? (sortingRBICompoundingOrderDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                            <th (click)="OnRBICompoundingOrderSort('FEMRegulationRuleNo')" class="pointer-cursor">FEMA Regulation / Rule No. <i class="fa {{sortingRBICompoundingOrderField == 'FEMRegulationRuleNo' ? (sortingRBICompoundingOrderDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                            <th (click)="OnRBICompoundingOrderSort('OrderDate')" class="pointer-cursor">Order Date <i class="fa {{sortingRBICompoundingOrderField == 'OrderDate' ? (sortingRBICompoundingOrderDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                            <th (click)="OnRBICompoundingOrderSort('PenaltyAmount')" class="pointer-cursor">Penalty Amount(INR) <i class="fa {{sortingRBICompoundingOrderField == 'PenaltyAmount' ? (sortingRBICompoundingOrderDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                            <th (click)="OnRBICompoundingOrderSort('Regional_CentralOfficeOfRBI')" class="pointer-cursor">Regional / Central Office of RBI <i class="fa {{sortingRBICompoundingOrderField == 'Regional_CentralOfficeOfRBI' ? (sortingRBICompoundingOrderDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngIf="!rBICompoundingOrders">
+                                            <td colspan="10" class="text-center"><label>Loading data. Please wait...</label></td>
+                                        </tr>
+                                        <tr *ngIf="rBICompoundingOrders && rBICompoundingOrders.length == 0">
+                                            <td colspan="10" class="text-center"><label>No RBI Compounding Order Found!</label></td>
+                                        </tr>
+                                        <ng-template ngFor let-rBICompoundingOrder let-j="index" [ngForOf]="rBICompoundingOrders">
+                                            <tr>
+                                                <td><a class="und" href="{{rBICompoundingOrderPDFServerPath + rBICompoundingOrder.PDF}}" target="_blank">{{rBICompoundingOrder.ApplicantName}}</a></td>
+                                                <td><a class="text-underline und" *ngIf="rBICompoundingOrder.OrderGist" (click)="ShowContent(rBICompoundingOrder.OrderGist)" data-toggle="modal" data-target="#content">View Content</a></td>
+                                                <td>{{rBICompoundingOrder.Topic}}</td>
+                                                <td>{{rBICompoundingOrder.FEMRegulationRuleNo}}</td>
+                                                <td>{{rBICompoundingOrder.OrderDate | date:'dd-MM-yyyy'}}</td>
+                                                <td>{{rBICompoundingOrder.PenaltyAmount}}</td>
+                                                <td>{{rBICompoundingOrder.Regional_CentralOfficeOfRBI}}</td>
+                                            </tr>
+                                        </ng-template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row top-padding-20px">
+                        <div class="col-md-12">
+                            <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade poupu_modules poupu_modules03" id="content" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="opacity: 1 !important;z-index: 9999 !important;">
+        <div class="modal-dialog inn_pop" role="document">
+            <div class="modal-content" style="overflow:inherit;  box-shadow:2px 2px 36px -2px rgba(0,0,0,0.75);">
+                <div class="modal-body">
+                    <div class="modules_poupu_titel" style="right:27px; position:relative;">
+                        <label class="modal-header-title">Gist of the order</label>
+                        <button type="button" class="pointer-cursor close-button close-round" data-dismiss="modal" aria-label="Close" title="CLOSE" style="line-height: 0.1;">x</button>
+                    </div>
+                    <hr />
+                    <div class="fdi_box_poupu pop-up">
+                        <div class="modules_tabel no-border modules_tabel03">
+                            <div [innerHTML]='content | safeHtml'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

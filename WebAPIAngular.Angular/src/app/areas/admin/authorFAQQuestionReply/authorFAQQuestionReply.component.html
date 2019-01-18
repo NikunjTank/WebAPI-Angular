@@ -1,0 +1,66 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>Author's FAQ Question Reply Details
+        </div>
+    </div>
+    <div class="portlet-body form label-color">
+        <div class="form-body">
+            <h4 class="form-section no-margin">Author's FAQ</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>Topic Name</b> : </label></div>
+                        <div class="col-md-6 no-space"><label class="text-left-margin">{{authorFAQ.TopicName}}</label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body form label-color">
+        <div class="form-body">
+            <h4 class="form-section no-margin">Author's FAQ Detail</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>SubTopic Name</b> : </label></div>
+                        <div class="col-md-6 no-space"><label class="text-left-margin">{{authorFAQDetail.SubTopicName}}</label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Author's FAQ Question Reply
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitAuthorFAQQuestionReply(frmAuthorFAQQuestionReply)" [formGroup]="frmAuthorFAQQuestionReply">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <textarea type="text" class="form-control" formControlName="Question" id="txtQuestion" rows="3"></textarea>
+                        <label for="txtQuestion">Question</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmAuthorFAQQuestionReply.controls.Question.errors?.required && isSubmited"> Please enter Question </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <textarea type="text" class="form-control" formControlName="Reply" id="txtReply" rows="3"></textarea>
+                        <label for="txtReply">Reply</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmAuthorFAQQuestionReply.controls.Reply.errors?.required && isSubmited"> Please enter Reply </span>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelAuthorFAQQuestionReply()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

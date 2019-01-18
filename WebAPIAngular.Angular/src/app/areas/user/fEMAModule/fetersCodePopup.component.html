@@ -1,0 +1,162 @@
+﻿<div class="<!--poupu_modules05-->" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div *ngIf="!fetersCodes" class="no-detail-found">
+                    Loading data. Please wait...
+                </div>
+                <div *ngIf="fetersCodes && fetersCodes.length == 0" class="no-detail-found">
+                    No Feters Code found
+                </div>
+                <div class="search_result" *ngIf="fetersCodes.length > 0">
+                    <div class="card">
+                        <ul class="nav nav-tabs justify-content-center" role="tablist" style="margin-bottom: 20px;">
+                            <li role="presentation" class="word-wrap" *ngFor="let item of fetersCodes" (click)="OnClickFetersCode(item.FetersCodeId)">
+                                <a href="#{{item.FetersCodeId}}" [class.tab-active]="moduleTab == item.FetersCodeId" role="tab" data-toggle="tab" style="height: 100%;">{{item.FetersCodeName}}</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content no-padding">
+                            <div role="tabpanel" class="tab-pane active" [class.active]="moduleTab == fetersCode.FetersCodeId" *ngFor="let fetersCode of fetersCodes" id="{{fetersCode.FetersCodeId}}">
+                                <div class="fdi_box_poupu" *ngIf="fetersCodePDFUrl">
+                                    <!--<iframe [src]='fetersCodePDFUrl' class="w-100" height="445" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+                                    <iframe [src]='fetersCodePDFUrl' class="w-100" id="{{fetersCode.FetersCodeName}}" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="tab-content no-padding">
+                            <div role="tabpanel" class="tab-pane active" [class.active]="moduleTab == fetersCode.FetersCodeId" *ngFor="let fetersCode of fetersCodes" id="{{fetersCode.FetersCodeId}}">
+                                <div *ngIf="(fetersCode.FetersCodeName != 'Liberalised Remittance Scheme Purpose Codes')">
+                                    <div class="select_fdi_menu top-padding-20px">
+                                        <div class="row justify-content-end">
+                                            <div class="col-md-3">
+                                                <div class="form-group no-margin">
+                                                    <form novalidate (ngSubmit)="SearchFetersCodeDetail(frmGroupFetersCodeDetail)" [formGroup]="frmGroupFetersCodeDetail">
+                                                        <span class="input-group-btn modules_searchs_wapper">
+                                                            <input class="modules_search" placeholder="Search" type="text" formControlName="SearchText">
+                                                            <button class="modules_search_btn" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                                        </span>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="thead_bg">
+                                                    <tr class="grey-mint text-nowrap">
+                                                        <th (click)="OnFetersCodeDetailSort(fetersCode.FetersCodeId,'GroupNo')" class="pointer-cursor">Group No <i class="fa {{sortingFetersCodeDetailField == 'GroupNo' ? (sortingFetersCodeDetailDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                        <th (click)="OnFetersCodeDetailSort(fetersCode.FetersCodeId,'PurposeGroupName')" class="pointer-cursor">Purpose Group Name <i class="fa {{sortingFetersCodeDetailField == 'PurposeGroupName' ? (sortingFetersCodeDetailDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngIf="!fetersCodeDetails">
+                                                        <td colspan="2" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                    </tr>
+                                                    <tr *ngIf="fetersCodeDetails && fetersCodeDetails.length == 0">
+                                                        <td colspan="2" class="text-center"><label>No FetersCode Detail Found!</label></td>
+                                                    </tr>
+                                                    <ng-template ngFor let-fetersCodeDetail let-j="index" [ngForOf]="fetersCodeDetails">
+                                                        <tr class="text-nowrap" (click)="ShowFetersCodeGroupDetail(j, fetersCodeDetail.FetersCodeDetailId)">
+                                                            <td>{{fetersCodeDetail.GroupNo}}</td>
+                                                            <td>{{fetersCodeDetail.PurposeGroupName}}</td>
+                                                        </tr>
+                                                        <tr class="text-nowrap {{itemDetailFetersCodeDetails.index === j ? '' : 'd-none'}}">
+                                                            <td></td>
+                                                            <td colspan="2">
+                                                                <div class="table-scrollable" style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                                                                    <table class="table">
+                                                                        <thead class="thead_bg">
+                                                                            <tr class="grey-mint">
+                                                                                <th (click)="OnFetersCodeGroupDetailSort(fetersCodeDetail.FetersCodeDetailId,'PurposeCode')" class="pointer-cursor">Purpose Code <i class="fa {{sortingFetersCodeGroupDetailField == 'PurposeCode' ? (sortingFetersCodeGroupDetailDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}" style="color:#fff;"></i></th>
+                                                                                <th (click)="OnFetersCodeGroupDetailSort(fetersCodeDetail.FetersCodeDetailId,'Description')" class="pointer-cursor">Description <i class="fa {{sortingFetersCodeGroupDetailField == 'Description' ? (sortingFetersCodeGroupDetailDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}" style="color:#fff;"></i></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr *ngIf="!fetersCodeGroupDetails">
+                                                                                <td colspan="2" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                            </tr>
+                                                                            <tr *ngIf="fetersCodeGroupDetails && fetersCodeGroupDetails.length == 0">
+                                                                                <td colspan="2" class="text-center"><label>No Feters Code Group Detail Found!</label></td>
+                                                                            </tr>
+                                                                            <ng-template ngFor let-fetersCodeGroupDetail let-k="index" [ngForOf]="fetersCodeGroupDetails">
+                                                                                <tr class="text-nowrap">
+                                                                                    <td>{{fetersCodeGroupDetail.PurposeCode}}</td>
+                                                                                    <td>{{fetersCodeGroupDetail.Description}}</td>
+                                                                                </tr>
+                                                                            </ng-template>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </ng-template>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row top-padding-20px">
+                                        <div class="col-md-12 text-right">
+                                            <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="(fetersCode.FetersCodeName == 'Liberalised Remittance Scheme Purpose Codes')">
+                                    <div class="select_fdi_menu top-padding-20px">
+                                        <div class="row justify-content-end">
+                                            <div class="col-md-3">
+                                                <div class="form-group no-margin">
+                                                    <form novalidate (ngSubmit)="SearchFetersCodeDetail(frmLRSFetersCodeDetail)" [formGroup]="frmLRSFetersCodeDetail">
+                                                        <span class="input-group-btn modules_searchs_wapper">
+                                                            <input class="modules_search" placeholder="Search" type="text" formControlName="SearchText">
+                                                            <button class="modules_search_btn" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                                        </span>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="thead_bg">
+                                                    <tr class="grey-mint text-nowrap">
+                                                        <th (click)="OnFetersCodeDetailSort(fetersCode.FetersCodeId,'SerialNo')" class="pointer-cursor">Serial No <i class="fa {{sortingFetersCodeDetailField == 'SerialNo' ? (sortingFetersCodeDetailDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                        <th (click)="OnFetersCodeDetailSort(fetersCode.FetersCodeId,'LRSItem')" class="pointer-cursor">LRS Item <i class="fa {{sortingFetersCodeDetailField == 'LRSItem' ? (sortingFetersCodeDetailDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                        <th (click)="OnFetersCodeDetailSort(fetersCode.FetersCodeId,'LRSFetersCode')" class="pointer-cursor">LRS Feters Code <i class="fa {{sortingFetersCodeDetailField == 'LRSFetersCode' ? (sortingFetersCodeDetailDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngIf="!fetersCodeDetails">
+                                                        <td colspan="4" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                    </tr>
+                                                    <tr *ngIf="fetersCodeDetails && fetersCodeDetails.length == 0">
+                                                        <td colspan="4" class="text-center"><label>No FetersCode Detail Found!</label></td>
+                                                    </tr>
+                                                    <ng-template ngFor let-fetersCodeDetail let-i="index" [ngForOf]="fetersCodeDetails">
+                                                        <tr class="text-nowrap">
+                                                            <td>{{fetersCodeDetail.SerialNo}}</td>
+                                                            <td>{{fetersCodeDetail.LRSItem}}</td>
+                                                            <td>{{fetersCodeDetail.LRSFetersCode}}</td>
+                                                        </tr>
+                                                    </ng-template>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row top-padding-20px">
+                                        <div class="col-md-12 text-right">
+                                            <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

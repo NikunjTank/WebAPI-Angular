@@ -1,0 +1,301 @@
+﻿<div class="row header-bottom-margin">
+    <div class="col-md-offset-6 col-md-6 text-right">
+        <a [routerLink]="['/admin/secure/masterdirection']">
+            <span class="add-button btn default full-width pull-right" style="margin-top: 4px;"><i class="fa fa-plus"></i> Add</span>
+        </a>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>Master Direction ({{totalRecords}})
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-1">
+                <select class="form-control" (change)="OnPageSizeChange()" [(ngModel)]="drpPageSize">
+                    <option *ngFor="let size of pageSizes">{{size}}</option>
+                </select>
+            </div>
+            <div class="col-sm-3 col-sm-offset-8">
+                <form novalidate (ngSubmit)="SearchMasterDirection(frmMasterDirection)" [formGroup]="frmMasterDirection">
+                    <div class="input-group stylish-input-group">
+                        <input type="text" class="form-control" placeholder="Search here" formControlName="SearchText" #txtSearch>
+                        <span class="input-group-addon">
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-scrollable">
+            <input type="hidden" id="hdnCurrentPage" value="0" />
+            <table class="table table-striped table-responsive table-advance table-hover">
+                <thead>
+                    <tr class="grey-mint">
+                        <th style="width: 40px;">FAQ</th>
+                        <th style="width: 40px;">Chapter</th>
+                        <th style="width: 40px;">Index Amendment</th>
+                        <th class="text-center" style="width: 70px;">Action</th>
+                        <th (click)="OnMasterDirectionSort('MasterDirectionName')" class="pointer-cursor">Master Direction Name <i class="fa {{sortingMasterDirectionField == 'MasterDirectionName' ? (sortingMasterDirectionDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                        <th (click)="OnMasterDirectionSort('Year')" class="pointer-cursor">Year <i class="fa {{sortingMasterDirectionField == 'Year' ? (sortingMasterDirectionDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                        <th class="text-center">Master Direction PDF</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!masterDirections">
+                        <td colspan="7" class="text-center"><label>Loading data. Please wait...</label></td>
+                    </tr>
+                    <tr *ngIf="masterDirections && masterDirections.length == 0">
+                        <td colspan="7" class="text-center"><label>No Master Direction Found!</label></td>
+                    </tr>
+                    <ng-template ngFor let-masterDirection let-i="index" [ngForOf]="masterDirections">
+                        <tr class="text-nowrap">
+                            <td class="text-center">
+                                <i class="fa fa-chevron-right pointer-cursor rotate plus-color font-16 margin-right-10 {{itemDetailMasterDirections1.index === i ? 'down' : ''}}" (click)="ShowMasterDirectionFAQ(i, masterDirection.MasterDirectionId)"></i>
+                                <a (click)="AddMasterDirectionFAQ(masterDirection.MasterDirectionId, i)" title="Add Master Direction FAQ"><i class="fa fa-plus pointer-cursor plus-color font-16"></i></a>
+                            </td>
+                            <td class="text-center">
+                                <i class="fa fa-chevron-right pointer-cursor rotate plus-color font-16 margin-right-10 {{itemDetailMasterDirections2.index === i ? 'down' : ''}}" (click)="ShowMasterDirectionChapter(i, masterDirection.MasterDirectionId)"></i>
+                                <a (click)="AddMasterDirectionChapter(masterDirection.MasterDirectionId, i)" title="Add Chapter"><i class="fa fa-plus pointer-cursor plus-color font-16"></i></a>
+                            </td>
+                            <td class="text-center">
+                                <i class="fa fa-chevron-right pointer-cursor rotate plus-color font-16 margin-right-10 {{itemDetailMasterDirections3.index === i ? 'down' : ''}}" (click)="ShowMasterDirectionIndexAmendment(i, masterDirection.MasterDirectionId)"></i>
+                                <a (click)="AddMasterDirectionIndexAmendment(masterDirection.MasterDirectionId, i)" title="Add IndexAmendment"><i class="fa fa-plus pointer-cursor plus-color font-16"></i></a>
+                            </td>
+                            <td class="text-center">
+                                <a (click)="EditMasterDirection(masterDirection.MasterDirectionId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                <a title="Delete" (click)="DeleteMasterDirection(masterDirection.MasterDirectionId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                            </td>
+                            <td>{{masterDirection.MasterDirectionName}}</td>
+                            <td>{{masterDirection.Year}}</td>
+                            <!--<td><a href="{{masterDirectionPDFPath + masterDirection.PDF}}" target="_blank">{{(masterDirection.PDF) ? masterDirection.PDF.substr(masterDirection.PDF.indexOf('_') + 1) : masterDirection.PDF}}</a></td>-->
+                            <td class="text-center"><a href="{{masterDirectionPDFPath + masterDirection.PDF}}" target="_blank"><i class="fa fa-file-pdf-o font-16" style="color:red;"></i></a></td>
+                        </tr>
+                        <tr class="text-nowrap {{itemDetailMasterDirections1.index === i || itemDetailMasterDirections2.index === i || itemDetailMasterDirections3.index === i ? '' : 'hide'}}">
+                            <td></td>
+                            <td colspan="6">
+                                <div class="panel panel-default table-scrollable {{itemDetailMasterDirections1.index === i ? '' : 'hide'}}" style="margin-top: 0 !important;">
+                                    <div class="panel-heading"><b>Master Direction FAQ</b></div>
+                                    <div class="panel-body">
+                                        <table class="table table-striped table-responsive table-advance table-hover">
+                                            <thead>
+                                                <tr class="grey-mint">
+                                                    <th class="text-center" style="width: 70px;">Action</th>
+                                                    <th (click)="OnMasterDirectionFAQSort(masterDirection.MasterDirectionId,'CategoryName')" class="pointer-cursor">Category Name <i class="fa {{sortingFAQField == 'CategoryName' ? (sortingFAQDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th (click)="OnMasterDirectionFAQSort(masterDirection.MasterDirectionId,'TopicName')" class="pointer-cursor">Topic Name <i class="fa {{sortingFAQField == 'TopicName' ? (sortingFAQDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th class="text-center">Master Direction FAQ PDF</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngIf="!masterDirectionFAQs">
+                                                    <td colspan="6" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                </tr>
+                                                <tr *ngIf="masterDirectionFAQs && masterDirectionFAQs.length == 0">
+                                                    <td colspan="6" class="text-center"><label>No Master Direction FAQ Found!</label></td>
+                                                </tr>
+                                                <ng-template ngFor let-masterDirectionFAQ let-j="index" [ngForOf]="masterDirectionFAQs">
+                                                    <tr class="text-nowrap">
+                                                        <td class="text-center">
+                                                            <a (click)="EditMasterDirectionFAQ(masterDirection.MasterDirectionId, masterDirectionFAQ.MasterDirectionFAQId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                                            <a title="Delete" (click)="DeleteMasterDirectionFAQ(masterDirection.MasterDirectionId, masterDirectionFAQ.MasterDirectionFAQId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                                                        </td>
+                                                        <td>{{masterDirectionFAQ.CategoryName}}</td>
+                                                        <td>{{masterDirectionFAQ.TopicName}}</td>
+                                                        <!--<td class="text-center"><a href="{{fAQPDFPath + masterDirectionFAQ.PDF}}" target="_blank">{{(masterDirectionFAQ.PDF) ? (masterDirectionFAQ.PDF.split('_')[1]) ? masterDirectionFAQ.PDF.substr(masterDirectionFAQ.PDF.indexOf('_') + 1) : masterDirectionFAQ.PDF.split('_')[0] : masterDirectionFAQ.PDF}}</a></td>-->
+                                                        <td class="text-center"><a href="{{fAQPDFPath + masterDirectionFAQ.PDF}}" target="_blank"><i class="fa fa-file-pdf-o font-16" style="color:red;"></i></a></td>
+                                                    </tr>
+                                                </ng-template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default table-scrollable {{itemDetailMasterDirections2.index === i ? '' : 'hide'}}" style="margin-top: 0 !important;">
+                                    <div class="panel-heading"><b>Master Direction Chapter</b></div>
+                                    <div class="panel-body">
+                                        <table class="table table-striped table-responsive table-advance table-hover">
+                                            <thead>
+                                                <tr class="grey-mint">
+                                                    <th style="width: 40px;">Index</th>
+                                                    <th class="text-center" style="width: 70px;">Action</th>
+                                                    <th (click)="OnMasterDirectionChapterSort(masterDirection.MasterDirectionId,'Chapter')" class="pointer-cursor">Chapter <i class="fa {{sortingMasterChapterField == 'Chapter' ? (sortingMasterChapterDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngIf="!masterDirectionChapters">
+                                                    <td colspan="6" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                </tr>
+                                                <tr *ngIf="masterDirectionChapters && masterDirectionChapters.length == 0">
+                                                    <td colspan="6" class="text-center"><label>No Master Direction Chapter Found!</label></td>
+                                                </tr>
+                                                <ng-template ngFor let-masterDirectionChapter let-j="index" [ngForOf]="masterDirectionChapters">
+                                                    <tr class="text-nowrap">
+                                                        <td class="text-center">
+                                                            <i class="fa fa-chevron-right pointer-cursor rotate plus-color font-16 margin-right-10 {{itemDetailChapters.index === j ? 'down' : ''}}" (click)="ShowMasterDirectionIndex(j, masterDirectionChapter.MasterDirectionChapterId)"></i>
+                                                            <a (click)="AddMasterDirectionIndex(masterDirection.MasterDirectionId, masterDirectionChapter.MasterDirectionChapterId, j)" title="Add Index"><i class="fa fa-plus pointer-cursor plus-color font-16"></i></a>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a (click)="EditMasterDirectionChapter(masterDirection.MasterDirectionId, masterDirectionChapter.MasterDirectionChapterId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                                            <a title="Delete" (click)="DeleteMasterDirectionChapter(masterDirection.MasterDirectionId, masterDirectionChapter.MasterDirectionChapterId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                                                        </td>
+                                                        <td>{{masterDirectionChapter.Chapter}}</td>
+                                                    </tr>
+                                                    <tr class="text-nowrap {{itemDetailChapters.index === j ? '' : 'hide'}}">
+                                                        <td></td>
+                                                        <td colspan="6">
+                                                            <div class="panel panel-default table-scrollable {{itemDetailChapters.index === j ? '' : 'hide'}}" style="margin-top: 0 !important;">
+                                                                <div class="panel-heading"><b>Index</b></div>
+                                                                <div class="panel-body">
+                                                                    <table class="table table-striped table-responsive table-advance table-hover">
+                                                                        <thead>
+                                                                            <tr class="grey-mint">
+                                                                                <th style="width: 40px;">SubIndex</th>
+                                                                                <th class="text-center" style="width: 70px;">Action</th>
+                                                                                <th (click)="OnMasterDirectionIndexSort(masterDirectionChapter.MasterDirectionChapterId,'IndexNo')" class="pointer-cursor">Index No <i class="fa {{sortingMasterDirectionIndexField == 'IndexNo' ? (sortingMasterDirectionIndexDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                                                <th (click)="OnMasterDirectionIndexSort(masterDirectionChapter.MasterDirectionChapterId,'IndexName')" class="pointer-cursor">Index Name <i class="fa {{sortingMasterDirectionIndexField == 'IndexName' ? (sortingMasterDirectionIndexDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                                                <th>Index Content</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr *ngIf="!masterDirectionIndexes">
+                                                                                <td colspan="6" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                            </tr>
+                                                                            <tr *ngIf="masterDirectionIndexes && masterDirectionIndexes.length == 0">
+                                                                                <td colspan="6" class="text-center"><label>No Master Direction Index Found!</label></td>
+                                                                            </tr>
+                                                                            <ng-template ngFor let-masterDirectionIndex let-k="index" [ngForOf]="masterDirectionIndexes">
+                                                                                <tr class="text-nowrap">
+                                                                                    <td class="text-center">
+                                                                                        <i class="fa fa-chevron-right pointer-cursor rotate plus-color font-16 margin-right-10 {{itemDetailIndexes.index === k ? 'down' : ''}}" (click)="ShowMasterDirectionSubIndex(k, masterDirectionIndex.MasterDirectionIndexId)"></i>
+                                                                                        <a (click)="AddMasterDirectionSubIndex(masterDirection.MasterDirectionId, masterDirectionChapter.MasterDirectionChapterId, masterDirectionIndex.MasterDirectionIndexId, k)" title="Add SubIndex"><i class="fa fa-plus pointer-cursor plus-color font-16"></i></a>
+                                                                                    </td>
+                                                                                    <td class="text-center">
+                                                                                        <a (click)="EditMasterDirectionIndex(masterDirection.MasterDirectionId, masterDirectionChapter.MasterDirectionChapterId, masterDirectionIndex.MasterDirectionIndexId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                                                                        <a title="Delete" (click)="DeleteMasterDirectionIndex(masterDirectionChapter.MasterDirectionChapterId, masterDirectionIndex.MasterDirectionIndexId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                                                                                    </td>
+                                                                                    <td>{{masterDirectionIndex.IndexNo}}</td>
+                                                                                    <td>{{masterDirectionIndex.IndexName}}</td>
+                                                                                    <td><a *ngIf="masterDirectionIndex.IndexContent" (click)="ShowContent('Index Content',masterDirectionIndex.IndexContent)">View Content</a></td>
+                                                                                </tr>
+                                                                                <tr class="text-nowrap {{itemDetailIndexes.index === k ? '' : 'hide'}}">
+                                                                                    <td></td>
+                                                                                    <td colspan="6">
+                                                                                        <div class="table-scrollable" style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                                                                                            <table class="table table-striped table-responsive table-advance table-hover">
+                                                                                                <thead>
+                                                                                                    <tr class="grey-mint">
+                                                                                                        <th class="text-center" style="width: 70px;">Action</th>
+                                                                                                        <th (click)="OnMasterDirectionSubIndexSort(masterDirectionIndex.MasterDirectionIndexId,'SubIndexNo')" class="pointer-cursor">SubIndex No <i class="fa {{sortingMasterDirectionSubIndexField == 'SubIndexNo' ? (sortingMasterDirectionSubIndexDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                                                                        <th (click)="OnMasterDirectionSubIndexSort(masterDirectionIndex.MasterDirectionIndexId,'SubIndexName')" class="pointer-cursor">SubIndex Name <i class="fa {{sortingMasterDirectionSubIndexField == 'SubIndexName' ? (sortingMasterDirectionSubIndexDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                                                                        <th>SubIndex Content</th>
+                                                                                                        <!--<th (click)="OnMasterDirectionSubIndexSort(masterDirectionIndex.MasterDirectionIndexId,'SortId')" class="pointer-cursor">Sort Id <i class="fa {{sortingMasterDirectionSubIndexField == 'SortId' ? (sortingMasterDirectionSubIndexDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>-->
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    <tr *ngIf="!masterDirectionSubIndexes">
+                                                                                                        <td colspan="5" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                                                    </tr>
+                                                                                                    <tr *ngIf="masterDirectionSubIndexes && masterDirectionSubIndexes.length == 0">
+                                                                                                        <td colspan="5" class="text-center"><label>No Master Direction SubIndex Found!</label></td>
+                                                                                                    </tr>
+                                                                                                    <ng-template ngFor let-masterDirectionSubIndex let-l="index" [ngForOf]="masterDirectionSubIndexes">
+                                                                                                        <tr class="text-nowrap">
+                                                                                                            <td class="text-center">
+                                                                                                                <a (click)="EditMasterDirectionSubIndex(masterDirection.MasterDirectionId, masterDirectionChapter.MasterDirectionChapterId, masterDirectionIndex.MasterDirectionIndexId, masterDirectionSubIndex.MasterDirectionSubIndexId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                                                                                                <a title="Delete" (click)="DeleteMasterDirectionSubIndex(masterDirectionIndex.MasterDirectionIndexId, masterDirectionSubIndex.MasterDirectionSubIndexId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                                                                                                            </td>
+                                                                                                            <td>{{masterDirectionSubIndex.SubIndexNo}}</td>
+                                                                                                            <td>{{masterDirectionSubIndex.SubIndexName}}</td>
+                                                                                                            <td><a *ngIf="masterDirectionSubIndex.SubIndexContent" (click)="ShowContent('SubIndex Content',masterDirectionSubIndex.SubIndexContent)">View Content</a></td>
+                                                                                                            <!--<td>{{masterDirectionSubIndex.SortId}}</td>-->
+                                                                                                        </tr>
+                                                                                                    </ng-template>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </ng-template>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default table-scrollable {{itemDetailMasterDirections3.index === i ? '' : 'hide'}}" style="margin-top: 0 !important;">
+                                    <div class="panel-heading"><b>Master Direction Index Amendment</b></div>
+                                    <div class="panel-body">
+                                        <table class="table table-striped table-responsive table-advance table-hover">
+                                            <thead>
+                                                <tr class="grey-mint">
+                                                    <th class="text-center" style="width: 70px;">Action</th>
+                                                    <th (click)="OnMasterDirectionIndexAmendmentSort(masterDirection.MasterDirectionId,'Year')" class="pointer-cursor">Year <i class="fa {{sortingMasterDirectionIndexAmendmentField == 'Year' ? (sortingMasterDirectionIndexAmendmentDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <!--<th (click)="OnMasterDirectionIndexAmendmentSort(masterDirection.MasterDirectionId,'NotificationNo')" class="pointer-cursor">Notification No. <i class="fa {{sortingMasterDirectionIndexAmendmentField == 'NotificationNo' ? (sortingMasterDirectionIndexAmendmentDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>-->
+                                                    <!--<th (click)="OnMasterDirectionIndexAmendmentSort(masterDirection.MasterDirectionId,'APDIRCircularNo')" class="pointer-cursor">APDIRCircular No. <i class="fa {{sortingMasterDirectionIndexAmendmentField == 'APDIRCircularNo' ? (sortingMasterDirectionIndexAmendmentDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>-->
+                                                    <th>Notification No.</th>
+                                                    <th>APDIRCircular No.</th>
+                                                    <th (click)="OnMasterDirectionIndexAmendmentSort(masterDirection.MasterDirectionId,'Chapter')" class="pointer-cursor">Chapter <i class="fa {{sortingMasterDirectionIndexAmendmentField == 'Chapter' ? (sortingMasterDirectionIndexAmendmentDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th (click)="OnMasterDirectionIndexAmendmentSort(masterDirection.MasterDirectionId,'IndexName')" class="pointer-cursor">Index Name <i class="fa {{sortingMasterDirectionIndexAmendmentField == 'IndexName' ? (sortingMasterDirectionIndexAmendmentDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th (click)="OnMasterDirectionIndexAmendmentSort(masterDirection.MasterDirectionId,'SubIndexName')" class="pointer-cursor">SubIndex Name <i class="fa {{sortingMasterDirectionIndexAmendmentField == 'SubIndexName' ? (sortingMasterDirectionIndexAmendmentDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th (click)="OnMasterDirectionIndexAmendmentSort(masterDirection.MasterDirectionId,'UpdatedInsertedByRBI')" class="pointer-cursor">Updated / Inserted by RBI <i class="fa {{sortingMasterDirectionIndexAmendmentField == 'UpdatedInsertedByRBI' ? (sortingMasterDirectionIndexAmendmentDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                    <th>Index Amendment Content</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngIf="!masterDirectionIndexAmendments">
+                                                    <td colspan="9" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                </tr>
+                                                <tr *ngIf="masterDirectionIndexAmendments && masterDirectionIndexAmendments.length == 0">
+                                                    <td colspan="9" class="text-center"><label>No Master Direction Index Amendment Found!</label></td>
+                                                </tr>
+                                                <ng-template ngFor let-masterDirectionIndexAmendment let-j="index" [ngForOf]="masterDirectionIndexAmendments">
+                                                    <tr class="text-nowrap">
+                                                        <td class="text-center">
+                                                            <a (click)="EditMasterDirectionIndexAmendment(masterDirection.MasterDirectionId, masterDirectionIndexAmendment.MasterDirectionIndexAmendmentId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                                            <a title="Delete" (click)="DeleteMasterDirectionIndexAmendment(masterDirection.MasterDirectionId, masterDirectionIndexAmendment.MasterDirectionIndexAmendmentId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                                                        </td>
+                                                        <td>{{masterDirectionIndexAmendment.Year}}</td>
+                                                        <td>
+                                                            <label *ngFor="let item of masterDirectionIndexAmendment.Notifications.split(';;'); let i=index;">
+                                                                {{(i > 0) ? ', ' + item.split('||')[1] : item.split('||')[1]}}
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label *ngFor="let item of masterDirectionIndexAmendment.APDIRCirculars.split(';;'); let i=index;">
+                                                                {{(i > 0) ? ', ' + item.split('||')[1] : item.split('||')[1]}}
+                                                            </label>
+                                                        </td>
+                                                        <td>{{masterDirectionIndexAmendment.Chapter}}</td>
+                                                        <td>{{masterDirectionIndexAmendment.IndexName}}</td>
+                                                        <td>{{masterDirectionIndexAmendment.SubIndexName}}</td>
+                                                        <td>{{(masterDirectionIndexAmendment.UpdatedInsertedByRBI == true) ? 'Yes '+ (masterDirectionIndexAmendment.UpdatedInsertedDateByRBI ? '(' + (masterDirectionIndexAmendment.UpdatedInsertedDateByRBI | date:'dd-MM-yyyy') + ')' : '') +'' : (masterDirectionIndexAmendment.UpdatedInsertedByRBI == false) ? 'No' : ''  }}</td>
+                                                        <td><a *ngIf="masterDirectionIndexAmendment.IndexAmendmentContent" (click)="ShowContent('Index Amendment Content',masterDirectionIndexAmendment.IndexAmendmentContent)">View Content</a></td>
+                                                    </tr>
+                                                </ng-template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

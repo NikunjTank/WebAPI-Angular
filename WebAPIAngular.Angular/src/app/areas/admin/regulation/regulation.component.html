@@ -1,0 +1,56 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Regulation
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitRegulation(frmRegulation)" [formGroup]="frmRegulation">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="RegulationNumber" id="txtRegulationNumber" />
+                        <label for="txtRegulationNumber">Regulation Number</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmRegulation.controls.RegulationNumber.errors?.required && isSubmited"> Please enter Regulation Number </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="RegulationName" id="txtRegulationName" />
+                        <label for="txtRegulationName">Regulation Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmRegulation.controls.RegulationName.errors?.required && isSubmited"> Please enter Regulation Name </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="Year" id="txtYear" />
+                        <label for="txtYear">Year</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmRegulation.controls.Year.errors?.required && isSubmited"> Please enter Year </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <label for="txtPublicationDate" class="no-margin">Publication Date</label>
+                        <input class="form-control" placeholder="dd-mm-yyyy" [minDate]="minDate" name="dp" formControlName="PublicationDate" [value]="(frmRegulation.controls.PublicationDate.value) ? (frmRegulation.controls.PublicationDate.value.day + '-' + frmRegulation.controls.PublicationDate.value.month + '-' + frmRegulation.controls.PublicationDate.value.year) : frmRegulation.controls.PublicationDate.value" readonly="readonly" #d="ngbDatepicker" ngbDatepicker>
+                        <div class="input-group-btn" style="vertical-align: bottom !important;">
+                            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                                <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                            </button>
+                        </div>
+                        <div class="input-group-btn" style="padding: 0 5px !important; vertical-align: bottom !important;">
+                            <span class="input-group-btn">
+                                <button class="btn blue bold" type="button" (click)="ClearDate()"><i class="fa fa-remove"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmRegulation.controls.PublicationDate.errors?.required && isSubmited"> Please enter Publication Date </span>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelRegulation()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

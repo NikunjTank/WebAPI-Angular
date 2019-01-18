@@ -1,0 +1,115 @@
+﻿<div class="row header-bottom-margin">
+    <div class="col-md-offset-6 col-md-6 text-right">
+        <a [routerLink]="['/admin/secure/form']">
+            <span class="add-button btn default full-width pull-right" style="margin-top: 4px;"><i class="fa fa-plus"></i> Add</span>
+        </a>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>Forms ({{totalRecords}})
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-1">
+                <select class="form-control" (change)="OnPageSizeChange()" [(ngModel)]="drpPageSize">
+                    <option *ngFor="let size of pageSizes">{{size}}</option>
+                </select>
+            </div>
+            <div class="col-sm-3 col-sm-offset-8">
+                <form novalidate (ngSubmit)="SearchForm(frmForm)" [formGroup]="frmForm">
+                    <div class="input-group stylish-input-group">
+                        <input type="text" class="form-control" placeholder="Search here" formControlName="SearchText" #txtSearch>
+                        <span class="input-group-addon">
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-scrollable">
+            <input type="hidden" id="hdnCurrentPage" value="0" />
+
+            <table class="table table-striped table-responsive table-advance table-hover">
+                <thead>
+                    <tr class="grey-mint">
+                        <th style="width: 40px;">Form Detail</th>
+                        <th class="text-center" style="width: 70px;">Action</th>
+                        <th (click)="OnFormSort('TopicName')" class="pointer-cursor">Topic Name <i class="fa {{sortingFormField == 'TopicName' ? (sortingFormDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!formSummaryDocumentations">
+                        <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                    </tr>
+                    <tr *ngIf="formSummaryDocumentations && formSummaryDocumentations.length == 0">
+                        <td colspan="3" class="text-center"><label>No Form Found!</label></td>
+                    </tr>
+                    <ng-template ngFor let-formSummaryDocumentation let-i="index" [ngForOf]="formSummaryDocumentations">
+                        <tr class="text-nowrap">
+                            <td class="text-center">
+                                <i class="fa fa-chevron-right pointer-cursor rotate plus-color font-16 margin-right-10 {{itemDetailForms.index === i ? 'down' : ''}}" (click)="ShowFormDetail(i, formSummaryDocumentation.FormSummaryDocumentationId)"></i>
+                                <a (click)="AddFormDetail(formSummaryDocumentation.FormSummaryDocumentationId, i)" title="Add Form Detail"><i class="fa fa-plus pointer-cursor plus-color font-16"></i></a>
+                            </td>
+                            <td class="text-center">
+                                <a (click)="EditForm(formSummaryDocumentation.FormSummaryDocumentationId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                <a title="Delete" (click)="DeleteForm(formSummaryDocumentation.FormSummaryDocumentationId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                            </td>
+                            <td>{{formSummaryDocumentation.TopicName}}</td>
+                        </tr>
+                        <tr class="text-nowrap {{itemDetailForms.index === i ? '' : 'hide'}}">
+                            <td></td>
+                            <td colspan="3">
+                                <div class="table-scrollable" style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                                    <table class="table table-striped table-responsive table-advance table-hover">
+                                        <thead>
+                                            <tr class="grey-mint">
+                                                <th class="text-center" style="width: 70px;">Action</th>
+                                                <th (click)="OnFormDetailSort(formSummaryDocumentation.FormSummaryDocumentationId,'FormName')" class="pointer-cursor">Form Name <i class="fa {{sortingFormDetailField == 'FormName' ? (sortingFormDetailDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                <th class="text-center">Form Word</th>
+                                                <th class="text-center">Form Excel</th>
+                                                <th class="text-center">Form PDF</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="!formSummaryDocumentationDetails">
+                                                <td colspan="5" class="text-center"><label>Loading data. Please wait...</label></td>
+                                            </tr>
+                                            <tr *ngIf="formSummaryDocumentationDetails && formSummaryDocumentationDetails.length == 0">
+                                                <td colspan="5" class="text-center"><label>No Form Detail Found!</label></td>
+                                            </tr>
+                                            <tr *ngFor='let formSummaryDocumentationDetail of formSummaryDocumentationDetails' class="text-nowrap">
+                                                <td class="text-center">
+                                                    <a (click)="EditFormDetail(formSummaryDocumentation.FormSummaryDocumentationId, formSummaryDocumentationDetail.FormSummaryDocumentationDetailId)" class="fa fa-pencil-square-o plus-color font-16" style="padding:0 5px;" title="Edit"></a>
+                                                    <a title="Delete" (click)="DeleteFormDetail(formSummaryDocumentation.FormSummaryDocumentationId, formSummaryDocumentationDetail.FormSummaryDocumentationDetailId)"><i class="fa fa-trash font-16" style="color:red;"></i></a>
+                                                </td>
+                                                <td>{{formSummaryDocumentationDetail.FormName}}</td>
+                                                <!--<td class="text-center"><a href="{{wordServerPath + formSummaryDocumentationDetail.WordFileName}}" target="_blank">{{(formSummaryDocumentationDetail.WordFileName) ? (formSummaryDocumentationDetail.WordFileName.split('_')[1]) ? formSummaryDocumentationDetail.WordFileName.substr(formSummaryDocumentationDetail.WordFileName.indexOf('_') + 1) : formSummaryDocumentationDetail.WordFileName.split('_')[0] : formSummaryDocumentationDetail.WordFileName}}</a></td>
+                                                <td class="text-center"><a href="{{excelServerPath + formSummaryDocumentationDetail.ExcelFileName}}" target="_blank">{{(formSummaryDocumentationDetail.ExcelFileName) ? (formSummaryDocumentationDetail.ExcelFileName.split('_')[1]) ? formSummaryDocumentationDetail.ExcelFileName.substr(formSummaryDocumentationDetail.ExcelFileName.indexOf('_') + 1) : formSummaryDocumentationDetail.ExcelFileName.split('_')[0] : formSummaryDocumentationDetail.ExcelFileName}}</a></td>
+                                                <td class="text-center"><a href="{{pdfServerPath + formSummaryDocumentationDetail.PDFFileName}}" target="_blank">{{(formSummaryDocumentationDetail.PDFFileName) ? (formSummaryDocumentationDetail.PDFFileName.split('_')[1]) ? formSummaryDocumentationDetail.PDFFileName.substr(formSummaryDocumentationDetail.PDFFileName.indexOf('_') + 1) : formSummaryDocumentationDetail.PDFFileName.split('_')[0] : formSummaryDocumentationDetail.PDFFileName}}</a></td>-->
+                                                <td class="text-center"><a href="{{wordServerPath + formSummaryDocumentationDetail.WordFileName}}" target="_blank"><i class="fa fa-file-word-o font-16" style="color:dodgerblue;"></i></a></td>
+                                                <td class="text-center"><a href="{{excelServerPath + formSummaryDocumentationDetail.ExcelFileName}}" target="_blank"><i class="fa fa-file-excel-o font-16" style="color:green;"></i></a></td>
+                                                <td class="text-center"><a href="{{pdfServerPath + formSummaryDocumentationDetail.PDFFileName}}" target="_blank"><i class="fa fa-file-pdf-o font-16" style="color:red;"></i></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

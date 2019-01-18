@@ -1,0 +1,760 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{41B6C0B0-ED83-4C5A-AA3B-C32D14E5C8E9}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DemystifyFema.Web</RootNamespace>
+    <AssemblyName>DemystifyFema.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="production\dist\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="production\dist\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="production\dist\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="production\dist\assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="production\dist\assets\fonts\FontAwesome.otf" />
+    <Content Include="production\dist\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="production\dist\assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="production\dist\assets\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="production\gzip\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="production\gzip\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="production\gzip\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="production\gzip\assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="production\gzip\assets\fonts\FontAwesome.otf" />
+    <Content Include="production\gzip\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="production\gzip\assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="production\gzip\assets\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="production\gzip\favicon.ico" />
+    <Content Include="production\gzip\main.17f7ba93e818c8768c29.js.gz" />
+    <Content Include="production\gzip\polyfills.2f4a59095805af02bd79.js.gz" />
+    <Content Include="production\gzip\runtime.a66f828dca56eeb90e02.js.gz" />
+    <Content Include="production\gzip\scripts.f292ceb33fea2195b60a.js.gz" />
+    <Content Include="production\gzip\styles.044c212f96897427fd59.css.gz" />
+    <Content Include="production\gzip\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="angular.json" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
+    <Content Include="src\app\areas\admin\postQuery\postQuery.component.html" />
+    <Content Include="src\app\areas\admin\postQueryReply\postQueryReply.component.html" />
+    <Content Include="src\app\areas\admin\supportTicketReply\supportTicketReply.component.html" />
+    <Content Include="src\app\areas\admin\supportTicket\supportTicket.component.html" />
+    <Content Include="src\app\areas\admin\fEMAModule\fEMAModules.component.html" />
+    <Content Include="src\app\areas\admin\fEMAModule\fEMAModule.component.html" />
+    <Content Include="src\app\areas\admin\authorFAQQuestionReply\authorFAQQuestionReply.component.html" />
+    <Content Include="src\app\areas\admin\authorFAQ\authorFAQ.component.html" />
+    <Content Include="src\app\areas\admin\authorFAQ\authorFAQs.component.html" />
+    <Content Include="src\app\areas\admin\authorFAQDetail\authorFAQDetail.component.html" />
+    <Content Include="src\app\areas\admin\authorWriteUpDetail\authorWriteUpDetail.component.html" />
+    <Content Include="src\app\areas\admin\authorWriteUp\authorWriteUp.component.html" />
+    <Content Include="src\app\areas\admin\authorWriteUp\authorWriteUps.component.html" />
+    <Content Include="src\app\areas\admin\keyEvent\keyEvent.component.html" />
+    <Content Include="src\app\areas\admin\keyEvent\keyEvents.component.html" />
+    <Content Include="src\app\areas\admin\keyDefinition\keyDefinition.component.html" />
+    <Content Include="src\app\areas\admin\keyDefinition\keyDefinitions.component.html" />
+    <Content Include="src\app\areas\admin\gSRNotification\gSRNotification.component.html" />
+    <Content Include="src\app\areas\admin\gSRNotification\gSRNotifications.component.html" />
+    <Content Include="src\app\areas\admin\rulesIndexAmendment\rulesIndexAmendment.component.html" />
+    <Content Include="src\app\areas\admin\rulesSubIndex\rulesSubIndex.component.html" />
+    <Content Include="src\app\areas\admin\rulesIndex\rulesIndex.component.html" />
+    <Content Include="src\app\areas\admin\rBIDataDetail\rBIDataDetail.component.html" />
+    <Content Include="src\app\areas\admin\rBIData\rBIData.component.html" />
+    <Content Include="src\app\areas\admin\rBIData\rBIDatas.component.html" />
+    <Content Include="src\app\areas\admin\rBICompoundingOrder\rBICompoundingOrder.component.html" />
+    <Content Include="src\app\areas\admin\rBICompoundingOrder\rBICompoundingOrders.component.html" />
+    <Content Include="src\app\areas\admin\rBILiaisonOffice\rBILiaisonOffice.component.html" />
+    <Content Include="src\app\areas\admin\rBILiaisonOffice\rBILiaisonOffices.component.html" />
+    <Content Include="src\app\areas\admin\fetersCodeGroupDetail\fetersCodeGroupDetail.component.html" />
+    <Content Include="src\app\areas\admin\fetersCodeDetail\fetersCodeDetail.component.html" />
+    <Content Include="src\app\areas\admin\dIPPClarification\dIPPClarification.component.html" />
+    <Content Include="src\app\areas\admin\dIPPClarification\dIPPClarifications.component.html" />
+    <Content Include="src\app\areas\admin\fIPBPressReleaseCase\fIPBPressReleaseCase.component.html" />
+    <Content Include="src\app\areas\admin\fIPBPressReleaseCase\fIPBPressReleaseCases.component.html" />
+    <Content Include="src\app\areas\admin\documentation\documentation.component.html" />
+    <Content Include="src\app\areas\admin\documentation\documentations.component.html" />
+    <Content Include="src\app\areas\admin\documentationDetail\documentationDetail.component.html" />
+    <Content Include="src\app\areas\admin\rules\rules.component.html" />
+    <Content Include="src\app\areas\admin\rules\ruless.component.html" />
+    <Content Include="src\app\areas\admin\summaryDetail\summaryDetail.component.html" />
+    <Content Include="src\app\areas\admin\summary\summary.component.html" />
+    <Content Include="src\app\areas\admin\summary\summaries.component.html" />
+    <Content Include="src\app\areas\admin\formDetail\formDetail.component.html" />
+    <Content Include="src\app\areas\admin\manual\manual.component.html" />
+    <Content Include="src\app\areas\admin\manual\manuals.component.html" />
+    <Content Include="src\app\areas\admin\fetersCode\fetersCode.component.html" />
+    <Content Include="src\app\areas\admin\fetersCode\fetersCodes.component.html" />
+    <Content Include="src\app\areas\admin\fIPBReview\fIPBReview.component.html" />
+    <Content Include="src\app\areas\admin\fIPBReview\fIPBReviews.component.html" />
+    <Content Include="src\app\areas\admin\form\form.component.html" />
+    <Content Include="src\app\areas\admin\form\forms.component.html" />
+    <Content Include="src\app\areas\admin\nICCode\nICCode.component.html" />
+    <Content Include="src\app\areas\admin\nICCode\nICCodes.component.html" />
+    <Content Include="src\app\areas\admin\masterDirectionIndexAmendment\masterDirectionIndexAmendment.component.html" />
+    <Content Include="src\app\areas\admin\masterDirectionSubIndex\masterDirectionSubIndex.component.html" />
+    <Content Include="src\app\areas\admin\masterDirectionIndex\masterDirectionIndex.component.html" />
+    <Content Include="src\app\areas\admin\masterDirectionChapter\masterDirectionChapter.component.html" />
+    <Content Include="src\app\areas\admin\masterDirectionFAQ\masterDirectionFAQ.component.html" />
+    <Content Include="src\app\areas\admin\fAQCategory\fAQCategory.component.html" />
+    <Content Include="src\app\areas\admin\fAQCategory\fAQCategories.component.html" />
+    <Content Include="src\app\areas\admin\fDIChapter\fDIChapter.component.html" />
+    <Content Include="src\app\areas\admin\fAQ\fAQ.component.html" />
+    <Content Include="src\app\areas\admin\fAQ\fAQs.component.html" />
+    <Content Include="src\app\areas\admin\masterDirection\masterDirection.component.html" />
+    <Content Include="src\app\areas\admin\masterDirection\masterDirections.component.html" />
+    <Content Include="src\app\areas\admin\masterCircular\masterCircular.component.html" />
+    <Content Include="src\app\areas\admin\masterCircular\masterCirculars.component.html" />
+    <Content Include="src\app\areas\admin\masterCircularDetail\masterCircularDetail.component.html" />
+    <Content Include="src\app\areas\admin\sectorDetail\sectorDetail.component.html" />
+    <Content Include="src\app\areas\admin\subSector\subSector.component.html" />
+    <Content Include="src\app\areas\admin\sector\sector.component.html" />
+    <Content Include="src\app\areas\admin\sector\sectors.component.html" />
+    <Content Include="src\app\areas\admin\fDICircular\fDICircular.component.html" />
+    <Content Include="src\app\areas\admin\fDICircular\fDICirculars.component.html" />
+    <Content Include="src\app\areas\admin\fDICircularIndex\fDICircularIndex.component.html" />
+    <Content Include="src\app\areas\admin\fDICircularSubIndex\fDICircularSubIndex.component.html" />
+    <Content Include="src\app\areas\admin\fDICircularIndexAmendment\fDICircularIndexAmendment.component.html" />
+    <Content Include="src\app\areas\admin\pressNoteAPDIRCircular\pressNoteAPDIRCircular.component.html" />
+    <Content Include="src\app\areas\admin\pressNoteNotification\pressNoteNotification.component.html" />
+    <Content Include="src\app\areas\admin\pressNote\pressNote.component.html" />
+    <Content Include="src\app\areas\admin\pressNote\pressNotes.component.html" />
+    <Content Include="src\app\areas\admin\aPDIRCircularAfter\aPDIRCircularAfter.component.html" />
+    <Content Include="src\app\areas\admin\aPDIRCircular\aPDIRCircular.component.html" />
+    <Content Include="src\app\areas\admin\aPDIRCircular\aPDIRCirculars.component.html" />
+    <Content Include="src\app\areas\admin\contentPopUp\contentPopUp.component.html" />
+    <Content Include="src\app\areas\admin\aPDIRCircularBefore\aPDIRCircularBefore.component.html" />
+    <Content Include="src\app\areas\admin\indexAmendment\indexAmendment.component.html" />
+    <Content Include="src\app\areas\admin\notification\notifications.component.html" />
+    <Content Include="src\app\areas\admin\notification\notification.component.html" />
+    <Content Include="src\app\areas\admin\femaSubIndex\femaSubIndex.component.html" />
+    <Content Include="src\app\areas\admin\femaIndex\femaIndex.component.html" />
+    <Content Include="src\app\areas\admin\userProfile\otpConfirmationForProfile.component.html" />
+    <Content Include="src\app\areas\admin\userProfile\userProfile.component.html" />
+    <Content Include="src\app\areas\admin\userProfile\userProfiles.component.html" />
+    <Content Include="src\app\areas\guest\aboutus\aboutus.component.html" />
+    <Content Include="src\app\areas\guest\contactus\contactus.component.html" />
+    <Content Include="src\app\areas\guest\home\searchedPDFPopup.component.html" />
+    <Content Include="src\app\areas\guest\home\home.component.html" />
+    <Content Include="src\app\areas\guest\layout\loginRegisterPopup.component.html" />
+    <Content Include="src\app\areas\user\dashboard\dashboard.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\lOBOPOEligibilityCalculatorPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\eCBAverageMaturityCalculatorPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\fDIPenaltyCalculatorPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\compoundingPenaltyCalculatorPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\sectorSnapshotPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\keyEventPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\keyDefinitionPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\rBIODIPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\rBIECBPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\rBIDIPPFAQPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\fIPBReviewPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\formSummaryDocumentationPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\fetersCodePopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\manualPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\nICCodePopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\authorsWriteupPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\actPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\fDICircularPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\masterDirectionPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\rBICompoundingOrderPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\regulationPopup.component.html" />
+    <Content Include="src\app\areas\user\fEMAModule\fEMAModules.component.html" />
+    <Content Include="src\app\areas\user\layout\user.component.html" />
+    <Content Include="src\app\areas\user\subscription\subscriptionPopup.component.html" />
+    <Content Include="src\app\areas\user\subscription\subscription.component.html" />
+    <Content Include="src\app\areas\user\supportTicketReply\supportTicketReply.component.html" />
+    <Content Include="src\app\areas\user\supportTicket\supportTicket.component.html" />
+    <Content Include="src\app\areas\user\userProfile\otpConfirmationForProfile.component.html" />
+    <Content Include="src\app\areas\user\userProfile\userProfile.component.html" />
+    <Content Include="src\assets\css\bootstrap-user.min.css" />
+    <Content Include="src\assets\css\fm.scrollator.jquery.css" />
+    <Content Include="src\assets\css\font-awesome-user.min.css" />
+    <Content Include="src\assets\css\responsive-user.css" />
+    <Content Include="src\assets\css\sidemenu.css" />
+    <Content Include="src\assets\css\style-user - Copy.css" />
+    <Content Include="src\assets\css\style-user.css" />
+    <Content Include="src\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="src\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="src\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="src\assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="src\assets\fonts\FontAwesome.otf" />
+    <Content Include="src\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="src\assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="src\assets\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="src\assets\images\logonew.png" />
+    <Content Include="src\assets\images\about_us_img.png" />
+    <Content Include="src\assets\images\address_id.png" />
+    <Content Include="src\assets\images\call_id.png" />
+    <Content Include="src\assets\images\close_icon.png" />
+    <Content Include="src\assets\images\datepicker_icon.png" />
+    <Content Include="src\assets\images\email_id.png" />
+    <Content Include="src\assets\images\key_web_icon.png" />
+    <Content Include="src\assets\images\letest_new_pointe.png" />
+    <Content Include="src\assets\images\pdf_01.png" />
+    <Content Include="src\assets\images\pdf_icon.png" />
+    <Content Include="src\assets\images\pointes_icon.png" />
+    <Content Include="src\assets\images\profiles_down_icon.png" />
+    <Content Include="src\assets\images\profiles_user_icon.png" />
+    <Content Include="src\assets\images\right_arrow.png" />
+    <Content Include="src\assets\images\select_arrow.png" />
+    <Content Include="src\assets\images\select_fdi_menu_icon.png" />
+    <Content Include="src\assets\images\subs_left_arrow.png" />
+    <Content Include="src\assets\images\subs_left_pointes.png" />
+    <Content Include="src\assets\images\transparent-background.png" />
+    <Content Include="src\favicon.ico" />
+    <Content Include="src\tsconfig.app.json" />
+    <Content Include="src\tsconfig.spec.json" />
+    <Content Include="src\tslint.json" />
+    <Content Include="tsconfig.json" />
+    <Content Include="tslint.json" />
+    <Content Include="src\app\areas\guest\layout\guest.component.html" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="copy-production-bundle.js" />
+    <Content Include="production\dist\3rdpartylicenses.txt" />
+    <Content Include="production\dist\assets\css\bootstrap.min.css" />
+    <Content Include="production\dist\assets\css\components.min.css" />
+    <Content Include="production\dist\assets\css\contact.min.css" />
+    <Content Include="production\dist\assets\css\darkblue.min.css" />
+    <Content Include="production\dist\assets\css\font-awesome.min.css" />
+    <Content Include="production\dist\assets\css\layout.min.css" />
+    <Content Include="production\dist\assets\css\login.css" />
+    <Content Include="production\dist\assets\css\styles.css" />
+    <Content Include="production\dist\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="production\dist\assets\images\bg-header.png" />
+    <Content Include="production\dist\assets\images\calendar-icon.svg" />
+    <Content Include="production\dist\assets\images\Demsifylogo.svg" />
+    <Content Include="production\dist\assets\images\ion-fb.png" />
+    <Content Include="production\dist\assets\images\ion-gp.png" />
+    <Content Include="production\dist\assets\images\ion-ln.png" />
+    <Content Include="production\dist\assets\images\ion-rss.png" />
+    <Content Include="production\dist\assets\images\ion-sp.png" />
+    <Content Include="production\dist\assets\images\ion-tw.png" />
+    <Content Include="production\dist\assets\images\ion-vm.png" />
+    <Content Include="production\dist\assets\images\ion-yt.png" />
+    <Content Include="production\dist\assets\images\loading.gif" />
+    <Content Include="production\dist\assets\images\logo.png" />
+    <Content Include="production\dist\assets\images\logo1.png" />
+    <Content Include="production\dist\assets\images\map-access.jpg" />
+    <Content Include="production\dist\assets\images\remove-icon-small.png" />
+    <Content Include="production\dist\assets\images\sidebar_toggler_icon_darkblue.png" />
+    <Content Include="production\dist\assets\js\app.js" />
+    <Content Include="production\dist\assets\js\bootstrap.min.js" />
+    <Content Include="production\dist\assets\js\hammer.js" />
+    <Content Include="production\dist\assets\js\jquery.min.js" />
+    <Content Include="production\dist\assets\js\layout.min.js" />
+    <Content Include="production\dist\favicon.ico" />
+    <Content Include="production\dist\index.html" />
+    <Content Include="production\dist\main.17f7ba93e818c8768c29.js" />
+    <Content Include="production\dist\polyfills.2f4a59095805af02bd79.js" />
+    <Content Include="production\dist\runtime.a66f828dca56eeb90e02.js" />
+    <Content Include="production\dist\scripts.f292ceb33fea2195b60a.js" />
+    <Content Include="production\dist\styles.044c212f96897427fd59.css" />
+    <Content Include="production\gzip\3rdpartylicenses.txt" />
+    <Content Include="production\gzip\assets\css\bootstrap.min.css" />
+    <Content Include="production\gzip\assets\css\components.min.css" />
+    <Content Include="production\gzip\assets\css\contact.min.css" />
+    <Content Include="production\gzip\assets\css\darkblue.min.css" />
+    <Content Include="production\gzip\assets\css\font-awesome.min.css" />
+    <Content Include="production\gzip\assets\css\layout.min.css" />
+    <Content Include="production\gzip\assets\css\login.css" />
+    <Content Include="production\gzip\assets\css\styles.css" />
+    <Content Include="production\gzip\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="production\gzip\assets\images\bg-header.png" />
+    <Content Include="production\gzip\assets\images\calendar-icon.svg" />
+    <Content Include="production\gzip\assets\images\Demsifylogo.svg" />
+    <Content Include="production\gzip\assets\images\ion-fb.png" />
+    <Content Include="production\gzip\assets\images\ion-gp.png" />
+    <Content Include="production\gzip\assets\images\ion-ln.png" />
+    <Content Include="production\gzip\assets\images\ion-rss.png" />
+    <Content Include="production\gzip\assets\images\ion-sp.png" />
+    <Content Include="production\gzip\assets\images\ion-tw.png" />
+    <Content Include="production\gzip\assets\images\ion-vm.png" />
+    <Content Include="production\gzip\assets\images\ion-yt.png" />
+    <Content Include="production\gzip\assets\images\loading.gif" />
+    <Content Include="production\gzip\assets\images\logo.png" />
+    <Content Include="production\gzip\assets\images\logo1.png" />
+    <Content Include="production\gzip\assets\images\map-access.jpg" />
+    <Content Include="production\gzip\assets\images\remove-icon-small.png" />
+    <Content Include="production\gzip\assets\images\sidebar_toggler_icon_darkblue.png" />
+    <Content Include="production\gzip\assets\js\app.js" />
+    <Content Include="production\gzip\assets\js\bootstrap.min.js" />
+    <Content Include="production\gzip\assets\js\hammer.js" />
+    <Content Include="production\gzip\assets\js\jquery.min.js" />
+    <Content Include="production\gzip\assets\js\layout.min.js" />
+    <Content Include="production\gzip\index.html" />
+    <Content Include="src\app\app.component.css" />
+    <Content Include="src\app\areas\admin\regulation\regulation.component.html" />
+    <Content Include="src\app\areas\admin\regulation\regulations.component.html" />
+    <Content Include="src\app\areas\admin\actName\actName.component.html" />
+    <Content Include="src\app\areas\admin\actName\actNames.component.html" />
+    <Content Include="src\app\areas\admin\allDefinition\allDefinition.component.html" />
+    <Content Include="src\app\areas\admin\dashboard\dashboard.component.html" />
+    <Content Include="src\app\areas\admin\layout\admin.component.html" />
+    <Content Include="src\app\areas\admin\layout\public_admin.component.html" />
+    <Content Include="src\app\areas\admin\login\login.component.html" />
+    <Content Include="src\assets\css\bootstrap.min.css" />
+    <Content Include="src\assets\css\components.min.css" />
+    <Content Include="src\assets\css\contact.min.css" />
+    <Content Include="src\assets\css\darkblue.min.css" />
+    <Content Include="src\assets\css\font-awesome.min.css" />
+    <Content Include="src\assets\css\layout.min.css" />
+    <Content Include="src\assets\css\login.css" />
+    <Content Include="src\assets\css\styles.css" />
+    <Content Include="src\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="src\assets\images\bg-header.png" />
+    <Content Include="src\assets\images\calendar-icon.svg" />
+    <Content Include="src\assets\images\Demsifylogo.svg" />
+    <Content Include="src\assets\images\ion-fb.png" />
+    <Content Include="src\assets\images\ion-gp.png" />
+    <Content Include="src\assets\images\ion-ln.png" />
+    <Content Include="src\assets\images\ion-rss.png" />
+    <Content Include="src\assets\images\ion-sp.png" />
+    <Content Include="src\assets\images\ion-tw.png" />
+    <Content Include="src\assets\images\ion-vm.png" />
+    <Content Include="src\assets\images\ion-yt.png" />
+    <Content Include="src\assets\images\loading.gif" />
+    <Content Include="src\assets\images\logo.png" />
+    <Content Include="src\assets\images\logo1.png" />
+    <Content Include="src\assets\images\map-access.jpg" />
+    <Content Include="src\assets\images\remove-icon-small.png" />
+    <Content Include="src\assets\images\sidebar_toggler_icon_darkblue.png" />
+    <Content Include="src\assets\js\app.js" />
+    <Content Include="src\assets\js\bootstrap.min.js" />
+    <Content Include="src\assets\js\hammer.js" />
+    <Content Include="src\assets\js\jquery.min.js" />
+    <Content Include="src\assets\js\layout.min.js" />
+    <Content Include="src\index.html" />
+    <Content Include="src\styles.css" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\app\app.component.ts" />
+    <TypeScriptCompile Include="src\app\app.module.ts" />
+    <TypeScriptCompile Include="src\app\app.routes.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\postQuery\postQuery.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\postQueryReply\postQueryReply.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\supportTicketReply\supportTicketReply.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\supportTicket\supportTicket.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fEMAModule\fEMAModules.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fEMAModule\fEMAModule.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\authorFAQQuestionReply\authorFAQQuestionReply.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\authorFAQ\authorFAQ.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\authorFAQ\authorFAQs.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\authorFAQDetail\authorFAQDetail.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\authorWriteUpDetail\authorWriteUpDetail.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\authorWriteUp\authorWriteUp.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\authorWriteUp\authorWriteUps.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\keyEvent\keyEvent.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\keyEvent\keyEvents.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\keyDefinition\keyDefinition.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\keyDefinition\keyDefinitions.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\gSRNotification\gSRNotification.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\gSRNotification\gSRNotifications.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\rulesIndexAmendment\rulesIndexAmendment.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\rulesSubIndex\rulesSubIndex.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\rulesIndex\rulesIndex.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\rBIDataDetail\rBIDataDetail.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\rBIData\rBIData.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\rBIData\rBIDatas.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\rBICompoundingOrder\rBICompoundingOrder.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\rBICompoundingOrder\rBICompoundingOrders.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\rBILiaisonOffice\rBILiaisonOffice.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\rBILiaisonOffice\rBILiaisonOffices.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fetersCodeGroupDetail\fetersCodeGroupDetail.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fetersCodeDetail\fetersCodeDetail.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\dIPPClarification\dIPPClarification.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\dIPPClarification\dIPPClarifications.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fIPBPressReleaseCase\fIPBPressReleaseCase.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fIPBPressReleaseCase\fIPBPressReleaseCases.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\documentation\documentation.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\documentation\documentations.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\documentationDetail\documentationDetail.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\rules\rules.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\rules\ruless.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\summaryDetail\summaryDetail.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\summary\summary.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\summary\summaries.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\formDetail\formDetail.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\manual\manual.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\manual\manuals.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fetersCode\fetersCode.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fetersCode\fetersCodes.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fIPBReview\fIPBReview.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fIPBReview\fIPBReviews.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\form\form.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\form\forms.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\nICCode\nICCode.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\nICCode\nICCodes.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\masterDirectionIndexAmendment\masterDirectionIndexAmendment.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\masterDirectionSubIndex\masterDirectionSubIndex.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\masterDirectionIndex\masterDirectionIndex.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\masterDirectionChapter\masterDirectionChapter.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\masterDirectionFAQ\masterDirectionFAQ.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fAQCategory\fAQCategory.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fAQCategory\fAQCategories.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fDIChapter\fDIChapter.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fAQ\fAQ.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fAQ\fAQs.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\masterDirection\masterDirection.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\masterDirection\masterDirections.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\masterCircular\masterCircular.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\masterCircular\masterCirculars.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\masterCircularDetail\masterCircularDetail.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\sectorDetail\sectorDetail.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\subSector\subSector.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\sector\sector.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\sector\sectors.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fDICircular\fDICircular.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fDICircular\fDICirculars.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fDICircularIndex\fDICircularIndex.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fDICircularSubIndex\fDICircularSubIndex.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\fDICircularIndexAmendment\fDICircularIndexAmendment.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\pressNoteAPDIRCircular\pressNoteAPDIRCircular.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\pressNoteNotification\pressNoteNotification.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\pressNote\pressNote.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\pressNote\pressNotes.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\aPDIRCircularAfter\aPDIRCircularAfter.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\aPDIRCircular\aPDIRCircular.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\aPDIRCircular\aPDIRCirculars.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\contentPopUp\contentPopUp.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\aPDIRCircularBefore\aPDIRCircularBefore.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\indexAmendment\indexAmendment.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\notification\notifications.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\notification\notification.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\femaSubIndex\femaSubIndex.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\femaIndex\femaIndex.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\regulation\regulation.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\regulation\regulations.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\actName\actName.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\actName\actNames.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\allDefinition\allDefinition.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\dashboard\dashboard.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\layout\admin.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\layout\public_admin.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\login\login.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\userProfile\otpConfirmationForProfile.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\userProfile\userProfile.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\admin\userProfile\userProfiles.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\guest\aboutus\aboutus.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\guest\contactus\contactus.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\guest\home\searchedPDFPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\guest\home\home.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\guest\layout\loginRegisterPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\guest\layout\guest.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\dashboard\dashboard.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\lOBOPOEligibilityCalculatorPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\eCBAverageMaturityCalculatorPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\fDIPenaltyCalculatorPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\compoundingPenaltyCalculatorPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\sectorSnapshotPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\keyEventPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\keyDefinitionPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\rBIODIPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\rBIECBPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\rBIDIPPFAQPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\fIPBReviewPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\formSummaryDocumentationPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\fetersCodePopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\manualPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\nICCodePopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\authorsWriteupPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\actPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\fDICircularPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\masterDirectionPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\rBICompoundingOrderPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\regulationPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\fEMAModule\fEMAModules.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\layout\user.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\subscription\subscriptionPopup.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\subscription\subscription.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\supportTicketReply\supportTicketReply.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\supportTicket\supportTicket.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\userProfile\otpConfirmationForProfile.component.ts" />
+    <TypeScriptCompile Include="src\app\areas\user\userProfile\userProfile.component.ts" />
+    <TypeScriptCompile Include="src\app\auth\token.interceptor.ts" />
+    <TypeScriptCompile Include="src\app\common\dropDown.ts" />
+    <TypeScriptCompile Include="src\app\common\auth.guard.ts" />
+    <TypeScriptCompile Include="src\app\common\safeHtmlPipe.ts" />
+    <TypeScriptCompile Include="src\app\common\global.ts" />
+    <TypeScriptCompile Include="src\app\common\sidebarPanel.component.ts" />
+    <TypeScriptCompile Include="src\app\common\spinner.component.ts" />
+    <TypeScriptCompile Include="src\app\main.ts" />
+    <TypeScriptCompile Include="src\app\model\search.ts" />
+    <TypeScriptCompile Include="src\app\model\contactUs.ts" />
+    <TypeScriptCompile Include="src\app\model\calculatorAnswer.ts" />
+    <TypeScriptCompile Include="src\app\model\package.ts" />
+    <TypeScriptCompile Include="src\app\model\supportTicketSubTopic.ts" />
+    <TypeScriptCompile Include="src\app\model\calculatorSubTopic.ts" />
+    <TypeScriptCompile Include="src\app\model\penaltyDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\rBIFAQOfFEMASubModuleDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\supportTicketReply.ts" />
+    <TypeScriptCompile Include="src\app\model\supportTicket.ts" />
+    <TypeScriptCompile Include="src\app\model\masterCircularOfFEMASubModuleDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\pressNoteOfFEMASubModuleDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\register.ts" />
+    <TypeScriptCompile Include="src\app\model\aPDIRCircularOfFEMASubModuleDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\masterDirectionOfFEMASubModuleDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\rulesOfFEMASubModuleDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\regulationOfFEMASubModuleDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\subscription.ts" />
+    <TypeScriptCompile Include="src\app\model\userProfile.ts" />
+    <TypeScriptCompile Include="src\app\model\authorFAQ.ts" />
+    <TypeScriptCompile Include="src\app\model\authorFAQQuestionReply.ts" />
+    <TypeScriptCompile Include="src\app\model\authorFAQDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\authorWriteUpDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\authorWriteUp.ts" />
+    <TypeScriptCompile Include="src\app\model\commonField.ts" />
+    <TypeScriptCompile Include="src\app\model\fEMASubModuleOfModule.ts" />
+    <TypeScriptCompile Include="src\app\model\keyDefinitionEvent.ts" />
+    <TypeScriptCompile Include="src\app\model\gSRNotification.ts" />
+    <TypeScriptCompile Include="src\app\model\login.ts" />
+    <TypeScriptCompile Include="src\app\model\rulesIndexAmendment.ts" />
+    <TypeScriptCompile Include="src\app\model\rulesSubIndex.ts" />
+    <TypeScriptCompile Include="src\app\model\rulesIndex.ts" />
+    <TypeScriptCompile Include="src\app\model\rBIDataDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\rBICompoundingOrder.ts" />
+    <TypeScriptCompile Include="src\app\model\rBIData.ts" />
+    <TypeScriptCompile Include="src\app\model\rBILiaisonOffice.ts" />
+    <TypeScriptCompile Include="src\app\model\fetersCodeGroupDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\fetersCodeDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\fetersCode.ts" />
+    <TypeScriptCompile Include="src\app\model\dIPPClarification.ts" />
+    <TypeScriptCompile Include="src\app\model\fIPBPressReleaseCase.ts" />
+    <TypeScriptCompile Include="src\app\model\formSummaryDocumentationDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\manual.ts" />
+    <TypeScriptCompile Include="src\app\model\fIPBReview.ts" />
+    <TypeScriptCompile Include="src\app\model\formSummaryDocumentation.ts" />
+    <TypeScriptCompile Include="src\app\model\nICCode.ts" />
+    <TypeScriptCompile Include="src\app\model\fAQCategory.ts" />
+    <TypeScriptCompile Include="src\app\model\masterDirectionIndexAmendment.ts" />
+    <TypeScriptCompile Include="src\app\model\masterDirectionSubIndex.ts" />
+    <TypeScriptCompile Include="src\app\model\masterDirectionIndex.ts" />
+    <TypeScriptCompile Include="src\app\model\masterDirectionChapter.ts" />
+    <TypeScriptCompile Include="src\app\model\fDIChapter.ts" />
+    <TypeScriptCompile Include="src\app\model\fAQ.ts" />
+    <TypeScriptCompile Include="src\app\model\masterDirectionFAQ.ts" />
+    <TypeScriptCompile Include="src\app\model\masterDirection.ts" />
+    <TypeScriptCompile Include="src\app\model\masterCircular.ts" />
+    <TypeScriptCompile Include="src\app\model\masterCircularDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\rules.ts" />
+    <TypeScriptCompile Include="src\app\model\sectorDetail.ts" />
+    <TypeScriptCompile Include="src\app\model\subSector.ts" />
+    <TypeScriptCompile Include="src\app\model\sector.ts" />
+    <TypeScriptCompile Include="src\app\model\fDICircular.ts" />
+    <TypeScriptCompile Include="src\app\model\fDICircularIndex.ts" />
+    <TypeScriptCompile Include="src\app\model\fDICircularSubIndex.ts" />
+    <TypeScriptCompile Include="src\app\model\fDICircularIndexAmendment.ts" />
+    <TypeScriptCompile Include="src\app\model\pressNoteAPDIRCircular.ts" />
+    <TypeScriptCompile Include="src\app\model\pressNoteNotification.ts" />
+    <TypeScriptCompile Include="src\app\model\pressNote.ts" />
+    <TypeScriptCompile Include="src\app\model\aPDIRCircularAfter.ts" />
+    <TypeScriptCompile Include="src\app\model\aPDIRCircularBefore.ts" />
+    <TypeScriptCompile Include="src\app\model\aPDIRCircular.ts" />
+    <TypeScriptCompile Include="src\app\model\actName.ts" />
+    <TypeScriptCompile Include="src\app\model\indexAmendment.ts" />
+    <TypeScriptCompile Include="src\app\model\notification.ts" />
+    <TypeScriptCompile Include="src\app\model\femaSubIndex.ts" />
+    <TypeScriptCompile Include="src\app\model\femaIndex.ts" />
+    <TypeScriptCompile Include="src\app\model\regulation.ts" />
+    <TypeScriptCompile Include="src\app\model\allDefinition.ts" />
+    <TypeScriptCompile Include="src\app\routes\admin.routes.ts" />
+    <TypeScriptCompile Include="src\app\routes\user.routes.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\subscription.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\userProfile.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\fEMASubModuleOfModule.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\authorFAQ.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\authorFAQQuestionReply.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\authorFAQDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\authorWriteUpDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\authorWriteUp.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\keyDefinitionEvent.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\gSRNotification.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\rulesIndexAmendment.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\rulesSubIndex.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\rulesIndex.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\rBIDataDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\rBICompoundingOrder.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\rBIData.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\rBILiaisonOffice.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\fetersCodeGroupDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\fetersCodeDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\fetersCode.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\dIPPClarification.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\fIPBPressReleaseCase.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\formSummaryDocumentationDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\manual.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\fIPBReview.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\formSummaryDocumentation.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\nICCode.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\fAQCategory.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\masterDirectionIndexAmendment.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\masterDirectionSubIndex.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\masterDirectionIndex.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\masterDirectionChapter.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\masterDirectionFAQ.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\fDIChapter.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\fAQ.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\masterDirection.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\masterCircular.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\masterCircularDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\rules.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\sectorDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\subSector.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\sector.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\fDICircular.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\fDICircularIndex.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\fDICircularSubIndex.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\fDICircularIndexAmendment.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\pressNoteAPDIRCircular.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\pressNoteNotification.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\pressNote.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\aPDIRCircularAfter.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\aPDIRCircularBefore.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\aPDIRCircular.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\actName.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\indexAmendment.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\notification.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\femaSubIndex.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\femaIndex.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\regulation.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\allDefinition.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\supportTicket.service.ts" />
+    <TypeScriptCompile Include="src\app\service\admin\supportTicketReply.service.ts" />
+    <TypeScriptCompile Include="src\app\service\common\account.service.ts" />
+    <TypeScriptCompile Include="src\app\service\common\search.service.ts" />
+    <TypeScriptCompile Include="src\app\service\common\latesNews.service.ts" />
+    <TypeScriptCompile Include="src\app\service\common\commonField.service.ts" />
+    <TypeScriptCompile Include="src\app\service\common\spinner.service.ts" />
+    <TypeScriptCompile Include="src\app\service\common\contactUs.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\calculatorAnswer.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\subscription.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\package.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\supportTicketSubTopic.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\calculatorSubTopic.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\penaltyDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\rBIFAQOfFEMASubModuleDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\supportTicketReply.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\supportTicket.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\actName.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\dIPPClarification.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\fAQ.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\fDICircularOfFEMASubModuleDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\fetersCode.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\fIPBPressReleaseCase.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\fIPBReview.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\formSummaryDocumentation.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\keyDefinitionEvent.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\manual.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\nICCode.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\pressNoteOfFEMASubModuleDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\authorWriteUp.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\authorWriteUpDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\gSRNotification.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\masterCircularOfFEMASubModuleDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\notification.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\aPDIRCircularOfFEMASubModuleDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\masterDirectionOfFEMASubModuleDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\rBICompoundingOrder.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\rBIData.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\rulesOfFEMASubModuleDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\regulationOfFEMASubModuleDetail.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\sector.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\userProfile.service.ts" />
+    <TypeScriptCompile Include="src\app\service\user\fEMASubModuleOfModule.service.ts" />
+    <TypeScriptCompile Include="src\environments\environment.prod.ts" />
+    <TypeScriptCompile Include="src\environments\environment.ts" />
+    <TypeScriptCompile Include="src\main.ts" />
+    <TypeScriptCompile Include="src\polyfills.ts" />
+    <TypeScriptCompile Include="src\test.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50135</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51220/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,138 @@
+﻿<div class="inner_page">
+    <div class="container">
+        <!--<div class="row">
+            <div class="col-md-12">
+                <div class="inner_page_titel text-center">Post A Query</div>
+            </div>
+        </div>-->
+        <div class="row justify-content-md-center">
+            <div class="col-md-12">
+                <div class="card  l_r_from contact_us_wapper  no-padding">
+                    <div class="search_result">
+                        <div class="card">
+                            <ul class="nav nav-tabs justify-content-center " role="tablist" style="margin-bottom: 40px;">
+                                <li role="presentation" (click)="OnClickModuleTab('postquery')"><a href="#tab1" [class.tab-active]="moduleTab == 'postquery'" aria-controls="tab1" role="tab" data-toggle="tab">Post A Query</a></li>
+                                <li role="presentation" (click)="OnClickModuleTab('viewquery')"><a href="#tab2" [class.tab-active]="moduleTab == 'viewquery'" aria-controls="tab2" role="tab" data-toggle="tab">View Query</a></li>
+                            </ul>
+                            <div class="tab-content no-padding">
+                                <div role="tabpanel" class="tab-pane" [class.active]="moduleTab == 'postquery'" id="tab1">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-8 col-md-10 post-q">
+                                            <form class="ptb-30" novalidate (ngSubmit)="OnSubmitSupportTicket(frmSupportTicket)" [formGroup]="frmSupportTicket">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-lg-10  col-md-12">
+                                                        <div class="form-group form-md-line-input no-margin ">
+                                                            <p class="post-ti">Post Your Query</p>
+                                                        </div>
+                                                        <span class="help-block has-error" *ngIf="frmSupportTicket.controls.TopicId.errors?.required && isSubmited"> Please select Topic </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-lg-10  col-md-12">
+                                                        <div class="form-group form-md-line-input no-margin">
+                                                            <label class="prof-lab">Topic</label>
+                                                            <select class="custom-select" formControlName="TopicId" (change)="OnChangeTopic()">
+                                                                <option *ngFor="let item of topics" [value]="item.Value">{{item.Text}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <span class="help-block has-error" *ngIf="frmSupportTicket.controls.TopicId.errors?.required && isSubmited"> Please select Topic </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row top-padding-20px justify-content-center">
+                                                    <div class="col-lg-10 col-md-12">
+                                                        <div class="form-group form-md-line-input no-margin">
+                                                            <label class="prof-lab">SubTopic</label>
+                                                            <select class="custom-select" formControlName="SubTopicId">
+                                                                <option *ngFor="let item of subTopics" [value]="item.Value">{{item.Text}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <span class="help-block has-error" *ngIf="frmSupportTicket.controls.SubTopicId.errors?.required && isSubmited"> Please select SubTopic </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row top-padding-20px justify-content-center">
+                                                    <div class="col-lg-10 col-md-12">
+                                                        <div class="form-group form-md-line-input no-margin">
+                                                            <label class="prof-lab">Query Title</label>
+                                                            <input type="text" class="form-control" formControlName="QueryTitle" />
+                                                        </div>
+                                                        <span class="help-block has-error" *ngIf="frmSupportTicket.controls.QueryTitle.errors?.required && isSubmited"> Please enter QueryTitle </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row top-padding-20px justify-content-center">
+                                                    <div class="col-lg-10 col-md-12">
+                                                        <div class="form-group form-md-line-input no-margin">
+                                                            <label class="prof-lab">Query</label>
+                                                            <textarea class="form-control" formControlName="Query"></textarea>
+                                                        </div>
+                                                        <span class="help-block has-error" *ngIf="frmSupportTicket.controls.Query.errors?.required && isSubmited"> Please enter Query </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row top-padding-20px justify-content-center">
+                                                    <div class="col-lg-10 col-md-12">
+                                                        <div class="form-group form-md-line-input no-margin">
+                                                            <input type="checkbox" formControlName="IsCheckedTermAndCondition" id="chkIsCheckedTermAndCondition" />
+                                                            <label class="form-check-label" for="chkIsCheckedTermAndCondition" style="margin-left:5px;">I have read and agree to the Demystify Fema Terms and Conditions</label>
+                                                        </div>
+                                                        <span class="help-block has-error" *ngIf="frmSupportTicket.controls.IsCheckedTermAndCondition.errors?.required && isSubmited"> Please accept Terms & Condition </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row top-padding-20px justify-content-center">
+                                                    <div class="col-lg-10 col-md-12">
+                                                        <div class="form-actions">
+                                                            <input class="btn btn-primary" type="submit" value="Post">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" [class.active]="moduleTab == 'viewquery'" id="tab2">
+                                    <div class="row justify-content-md-center">
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group form-md-line-input no-margin">
+                                                        <input type="checkbox" [(ngModel)]="isOnlyMyQuery" (change)="OnChangeSupportTicketParameter()" id="chkisOnlyMyQuery" />
+                                                        <label class="form-check-label" for="chkisOnlyMyQuery" style="margin-left:5px;">Show my queries</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row top-padding-20px">
+                                                <div class="col-md-12">
+                                                    <div class="form-group l_r_from form-md-line-input no-margin">
+                                                        <label class="prof-lab">Topic</label>
+                                                        <select class="custom-select form-control" [(ngModel)]="selectedTopicId" (change)="OnChangeSupportTicketParameter()">
+                                                            <option *ngFor="let item of topics" [value]="item.Value">{{item.Text}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <div class="col-md-12 mt10">
+                                                    <ng-template ngFor let-supportTicket let-i="index" [ngForOf]="supportTickets">
+                                                        <div class="query-1 pointer-cursor" (click)="GoSupportTicketReply(supportTicket.SupportTicketId)">
+                                                            <p class="query-arrows">{{supportTicket.QueryTitle}}</p>
+                                                            <p class="fs-13">{{(supportTicket.Query.length > 100) ? supportTicket.Query.substring(0, 101) + ' . . .' : supportTicket.Query}}</p>
+                                                        </div>
+                                                    </ng-template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row top-padding-20px">
+                                        <div class="col-md-12 mid">
+                                            <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

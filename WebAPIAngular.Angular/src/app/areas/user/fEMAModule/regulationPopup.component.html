@@ -1,0 +1,468 @@
+﻿<div class="modalLRForm" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="search_result">
+                    <div class="card">
+                        <ul class="nav nav-tabs justify-content-center" role="tablist">
+                            <li role="presentation" (click)="OnModuleTabClick('regulation')"><a href="#tab1" [class.tab-active]="moduleTab == 'regulation'" aria-controls="tab1" role="tab" data-toggle="tab">FEMA Regulations</a></li>
+                            <li role="presentation" (click)="OnModuleTabClick('notification')"><a href="#tab2" [class.tab-active]="moduleTab == 'notification'" aria-controls="tab2" role="tab" data-toggle="tab">FEMA Notifications</a></li>
+                            <li role="presentation" (click)="OnModuleTabClick('rules')"><a href="#tab3" [class.tab-active]="moduleTab == 'rules'" aria-controls="tab3" role="tab" data-toggle="tab">FEMA Rules</a></li>
+                        </ul>
+                        <div class="tab-content no-padding">
+                            <div role="tabpanel" class="tab-pane active" id="tab1">
+                                <div class="select_fdi_menu top-padding-20px">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-6">
+                                            <select class="form-control" (change)="OnRegulationChange(drpRegulation.value)" #drpRegulation>
+                                                <option *ngFor="let item of regulationOfFEMASubModuleDetails" [value]="item.RegulationId">{{item.RegulationNumber + ' - ' + item.RegulationName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="search_result top-padding-20px" id="inn-pop">
+                                    <div class="card">
+                                        <ul class="nav nav-tabs no-margin" role="tablist">
+                                            <li role="presentation" (click)="OnGridViewIndexAmendmentTabClick('gridview')"><a href="#gridview" [class.tab-active]="gridviewIndexAmendmentTab == 'gridview'" aria-controls="gridview" role="tab" data-toggle="tab">Grid View</a></li>
+                                            <li role="presentation" (click)="OnGridViewIndexAmendmentTabClick('indexAmendment')"><a href="#contentAmendment" [class.tab-active]="gridviewIndexAmendmentTab == 'indexAmendment'" aria-controls="contentAmendment" role="tab" data-toggle="tab">Content / Amendments</a></li>
+                                        </ul>
+                                        <div class="tab-content no-padding">
+                                            <div role="tabpanel" class="tab-pane active" id="gridview">
+                                                <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                                                    <div class="tab-hg">
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead class="thead_bg">
+                                                                    <tr class="grey-mint text-nowrap">
+                                                                        <th scope="col">Notification No.</th>
+                                                                        <th scope="col">Notification Date</th>
+                                                                        <th scope="col">GSR No.</th>
+                                                                        <th scope="col">GSR Date</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngIf="!notifications">
+                                                                        <td colspan="8" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                    </tr>
+                                                                    <tr *ngIf="notifications && notifications.length == 0">
+                                                                        <td colspan="8" class="text-center"><label>No Notification Found!</label></td>
+                                                                    </tr>
+                                                                    <ng-template ngFor let-notification let-i="index" [ngForOf]="notifications">
+                                                                        <tr>
+                                                                            <td><a class="und" href="{{notificationPDFServerPath + notification.NotificationPDF}}" target="_blank">{{notification.NotificationNumber}}</a></td>
+                                                                            <td>{{notification.NotificationDate | date:'dd-MM-yyyy'}}</td>
+                                                                            <td><a class="und" href="{{gSRPDFServerPath + notification.GSRPDF}}" target="_blank">{{notification.GSRNo}}</a></td>
+                                                                            <td>{{notification.GSRDate | date:'dd-MM-yyyy'}}</td>
+                                                                        </tr>
+                                                                    </ng-template>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="contentAmendment">
+                                                <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                                                    <div class="tab-hg">
+                                                        <div class="table-responsive">
+                                                            <!--<table class="table">
+                                                                <thead class="thead_bg">
+                                                                    <tr class="grey-mint text-nowrap">
+                                                                        <th scope="col">Index Name</th>
+                                                                        <th scope="col">Index Amendment Content</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngIf="!femaIndexes">
+                                                                        <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                    </tr>
+                                                                    <tr *ngIf="femaIndexes && femaIndexes.length == 0">
+                                                                        <td colspan="3" class="text-center"><label>No Index Found!</label></td>
+                                                                    </tr>
+                                                                    <ng-template ngFor let-femaIndex let-i="index" [ngForOf]="femaIndexes">
+                                                                        <tr (click)="ShowRegulationSubIndex(i, femaIndex.IndexId)">
+                                                                            <td><a class="text-underline" (click)="ShowContent(femaIndex.IndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{femaIndex.IndexNo + ' ' + femaIndex.IndexName}}</a></td>
+                                                                            <td>
+                                                                                <ul>
+                                                                                    <li *ngFor="let indexAmendment of femaIndex.IndexAmendments" class="ulli">
+                                                                                        <a class="text-underline" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.IndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">{{indexAmendment.NotificationNumber}}</a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr class="text-nowrap {{itemDetailRegulationIndexes.index === i ? '' : 'd-none'}}">
+                                                                            <td colspan="2">
+                                                                                <div class="table-scrollable" style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                                                                                    <table class="table">
+                                                                                        <thead class="thead_bg">
+                                                                                            <tr class="grey-mint text-nowrap">
+                                                                                                <th scope="col">SubIndex Name</th>
+                                                                                                <th scope="col">Index Amendment Content</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            <tr *ngIf="!femaSubIndexes">
+                                                                                                <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                                            </tr>
+                                                                                            <tr *ngIf="femaSubIndexes && femaSubIndexes.length == 0">
+                                                                                                <td colspan="3" class="text-center"><label>No SubIndex Found!</label></td>
+                                                                                            </tr>
+                                                                                            <ng-template ngFor let-femaSubIndex let-i="index" [ngForOf]="femaSubIndexes">
+                                                                                                <tr>
+                                                                                                    <td><a class="text-underline" (click)="ShowContent(femaIndex.IndexId, femaSubIndex.SubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{femaSubIndex.SubIndexNo + ' ' + femaSubIndex.SubIndexName}}</a></td>
+                                                                                                    <td>
+                                                                                                        <ul>
+                                                                                                            <li *ngFor="let indexAmendment of femaSubIndex.SubIndexAmendments" class="ulli">
+                                                                                                                <a class="text-underline" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.IndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">{{indexAmendment.NotificationNumber}}</a>
+                                                                                                            </li>
+                                                                                                        </ul>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </ng-template>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </ng-template>
+                                                                </tbody>
+                                                            </table>-->
+                                                            <table class="table">
+                                                                <thead class="thead_bg">
+                                                                    <tr class="grey-mint text-nowrap">
+                                                                        <th colspan="2" scope="col">Index / Sub-index Content</th>
+                                                                        <th scope="col">Index / Sub-index Amendment</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngIf="!femaIndexes">
+                                                                        <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                    </tr>
+                                                                    <tr *ngIf="femaIndexes && femaIndexes.length == 0">
+                                                                        <td colspan="3" class="text-center"><label>No Index Found!</label></td>
+                                                                    </tr>
+
+                                                                    <ng-template ngFor let-femaIndex let-j="index" [ngForOf]="femaIndexes">
+                                                                        <tr (click)="ShowRegulationSubIndex(j, femaIndex.IndexId)">
+                                                                            <td class="text-center text-nowrap"><a class="text-underline" (click)="ShowContent(femaIndex.IndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{femaIndex.IndexNo}}</a></td>
+                                                                            <td><a class="text-underline" (click)="ShowContent(femaIndex.IndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{femaIndex.IndexName}}</a></td>
+                                                                            <td class="text-nowrap">
+                                                                                <table>
+                                                                                    <tbody>
+                                                                                        <ng-template ngFor let-indexAmendment [ngForOf]="femaIndex.IndexAmendments">
+                                                                                            <tr *ngIf="indexAmendment.Notifications" class="ulli no-border">
+                                                                                                <td class="no-border">
+                                                                                                    <ng-template ngFor let-item [ngForOf]="indexAmendment.Notifications.split(';;')">
+                                                                                                        <a class="und" href="{{notificationPDFServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}} dated {{item.split('||')[2] | date:'dd-MM-yyyy'}}</a><br />
+                                                                                                    </ng-template>
+                                                                                                </td>
+                                                                                                <td class="no-border"><a class="text-underline und" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.IndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                            </tr>
+                                                                                        </ng-template>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <ng-template ngFor let-femaSubIndex let-k="index" [ngForOf]="femaSubIndexes" *ngIf="itemDetailRegulationIndexes.index === j">
+                                                                            <tr>
+                                                                                <td class="text-center text-nowrap"><a class="text-underline" (click)="ShowContent(femaIndex.IndexId, femaSubIndex.SubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{femaSubIndex.SubIndexNo}}</a></td>
+                                                                                <td><a class="text-underline" (click)="ShowContent(femaIndex.IndexId, femaSubIndex.SubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{femaSubIndex.SubIndexName}}</a></td>
+                                                                                <td class="text-nowrap">
+                                                                                    <table>
+                                                                                        <tbody>
+                                                                                            <ng-template ngFor let-indexAmendment [ngForOf]="femaSubIndex.SubIndexAmendments">
+                                                                                                <tr *ngIf="indexAmendment.Notifications" class="ulli no-border">
+                                                                                                    <td class="no-border">
+                                                                                                        <ng-template ngFor let-item [ngForOf]="indexAmendment.Notifications.split(';;')">
+                                                                                                            <a class="und" href="{{notificationPDFServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}} dated {{item.split('||')[2] | date:'dd-MM-yyyy'}}</a><br />
+                                                                                                        </ng-template>
+                                                                                                    </td>
+                                                                                                    <td class="no-border"><a class="text-underline und" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.IndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                                </tr>
+                                                                                            </ng-template>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </ng-template>
+                                                                    </ng-template>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab2">
+                                <div class="select_fdi_menu top-padding-20px">
+                                    <div class="row justify-content-end">
+                                        <div class="col-md-3">
+                                            <form novalidate (ngSubmit)="SearchAllNotification(frmAllNotification)" [formGroup]="frmAllNotification">
+                                                <span class="input-group-btn modules_searchs_wapper">
+                                                    <input class="modules_search form-control" placeholder="Search" type="text" formControlName="SearchText">
+                                                    <button class="modules_search_btn" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                                </span>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                                    <div class="tab-hg">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="thead_bg">
+                                                    <tr class="grey-mint text-nowrap">
+                                                        <th (click)="OnAllNotificationSort('RegulationNumber')" class="pointer-cursor">Regulation No. <i class="fa {{sortingAllNotificationField == 'RegulationNumber' ? (sortingAllNotificationDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                        <th (click)="OnAllNotificationSort('NotificationNumber')" class="pointer-cursor">Notification No. <i class="fa {{sortingAllNotificationField == 'NotificationNumber' ? (sortingAllNotificationDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                        <th (click)="OnAllNotificationSort('NotificationName')" class="pointer-cursor">Notification Name <i class="fa {{sortingAllNotificationField == 'NotificationName' ? (sortingAllNotificationDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                        <th (click)="OnAllNotificationSort('NotificationDate')" class="pointer-cursor">Notification Date <i class="fa {{sortingAllNotificationField == 'NotificationDate' ? (sortingAllNotificationDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                        <!--<th (click)="OnAllNotificationSort('NotificationEffectiveDate')" class="pointer-cursor">Notification Effective Date <i class="fa {{sortingAllNotificationField == 'NotificationEffectiveDate' ? (sortingAllNotificationDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>-->
+                                                        <!--<th (click)="OnAllNotificationSort('NotificationTypeName')" class="pointer-cursor">NotificationType Name <i class="fa {{sortingAllNotificationField == 'NotificationTypeName' ? (sortingAllNotificationDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>-->
+                                                        <th (click)="OnAllNotificationSort('GSRNo')" class="pointer-cursor">GSR No. <i class="fa {{sortingAllNotificationField == 'GSRNo' ? (sortingAllNotificationDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                        <!--<th (click)="OnAllNotificationSort('GSRDate')" class="pointer-cursor">GSR Date <i class="fa {{sortingAllNotificationField == 'GSRDate' ? (sortingAllNotificationDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>-->
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngIf="!allNotifications">
+                                                        <td colspan="10" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                    </tr>
+                                                    <tr *ngIf="allNotifications && allNotifications.length == 0">
+                                                        <td colspan="10" class="text-center"><label>No Notification Found!</label></td>
+                                                    </tr>
+                                                    <ng-template ngFor let-allNotification let-j="index" [ngForOf]="allNotifications">
+                                                        <tr>
+                                                            <td>{{allNotification.RegulationNumber}}</td>
+                                                            <td><a class="und" href="{{notificationPDFServerPath + allNotification.NotificationPDF}}" target="_blank">{{allNotification.NotificationNumber}}</a></td>
+                                                            <td>{{allNotification.NotificationName}}</td>
+                                                            <td>{{allNotification.NotificationDate | date:'dd-MM-yyyy'}}</td>
+                                                            <!--<td>{{allNotification.NotificationEffectiveDate | date:'dd-MM-yyyy'}}</td>-->
+                                                            <!--<td>{{allNotification.NotificationTypeName}}</td>-->
+                                                            <td><a class="und" href="{{gSRPDFServerPath + allNotification.GSRPDF}}" target="_blank">{{allNotification.GSRNo}}</a></td>
+                                                            <!--<td>{{allNotification.GSRDate | date:'dd-MM-yyyy'}}</td>-->
+                                                        </tr>
+                                                    </ng-template>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row top-padding-20px">
+                                    <div class="col-md-12">
+                                        <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab3">
+                                <div class="select_fdi_menu top-padding-20px">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-6">
+                                            <select class="form-control" (change)="OnRulesChange(drpRules.value)" #drpRules>
+                                                <option *ngFor="let item of rulesOfFEMASubModuleDetails" [value]="item.RulesId">{{item.RulesName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="search_result top-padding-20px" id="inn-pop">
+                                    <div class="card">
+                                        <ul class="nav nav-tabs no-margin" role="tablist">
+                                            <li role="presentation" (click)="OnRulesGridViewIndexAmendmentTabClick('gridview')"><a href="#rulesgridview" [class.tab-active]="rulesGridviewIndexAmendmentTab == 'gridview'" aria-controls="rulesgridview" role="tab" data-toggle="tab">Grid View</a></li>
+                                            <li role="presentation" (click)="OnRulesGridViewIndexAmendmentTabClick('indexAmendment')"><a href="#rulescontentAmendment" [class.tab-active]="rulesGridviewIndexAmendmentTab == 'indexAmendment'" aria-controls="rulescontentAmendment" role="tab" data-toggle="tab">Content / Amendments</a></li>
+                                        </ul>
+                                        <div class="tab-content no-padding">
+                                            <div role="tabpanel" class="tab-pane active" id="rulesgridview">
+                                                <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                                                    <div class="tab-hg">
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead class="thead_bg">
+                                                                    <tr class="grey-mint text-nowrap">
+                                                                        <th scope="col">GSR Notification No.</th>
+                                                                        <th scope="col">GSR Notification Date</th>
+                                                                        <th scope="col">GSR NotificationType Name</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngIf="!gSRNotifications">
+                                                                        <td colspan="8" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                    </tr>
+                                                                    <tr *ngIf="gSRNotifications && gSRNotifications.length == 0">
+                                                                        <td colspan="8" class="text-center"><label>No GSR Notification Found!</label></td>
+                                                                    </tr>
+                                                                    <ng-template ngFor let-gSRNotification let-i="index" [ngForOf]="gSRNotifications">
+                                                                        <tr>
+                                                                            <td><a class="und" href="{{gSRNotificationPDFServerPath + gSRNotification.PDF}}" target="_blank">{{gSRNotification.GSRNotificationNo}}</a></td>
+                                                                            <td>{{gSRNotification.GSRNotificationDate | date:'dd-MM-yyyy'}}</td>
+                                                                            <td>{{gSRNotification.GSRNotificationTypeName}}</td>
+                                                                        </tr>
+                                                                    </ng-template>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="rulescontentAmendment">
+                                                <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                                                    <div class="tab-hg">
+                                                        <div class="table-responsive">
+                                                            <!--<table class="table">
+                                                                <thead class="thead_bg">
+                                                                    <tr class="grey-mint text-nowrap">
+                                                                        <th scope="col">Index Name</th>
+                                                                        <th scope="col">Index Amendment Content</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngIf="!rulesIndexes">
+                                                                        <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                    </tr>
+                                                                    <tr *ngIf="rulesIndexes && rulesIndexes.length == 0">
+                                                                        <td colspan="3" class="text-center"><label>No Index Found!</label></td>
+                                                                    </tr>
+                                                                    <ng-template ngFor let-rulesIndex let-i="index" [ngForOf]="rulesIndexes">
+                                                                        <tr (click)="ShowRulesSubIndex(i, rulesIndex.IndexId)">
+                                                                            <td><a class="text-underline" (click)="ShowContent(rulesIndex.IndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{rulesIndex.IndexNo + ' ' + rulesIndex.IndexName}}</a></td>
+                                                                            <td>
+                                                                                <ul>
+                                                                                    <li *ngFor="let indexAmendment of rulesIndex.IndexAmendments" class="ulli">
+                                                                                        <a class="text-underline" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.RulesIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">{{indexAmendment.GSRNotificationNo}}</a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr class="text-nowrap {{itemDetailRulesIndexes.index === i ? '' : 'd-none'}}">
+                                                                            <td colspan="3">
+                                                                                <div class="table-scrollable" style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                                                                                    <table class="table">
+                                                                                        <thead class="thead_bg">
+                                                                                            <tr class="grey-mint text-nowrap">
+                                                                                                <th scope="col">SubIndex Name</th>
+                                                                                                <th scope="col">Index Amendment Content</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            <tr *ngIf="!rulesSubIndexes">
+                                                                                                <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                                            </tr>
+                                                                                            <tr *ngIf="rulesSubIndexes && rulesSubIndexes.length == 0">
+                                                                                                <td colspan="3" class="text-center"><label>No SubIndex Found!</label></td>
+                                                                                            </tr>
+                                                                                            <ng-template ngFor let-rulesSubIndex let-i="index" [ngForOf]="rulesSubIndexes">
+                                                                                                <tr>
+                                                                                                    <td><a class="text-underline" (click)="ShowContent(rulesSubIndex.IndexId, rulesSubIndex.SubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{rulesSubIndex.SubIndexNo + ' ' + rulesSubIndex.SubIndexName}}</a></td>
+                                                                                                    <td>
+                                                                                                        <ul>
+                                                                                                            <li *ngFor="let indexAmendment of rulesSubIndex.SubIndexAmendments" class="ulli">
+                                                                                                                <a class="text-underline" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.RulesIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">{{indexAmendment.GSRNotificationNo}}</a>
+                                                                                                            </li>
+                                                                                                        </ul>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </ng-template>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </ng-template>
+                                                                </tbody>
+                                                            </table>-->
+                                                            <table class="table">
+                                                                <thead class="thead_bg">
+                                                                    <tr class="grey-mint text-nowrap">
+                                                                        <th colspan="2" scope="col">Index / Sub-index Content</th>
+                                                                        <th scope="col">Index / Sub-index Amendment</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngIf="!rulesIndexes">
+                                                                        <td colspan="3" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                                    </tr>
+                                                                    <tr *ngIf="rulesIndexes && rulesIndexes.length == 0">
+                                                                        <td colspan="3" class="text-center"><label>No Index Found!</label></td>
+                                                                    </tr>
+                                                                    <ng-template ngFor let-rulesIndex let-j="index" [ngForOf]="rulesIndexes">
+                                                                        <tr (click)="ShowRulesSubIndex(j, rulesIndex.IndexId)">
+                                                                            <td class="text-center text-nowrap"><a class="text-underline" (click)="ShowContent(rulesIndex.IndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{rulesIndex.IndexNo}}</a></td>
+                                                                            <td><a class="text-underline" (click)="ShowContent(rulesIndex.IndexId, nullValue, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{rulesIndex.IndexName}}</a></td>
+                                                                            <td class="text-nowrap">
+                                                                                <table>
+                                                                                    <tbody>
+                                                                                        <ng-template ngFor let-indexAmendment [ngForOf]="rulesIndex.IndexAmendments">
+                                                                                            <tr *ngIf="indexAmendment.GSRNotifications" class="ulli no-border">
+                                                                                                <td class="no-border">
+                                                                                                    <ng-template ngFor let-item [ngForOf]="indexAmendment.GSRNotifications.split(';;')">
+                                                                                                        <a class="und" href="{{gSRNotificationPDFServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}} dated {{item.split('||')[2] | date:'dd-MM-yyyy'}}</a><br />
+                                                                                                    </ng-template>
+                                                                                                </td>
+                                                                                                <td class="no-border"><a class="text-underline und" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.RulesIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                            </tr>
+                                                                                        </ng-template>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <ng-template ngFor let-rulesSubIndex let-k="index" [ngForOf]="rulesSubIndexes" *ngIf="itemDetailRulesIndexes.index === j">
+                                                                            <tr>
+                                                                                <td class="text-center text-nowrap"><a class="text-underline" (click)="ShowContent(rulesSubIndex.IndexId, rulesSubIndex.SubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{rulesSubIndex.SubIndexNo}}</a></td>
+                                                                                <td><a class="text-underline" (click)="ShowContent(rulesSubIndex.IndexId, rulesSubIndex.SubIndexId, nullValue, 'indexSubIndex')" data-toggle="modal" data-target="#indexAmendment">{{rulesSubIndex.SubIndexName}}</a></td>
+                                                                                <td class="text-nowrap">
+                                                                                    <table>
+                                                                                        <tbody>
+                                                                                            <ng-template ngFor let-indexAmendment [ngForOf]="rulesSubIndex.SubIndexAmendments">
+                                                                                                <tr *ngIf="indexAmendment.GSRNotifications" class="ulli no-border">
+                                                                                                    <td class="no-border">
+                                                                                                        <ng-template ngFor let-item [ngForOf]="indexAmendment.GSRNotifications.split(';;')">
+                                                                                                            <a class="und" href="{{gSRNotificationPDFServerPath + item.split('||')[3]}}" target="_blank">{{item.split('||')[1]}} dated {{item.split('||')[2] | date:'dd-MM-yyyy'}}</a><br />
+                                                                                                        </ng-template>
+                                                                                                    </td>
+                                                                                                    <td class="no-border"><a class="text-underline und" *ngIf="indexAmendment.IndexAmendmentContent" (click)="ShowContent(nullValue, nullValue, indexAmendment.RulesIndexAmendmentId, 'indexAmendment')" data-toggle="modal" data-target="#indexAmendment">View Content</a></td>
+                                                                                                </tr>
+                                                                                            </ng-template>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </ng-template>
+                                                                    </ng-template>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade poupu_modules poupu_modules03" id="indexAmendment" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="opacity: 1 !important;z-index: 9999 !important;">
+        <div class="modal-dialog inn_pop" role="document">
+            <div class="modal-content" style="overflow:inherit;  box-shadow:2px 2px 36px -2px rgba(0,0,0,0.75);">
+                <div class="modal-body">
+                    <div class="modules_poupu_titel" style="right:27px; position:relative;">
+                        <div class="npbt-mob"><label class="modal-header-title">{{popupHeaderTitle}}</label></div>
+                        <a (click)="PreviousContent()" *ngIf="isPreviousButton" class="pre-btn"><span class="left-arrow"><</span> Previous</a>&nbsp;&nbsp;&nbsp;
+                        <a (click)="NextContent()" *ngIf="isNextButton" class="nex-btn">Next <span class="right-arrow">></span></a>
+                        <button type="button" class="pointer-cursor close-button close-round" data-dismiss="modal" aria-label="Close" title="CLOSE" style="line-height: 0.1;">x</button>
+                    </div>
+                    <hr />
+                    <div class="fdi_box_poupu pop-up">
+                        <div class="modules_tabel no-border modules_tabel03">
+                            <div [innerHTML]='indexAmendmentContent | safeHtml'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

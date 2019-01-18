@@ -1,0 +1,520 @@
+﻿<div class="poupu_modules <!--poupu_modules05-->" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="search_result">
+                    <div class="card">
+                        <ul class="nav nav-tabs justify-content-center" role="tablist" style="margin-bottom: 20px;">
+                            <li role="presentation" (click)="OnClickModuleTab('illustration1')"><a href="#tab1" [class.tab-active]="moduleTab == 'illustration1'" aria-controls="tab1" role="tab" data-toggle="tab">Illustration I</a></li>
+                            <li role="presentation" (click)="OnClickModuleTab('illustration2')"><a href="#tab2" [class.tab-active]="moduleTab == 'illustration2'" aria-controls="tab2" role="tab" data-toggle="tab">Illustration II</a></li>
+                            <li role="presentation" (click)="OnClickModuleTab('illustration3')"><a href="#tab3" [class.tab-active]="moduleTab == 'illustration3'" aria-controls="tab3" role="tab" data-toggle="tab">Illustration III</a></li>
+                        </ul>
+                        <div class="tab-content no-padding">
+                            <div role="tabpanel" class="tab-pane active" id="tab1">
+                                <div class="modules_tabel modules_tabel01 no-border no-padding">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-7 text-center">
+                                            <div class="form-group">
+                                                <label>Illustration I - Contravention of Para 9(1)(A) of Schedule 1 to Notification No.FEMA20/2000-RB</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead class="thead_bg">
+                                                        <tr class="grey-mint">
+                                                            <th class="fs-14" style="width: 225px;">Date of receipt</th>
+                                                            <th class="fs-14">Amount (Rs.)</th>
+                                                            <th class="fs-14" style="width: 225px;">Date of Reporting to RBI</th>
+                                                            <th class="fs-14">Delay</th>
+                                                            <th class="fs-14">Period of contravention (years)</th>
+                                                            <th class="fs-14">Variable Amount applicable as per para I.1 of Guidance Note</th>
+                                                            <th class="fs-14">Amount imposed (Rs.)</th>
+                                                            <th class="fs-14">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let field of illustration1FieldArray; let i = index" class="text-center">
+                                                            <td class="vertical-middle">
+                                                                <div class="input-group date-wd" style="height: 32px;">
+                                                                    <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(field.ReceiptDate) ? (field.ReceiptDate.day + '-' + field.ReceiptDate.month + '-' + field.ReceiptDate.year) : ''" />
+                                                                    <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                                                        <button class="btn btn-secondary cal" (click)="field.IsReceiptDateDatePicker = !field.IsReceiptDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledIllustration1">
+                                                                            <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <ngb-datepicker #dp (select)="field.IsReceiptDateDatePicker = !field.IsReceiptDateDatePicker; OnChangeIllustration1ReceiptDateResetArrayData(i); OnChangeIllustration1ArrayFieldValue(i)" [minDate]="field.ReceiptMinDate" [(ngModel)]="field.ReceiptDate" *ngIf="field.IsReceiptDateDatePicker && !isDisabledIllustration1">
+                                                                </ngb-datepicker>
+                                                            </td>
+                                                            <td class="vertical-middle"><input [(ngModel)]="field.Amount" class="form-control" type="text" name="{{field.Amount}}" (keyup)="OnChangeIllustration1ArrayFieldValue(i)" [disabled]="isDisabledIllustration1" /></td>
+                                                            <td class="vertical-middle">
+                                                                <div class="input-group date-wd" style="height: 32px;">
+                                                                    <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(field.ReportingDate) ? (field.ReportingDate.day + '-' + field.ReportingDate.month + '-' + field.ReportingDate.year) : ''" />
+                                                                    <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                                                        <button class="btn btn-outline-secondary cal" (click)="field.IsReportingDateDatePicker = !field.IsReportingDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledIllustration1">
+                                                                            <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <ngb-datepicker #dp (select)="field.IsReportingDateDatePicker = !field.IsReportingDateDatePicker; OnChangeIllustration1ArrayFieldValue(i)" [minDate]="field.ReportingMinDate" [(ngModel)]="field.ReportingDate" *ngIf="field.IsReportingDateDatePicker && !isDisabledIllustration1">
+                                                                </ngb-datepicker>
+                                                            </td>
+                                                            <td class="vertical-middle"><label>{{field.Delay}}</label></td>
+                                                            <td class="vertical-middle"><label>{{field.ContraventionPeriod}}</label></td>
+                                                            <td class="vertical-middle"><label>{{field.VariableAmount}}</label></td>
+                                                            <td class="vertical-middle"><label>{{field.AmountImposed}}</label></td>
+                                                            <td class="vertical-middle"><i class="fa fa-trash pointer-cursor" style="color:red;" (click)="deleteIllustration1FieldValue(i)"></i></td>
+                                                        </tr>
+                                                        <tr class="text-center">
+                                                            <td class="vertical-middle">
+                                                                <div class="input-group date-wd" style="height: 32px;">
+                                                                    <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(illustration1NewAttribute.ReceiptDate) ? (illustration1NewAttribute.ReceiptDate.day + '-' + illustration1NewAttribute.ReceiptDate.month + '-' + illustration1NewAttribute.ReceiptDate.year) : ''" />
+                                                                    <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                                                        <button class="btn btn-outline-secondary cal" (click)="illustration1NewAttribute.IsReceiptDateDatePicker = !illustration1NewAttribute.IsReceiptDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledIllustration1">
+                                                                            <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <ngb-datepicker #dp (select)="illustration1NewAttribute.IsReceiptDateDatePicker = !illustration1NewAttribute.IsReceiptDateDatePicker; OnChangeIllustration1ReceiptDateResetNewData(); OnChangeIllustration1NewFieldValue()" [minDate]="illustration1NewAttribute.ReceiptMinDate" [(ngModel)]="illustration1NewAttribute.ReceiptDate" *ngIf="illustration1NewAttribute.IsReceiptDateDatePicker && !isDisabledIllustration1">
+                                                                </ngb-datepicker>
+                                                            </td>
+                                                            <td class="vertical-middle"><input class="form-control" type="text" [(ngModel)]="illustration1NewAttribute.Amount" (keyup)="OnChangeIllustration1NewFieldValue()" [disabled]="isDisabledIllustration1" /></td>
+                                                            <td class="vertical-middle">
+                                                                <div class="input-group date-wd" style="height: 32px;">
+                                                                    <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(illustration1NewAttribute.ReportingDate) ? (illustration1NewAttribute.ReportingDate.day + '-' + illustration1NewAttribute.ReportingDate.month + '-' + illustration1NewAttribute.ReportingDate.year) : ''" />
+                                                                    <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                                                        <button class="btn btn-outline-secondary cal" (click)="illustration1NewAttribute.IsReportingDateDatePicker = !illustration1NewAttribute.IsReportingDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledIllustration1">
+                                                                            <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <ngb-datepicker #dp (select)="illustration1NewAttribute.IsReportingDateDatePicker = !illustration1NewAttribute.IsReportingDateDatePicker; OnChangeIllustration1NewFieldValue()" [minDate]="illustration1NewAttribute.ReportingMinDate" [(ngModel)]="illustration1NewAttribute.ReportingDate" *ngIf="illustration1NewAttribute.IsReportingDateDatePicker && !isDisabledIllustration1">
+                                                                </ngb-datepicker>
+                                                            </td>
+                                                            <td class="vertical-middle"><label>{{illustration1NewAttribute.Delay}}</label></td>
+                                                            <td class="vertical-middle"><label>{{illustration1NewAttribute.ContraventionPeriod}}</label></td>
+                                                            <td class="vertical-middle"><label>{{illustration1NewAttribute.VariableAmount}}</label></td>
+                                                            <td class="vertical-middle"><label>{{illustration1NewAttribute.AmountImposed}}</label></td>
+                                                            <td class="vertical-middle"><i class="fa fa-plus pointer-cursor" (click)="addIllustration1FieldValue()"></i></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-end">
+                                        <div class="col-md-4">
+                                            <div class="form-group d-f f-r">
+                                                <input class="btn btn-default resp-btn" type="button" value="Reset" (click)="OnClickIllustration1Cancel()">
+                                                <input class="btn btn-default resp-btn mr0" type="button" value="Submit" (click)="OnClickIllustration1Save()">
+                                            </div>
+                                        </div> 
+                                    </div>
+                                    <div class="row" *ngIf="isDisabledIllustration1">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead class="thead_bg">
+                                                        <tr class="grey-mint">
+                                                            <th></th>
+                                                            <th>Date of receipt</th>
+                                                            <th>Amount (Rs.)</th>
+                                                            <th>Date of Reporting to RBI</th>
+                                                            <th>Delay</th>
+                                                            <th>Period of contravention (years)</th>
+                                                            <th>Variable Amount applicable as per para I.1 of Guidance Note</th>
+                                                            <th>Amount imposed (Rs.)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let item of illustration1Data; let i = index" class="text-center">
+                                                            <td class="vertical-middle">{{i+1}}</td>
+                                                            <td class="vertical-middle text-nowrap">{{item.ReceiptDate.day + '-' + item.ReceiptDate.month + '-' + item.ReceiptDate.year}}</td>
+                                                            <td class="vertical-middle text-right">{{item.Amount}}</td>
+                                                            <td class="vertical-middle text-nowrap">{{item.ReportingDate.day + '-' + item.ReportingDate.month + '-' + item.ReportingDate.year}}</td>
+                                                            <td class="vertical-middle">{{item.Delay}}</td>
+                                                            <td class="vertical-middle">{{item.ContraventionPeriod}}</td>
+                                                            <td class="vertical-middle">{{item.VariableAmount}}</td>
+                                                            <td class="vertical-middle text-right">{{item.AmountImposed}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="vertical-middle text-right font-weight-bold">{{sumOfIllustration1Amount}}</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="vertical-middle text-left font-weight-bold">Variable Amount</td>
+                                                            <td class="vertical-middle text-right font-weight-bold">{{sumOfIllustration1AmountImposed}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="6"></td>
+                                                            <td class="vertical-middle text-left font-weight-bold">Fixed Amount</td>
+                                                            <td class="vertical-middle text-right font-weight-bold">{{illustration1FixedAmount}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="6"></td>
+                                                            <td class="vertical-middle text-left font-weight-bold">Total Imposed</td>
+                                                            <td class="vertical-middle text-right font-weight-bold">{{totalOfIllustration1AmountImposed}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-end" *ngIf="isDisabledIllustration1">
+                                        <div class="col-md-4">
+                                            <div class="form-group d-f f-r">
+                                                <input class="btn btn-default resp-btn mr0" type="button" value="Download PDF" (click)="OnClickIllustration1Print()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab2">
+                                <div class="modules_tabel modules_tabel01 no-border no-padding">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-7 text-center">
+                                            <div class="form-group">
+                                                <label>Illustration II - Contravention of Para 9(1)(B) of Schedule 1 to Notification No.FEMA20/2000-RB</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead class="thead_bg">
+                                                        <tr class="grey-mint">
+                                                            <th style="width: 225px;">Date of Allotment</th>
+                                                            <th>Amount (Rs.)</th>
+                                                            <th style="width: 225px;">Date of Reporting to RBI</th>
+                                                            <th>Delay Number of days</th>
+                                                            <th>Period of contravention (years)</th>
+                                                            <th>Variable Amount applicable as per para I.1 of Guidance Note</th>
+                                                            <th>Amount imposed (Rs.)</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let field of illustration2FieldArray; let i = index" class="text-center">
+                                                            <td class="vertical-middle">
+                                                                <div class="input-group date-wd" style="height: 32px;">
+                                                                    <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(field.ReceiptDate) ? (field.ReceiptDate.day + '-' + field.ReceiptDate.month + '-' + field.ReceiptDate.year) : ''" />
+                                                                    <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                                                        <button class="btn btn-outline-secondary cal" (click)="field.IsReceiptDateDatePicker = !field.IsReceiptDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledIllustration2">
+                                                                            <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <ngb-datepicker #dp (select)="field.IsReceiptDateDatePicker = !field.IsReceiptDateDatePicker; OnChangeIllustration2ReceiptDateResetArrayData(i); OnChangeIllustration2ArrayFieldValue(i)" [minDate]="field.ReceiptMinDate" [(ngModel)]="field.ReceiptDate" *ngIf="field.IsReceiptDateDatePicker && !isDisabledIllustration2">
+                                                                </ngb-datepicker>
+                                                            </td>
+                                                            <td class="vertical-middle"><input [(ngModel)]="field.Amount" class="form-control" type="text" name="{{field.Amount}}" (keyup)="OnChangeIllustration2ArrayFieldValue(i)" [disabled]="isDisabledIllustration2" /></td>
+                                                            <td class="vertical-middle">
+                                                                <div class="input-group date-wd" style="height: 32px;">
+                                                                    <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(field.ReportingDate) ? (field.ReportingDate.day + '-' + field.ReportingDate.month + '-' + field.ReportingDate.year) : ''" />
+                                                                    <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                                                        <button class="btn btn-outline-secondary cal" (click)="field.IsReportingDateDatePicker = !field.IsReportingDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledIllustration2">
+                                                                            <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <ngb-datepicker #dp (select)="field.IsReportingDateDatePicker = !field.IsReportingDateDatePicker; OnChangeIllustration2ArrayFieldValue(i)" [minDate]="field.ReportingMinDate" [(ngModel)]="field.ReportingDate" *ngIf="field.IsReportingDateDatePicker && !isDisabledIllustration2">
+                                                                </ngb-datepicker>
+                                                            </td>
+                                                            <td class="vertical-middle"><label>{{field.Delay}}</label></td>
+                                                            <td class="vertical-middle"><label>{{field.ContraventionPeriod}}</label></td>
+                                                            <td class="vertical-middle"><label>{{field.VariableAmount}}</label></td>
+                                                            <td class="vertical-middle"><label>{{field.AmountImposed}}</label></td>
+                                                            <td class="vertical-middle"><i class="fa fa-trash pointer-cursor" style="color:red;" (click)="deleteIllustration2FieldValue(i)"></i></td>
+                                                        </tr>
+                                                        <tr class="text-center">
+                                                            <td class="vertical-middle">
+                                                                <div class="input-group date-wd" style="height: 32px;">
+                                                                    <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(illustration2NewAttribute.ReceiptDate) ? (illustration2NewAttribute.ReceiptDate.day + '-' + illustration2NewAttribute.ReceiptDate.month + '-' + illustration2NewAttribute.ReceiptDate.year) : ''" />
+                                                                    <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                                                        <button class="btn btn-outline-secondary cal" (click)="illustration2NewAttribute.IsReceiptDateDatePicker = !illustration2NewAttribute.IsReceiptDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledIllustration2">
+                                                                            <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <ngb-datepicker #dp (select)="illustration2NewAttribute.IsReceiptDateDatePicker = !illustration2NewAttribute.IsReceiptDateDatePicker; OnChangeIllustration2ReceiptDateResetNewData(); OnChangeIllustration2NewFieldValue()" [minDate]="illustration2NewAttribute.ReceiptMinDate" [(ngModel)]="illustration2NewAttribute.ReceiptDate" *ngIf="illustration2NewAttribute.IsReceiptDateDatePicker && !isDisabledIllustration2">
+                                                                </ngb-datepicker>
+                                                            </td>
+                                                            <td class="vertical-middle"><input class="form-control" type="text" [(ngModel)]="illustration2NewAttribute.Amount" (keyup)="OnChangeIllustration2NewFieldValue()" [disabled]="isDisabledIllustration2" /></td>
+                                                            <td class="vertical-middle">
+                                                                <div class="input-group date-wd" style="height: 32px;">
+                                                                    <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(illustration2NewAttribute.ReportingDate) ? (illustration2NewAttribute.ReportingDate.day + '-' + illustration2NewAttribute.ReportingDate.month + '-' + illustration2NewAttribute.ReportingDate.year) : ''" />
+                                                                    <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                                                        <button class="btn btn-outline-secondary cal" (click)="illustration2NewAttribute.IsReportingDateDatePicker = !illustration2NewAttribute.IsReportingDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledIllustration2">
+                                                                            <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <ngb-datepicker #dp (select)="illustration2NewAttribute.IsReportingDateDatePicker = !illustration2NewAttribute.IsReportingDateDatePicker; OnChangeIllustration2NewFieldValue()" [minDate]="illustration2NewAttribute.ReportingMinDate" [(ngModel)]="illustration2NewAttribute.ReportingDate" *ngIf="illustration2NewAttribute.IsReportingDateDatePicker && !isDisabledIllustration2">
+                                                                </ngb-datepicker>
+                                                            </td>
+                                                            <td class="vertical-middle"><label>{{illustration2NewAttribute.Delay}}</label></td>
+                                                            <td class="vertical-middle"><label>{{illustration2NewAttribute.ContraventionPeriod}}</label></td>
+                                                            <td class="vertical-middle"><label>{{illustration2NewAttribute.VariableAmount}}</label></td>
+                                                            <td class="vertical-middle"><label>{{illustration2NewAttribute.AmountImposed}}</label></td>
+                                                            <td class="vertical-middle"><i class="fa fa-plus pointer-cursor" (click)="addIllustration2FieldValue()"></i></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-end">
+                                        <div class="col-md-4">
+                                            <div class="form-group d-f f-r">
+                                                <input class="btn btn-default resp-btn" type="button" value="Reset" (click)="OnClickIllustration2Cancel()">
+                                                <input class="btn btn-default resp-btn mr0" type="button" value="Submit" (click)="OnClickIllustration2Save()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="isDisabledIllustration2">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead class="thead_bg">
+                                                        <tr class="grey-mint">
+                                                            <th></th>
+                                                            <th>Date of Allotment</th>
+                                                            <th>Amount (Rs.)</th>
+                                                            <th>Date of Reporting to RBI</th>
+                                                            <th>Delay Number of days</th>
+                                                            <th>Period of contravention (years)</th>
+                                                            <th>Variable Amount applicable as per para I.1 of Guidance Note</th>
+                                                            <th>Amount imposed (Rs.)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let item of illustration2Data; let i = index" class="text-center">
+                                                            <td class="vertical-middle">{{i+1}}</td>
+                                                            <td class="vertical-middle text-nowrap">{{item.ReceiptDate.day + '-' + item.ReceiptDate.month + '-' + item.ReceiptDate.year}}</td>
+                                                            <td class="vertical-middle text-right">{{item.Amount}}</td>
+                                                            <td class="vertical-middle text-nowrap">{{item.ReportingDate.day + '-' + item.ReportingDate.month + '-' + item.ReportingDate.year}}</td>
+                                                            <td class="vertical-middle">{{item.Delay}}</td>
+                                                            <td class="vertical-middle">{{item.ContraventionPeriod}}</td>
+                                                            <td class="vertical-middle">{{item.VariableAmount}}</td>
+                                                            <td class="vertical-middle text-right">{{item.AmountImposed}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="vertical-middle text-right font-weight-bold">{{sumOfIllustration2Amount}}</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="vertical-middle text-left font-weight-bold">Variable Amount</td>
+                                                            <td class="vertical-middle text-right font-weight-bold">{{sumOfIllustration2AmountImposed}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="6"></td>
+                                                            <td class="vertical-middle text-left font-weight-bold">Fixed Amount</td>
+                                                            <td class="vertical-middle text-right font-weight-bold">{{illustration2FixedAmount}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="6"></td>
+                                                            <td class="vertical-middle text-left font-weight-bold">Total Imposed</td>
+                                                            <td class="vertical-middle text-right font-weight-bold">{{totalOfIllustration2AmountImposed}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-end" *ngIf="isDisabledIllustration2">
+                                        <div class="col-md-2 ">
+                                            <div class="form-group d-f f-r">
+                                                <input class="btn btn-default resp-btn mr0" type="button" value="Download PDF" (click)="OnClickIllustration2Print()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab3">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-7 text-center">
+                                        <div class="form-group">
+                                            <label>Illustration III - Contravention of Para 8 of Schedule 1 to Notification No.FEMA20/2000-RB</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 select_fdi_menu">
+                                        <div class="form-group">
+                                            <select class="form-control" (change)="OnChangeCalculatorSubTopic(ddlCalculatorSubTopic.value)" [(ngModel)]="calculatorSubTopicId" #ddlCalculatorSubTopic>
+                                                <option *ngFor="let item of calculatorSubTopics" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px" *ngIf="calculatorSubTopicId">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead class="thead_bg">
+                                                        <tr class="grey-mint">
+                                                            <th style="width: 225px;">Date of receipt</th>
+                                                            <th>Amount (Rs.)</th>
+                                                            <th style="width: 225px;">Date of Reporting to RBI</th>
+                                                            <th>Delay</th>
+                                                            <th>Period of contravention (years)</th>
+                                                            <th>Variable Amount applicable as per para I.1 of Guidance Note</th>
+                                                            <th>Amount imposed (Rs.)</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let field of illustration3FieldArray; let i = index" class="text-center">
+                                                            <td class="vertical-middle">
+                                                                <div class="input-group" style="height: 32px;">
+                                                                    <input class="form-control date-wd" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(field.ReceiptDate) ? (field.ReceiptDate.day + '-' + field.ReceiptDate.month + '-' + field.ReceiptDate.year) : ''" />
+                                                                    <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                                                        <button class="btn btn-outline-secondary cal" (click)="field.IsReceiptDateDatePicker = !field.IsReceiptDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledIllustration3">
+                                                                            <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <ngb-datepicker #dp (select)="field.IsReceiptDateDatePicker = !field.IsReceiptDateDatePicker; OnChangeIllustration3ReceiptDateResetArrayData(i); OnChangeIllustration3ArrayFieldValue(i)" [minDate]="field.ReceiptMinDate" [(ngModel)]="field.ReceiptDate" *ngIf="field.IsReceiptDateDatePicker && !isDisabledIllustration3">
+                                                                </ngb-datepicker>
+                                                            </td>
+                                                            <td class="vertical-middle"><input [(ngModel)]="field.Amount" class="form-control" type="text" name="{{field.Amount}}" (keyup)="OnChangeIllustration3ArrayFieldValue(i)" [disabled]="isDisabledIllustration3" /></td>
+                                                            <td class="vertical-middle">
+                                                                <div class="input-group date-wd" style="height: 32px;">
+                                                                    <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(field.ReportingDate) ? (field.ReportingDate.day + '-' + field.ReportingDate.month + '-' + field.ReportingDate.year) : ''" />
+                                                                    <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                                                        <button class="btn btn-outline-secondary cal" (click)="field.IsReportingDateDatePicker = !field.IsReportingDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledIllustration3">
+                                                                            <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <ngb-datepicker #dp (select)="field.IsReportingDateDatePicker = !field.IsReportingDateDatePicker; OnChangeIllustration3ArrayFieldValue(i)" [minDate]="field.ReportingMinDate" [(ngModel)]="field.ReportingDate" *ngIf="field.IsReportingDateDatePicker && !isDisabledIllustration3">
+                                                                </ngb-datepicker>
+                                                            </td>
+                                                            <td class="vertical-middle"><label>{{field.Delay}}</label></td>
+                                                            <td class="vertical-middle"><label>{{field.ContraventionPeriod}}</label></td>
+                                                            <td class="vertical-middle"><label>{{field.VariableAmount}}</label></td>
+                                                            <td class="vertical-middle"><label>{{field.AmountImposed}}</label></td>
+                                                            <td class="vertical-middle"><i class="fa fa-trash pointer-cursor" style="color:red;" (click)="deleteIllustration3FieldValue(i)"></i></td>
+                                                        </tr>
+                                                        <tr class="text-center">
+                                                            <td class="vertical-middle">
+                                                                <div class="input-group date-wd" style="height: 32px;">
+                                                                    <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(illustration3NewAttribute.ReceiptDate) ? (illustration3NewAttribute.ReceiptDate.day + '-' + illustration3NewAttribute.ReceiptDate.month + '-' + illustration3NewAttribute.ReceiptDate.year) : ''" />
+                                                                    <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                                                        <button class="btn btn-outline-secondary cal" (click)="illustration3NewAttribute.IsReceiptDateDatePicker = !illustration3NewAttribute.IsReceiptDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledIllustration3">
+                                                                            <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <ngb-datepicker #dp (select)="illustration3NewAttribute.IsReceiptDateDatePicker = !illustration3NewAttribute.IsReceiptDateDatePicker; OnChangeIllustration3ReceiptDateResetNewData(); OnChangeIllustration3NewFieldValue()" [minDate]="illustration3NewAttribute.ReceiptMinDate" [(ngModel)]="illustration3NewAttribute.ReceiptDate" *ngIf="illustration3NewAttribute.IsReceiptDateDatePicker && !isDisabledIllustration3">
+                                                                </ngb-datepicker>
+                                                            </td>
+                                                            <td class="vertical-middle"><input class="form-control" type="text" [(ngModel)]="illustration3NewAttribute.Amount" (keyup)="OnChangeIllustration3NewFieldValue()" [disabled]="isDisabledIllustration3" /></td>
+                                                            <td class="vertical-middle">
+                                                                <div class="input-group date-wd" style="height: 32px;">
+                                                                    <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(illustration3NewAttribute.ReportingDate) ? (illustration3NewAttribute.ReportingDate.day + '-' + illustration3NewAttribute.ReportingDate.month + '-' + illustration3NewAttribute.ReportingDate.year) : ''" />
+                                                                    <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                                                        <button class="btn btn-outline-secondary cal" (click)="illustration3NewAttribute.IsReportingDateDatePicker = !illustration3NewAttribute.IsReportingDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledIllustration3">
+                                                                            <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <ngb-datepicker #dp (select)="illustration3NewAttribute.IsReportingDateDatePicker = !illustration3NewAttribute.IsReportingDateDatePicker; OnChangeIllustration3NewFieldValue()" [minDate]="illustration3NewAttribute.ReportingMinDate" [(ngModel)]="illustration3NewAttribute.ReportingDate" *ngIf="illustration3NewAttribute.IsReportingDateDatePicker && !isDisabledIllustration3">
+                                                                </ngb-datepicker>
+                                                            </td>
+                                                            <td class="vertical-middle"><label>{{illustration3NewAttribute.Delay}}</label></td>
+                                                            <td class="vertical-middle"><label>{{illustration3NewAttribute.ContraventionPeriod}}</label></td>
+                                                            <td class="vertical-middle"><label>{{illustration3NewAttribute.VariableAmount}}</label></td>
+                                                            <td class="vertical-middle"><label>{{illustration3NewAttribute.AmountImposed}}</label></td>
+                                                            <td class="vertical-middle"><i class="fa fa-plus pointer-cursor" (click)="addIllustration3FieldValue()"></i></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-end">
+                                        <div class="col-md-4">
+                                            <div class="form-group d-f f-r">
+                                                <input class="btn btn-default resp-btn" type="button" value="Reset" (click)="OnClickIllustration3Cancel()">
+                                                <input class="btn btn-default resp-btn mr0" type="button" value="Submit" (click)="OnClickIllustration3Save()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="isDisabledIllustration3">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead class="thead_bg">
+                                                        <tr class="grey-mint">
+                                                            <th></th>
+                                                            <th>Date of receipt</th>
+                                                            <th>Amount (Rs.)</th>
+                                                            <th>Date of Reporting to RBI</th>
+                                                            <th>Delay</th>
+                                                            <th>Period of contravention (years)</th>
+                                                            <th>Variable Amount applicable as per para I.1 of Guidance Note</th>
+                                                            <th>Amount imposed (Rs.)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let item of illustration3Data; let i = index" class="text-center">
+                                                            <td class="vertical-middle">{{i+1}}</td>
+                                                            <td class="vertical-middle text-nowrap">{{item.ReceiptDate.day + '-' + item.ReceiptDate.month + '-' + item.ReceiptDate.year}}</td>
+                                                            <td class="vertical-middle text-right">{{item.Amount}}</td>
+                                                            <td class="vertical-middle text-nowrap">{{item.ReportingDate.day + '-' + item.ReportingDate.month + '-' + item.ReportingDate.year}}</td>
+                                                            <td class="vertical-middle">{{item.Delay}}</td>
+                                                            <td class="vertical-middle">{{item.ContraventionPeriod}}</td>
+                                                            <td class="vertical-middle">{{item.VariableAmount}}</td>
+                                                            <td class="vertical-middle text-right">{{item.AmountImposed}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="vertical-middle text-right font-weight-bold">{{sumOfIllustration3Amount}}</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="vertical-middle text-left font-weight-bold">Variable Amount</td>
+                                                            <td class="vertical-middle text-right font-weight-bold">{{sumOfIllustration3AmountImposed}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="6"></td>
+                                                            <td class="vertical-middle text-left font-weight-bold">Fixed Amount</td>
+                                                            <td class="vertical-middle text-right font-weight-bold">{{illustration3FixedAmount}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="6"></td>
+                                                            <td class="vertical-middle text-left font-weight-bold">Total Imposed</td>
+                                                            <td class="vertical-middle text-right font-weight-bold">{{totalOfIllustration3AmountImposed}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-end" *ngIf="isDisabledIllustration3">
+                                        <div class="col-md-2">
+                                            <div class="form-group d-f f-r">
+                                                <input class="btn btn-default resp-btn mr0" type="button" value="Download PDF" (click)="OnClickIllustration3Print()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,158 @@
+﻿<div class="modalLRForm no-padding" id="modalLForm" aria-labelledby="myModalLabel" style="max-height: calc(80vh);overflow-y: auto;">
+    <div class="modal-dialog cascading-modal log-in no-margin" role="document" style="margin:0px !important; padding:0px !important;">
+        <div class="modal-content" style="left: inherit !important; border:0px !important">
+            <div class="modal-c-tabs">
+                <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" [class.active]="!isLogin" (click)="OnClickLoginRegister('login')" data-toggle="tab" href="#panel7" role="tab" #login><i class="fa fa-user mr-1"></i> Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [class.active]="isLogin" (click)="OnClickLoginRegister('register')" data-toggle="tab" href="#panel8" role="tab" #register><i class="fa fa-user-plus mr-1"></i> Register</a>
+                    </li>
+                </ul>
+                <div class="tab-content log-space"> 
+                    <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+                        <div class="modal-body no-pad">
+                            <div class="l_r_from">
+                                <form [formGroup]="frmLogin" novalidate>
+                                    <div *ngIf="errorMessageRegister" class="alert alert-danger" style="width:300px !important; margin-top:8px;">
+                                        <a class="close" data-close="alert"></a>
+                                        <span [innerHtml]="errorMessageRegister"></span>
+                                    </div>
+                                    <div *ngIf="successMessageRegister" class="alert alert-success" style="width:300px !important; margin-top:8px;" >
+                                        <a class="close" data-close="alert"></a>
+                                        <span [innerHtml]="successMessageRegister"></span>
+                                    </div>
+                                    <div class="form-group input-group log-tb">
+                                        <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-mobile"></i> </span> </div>
+                                        <input type="text" placeholder="Enter Mobile Number*" (keyup.enter)="SendOTP(frmLogin)" class="form-control mobile_number" formControlName="Mobile" autofocus />
+                                        <button type="button" id="btnSendOTP" (click)="SendOTP(frmLogin)" class="send_otp_btn" [disabled]="(mobileOTP) ? frmLogin.invalid : false"> <i class="fa fa-paper-plane" aria-hidden="true"></i> </button>
+                                    </div>
+                                    <div *ngIf="!mobileOTP">
+                                        <div class="form-group input-group" style="margin-bottom: 15px !important;">
+                                            <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-envelope"></i> </span> </div>
+                                            <input type="text" placeholder="Enter OTP" (keyup.enter)="Login(frmLogin)" class="form-control" formControlName="MobileOTP" />
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" id="btnLogin" (click)="Login(frmLogin)" class="btn btn-primary" style="margin-top: 0 !important;" [disabled]="(mobileOTP) ? true : frmLogin.invalid"> <i class="fa fa-lock" aria-hidden="true"></i> Login </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!--<div class="modal-footer">
+                            <button type="button" class="waves-effect ml-auto close_btn" (click)="Close()"> <i class="fa fa-times" aria-hidden="true"></i></button>
+                        </div>-->
+                    </div>
+                    <div class="tab-pane" id="panel8" role="tabpanel">
+                        <div class="modal-body no-pad">
+                            <div class="l_r_from">
+                                <form [formGroup]="frmRegister" novalidate>
+                                    <div *ngIf="errorMessageRegister" class="alert alert-danger" style="width:300px !important;margin-top:8px !important;">
+                                        <a class="close" data-close="alert"></a>
+                                        <span [innerHtml]="errorMessageRegister"></span>
+                                    </div>
+                                    <div *ngIf="successMessageRegister" class="alert alert-success" style="width:300px !important;margin-top:8px !important;">
+                                        <a class="close" data-close="alert"></a>
+                                        <span [innerHtml]="successMessageRegister"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group no-top-margin">
+                                            <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-pencil"></i> </span> </div>
+                                            <input type="text" placeholder="Enter Your First name*" class="form-control" formControlName="FirstName" />
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmRegister.controls.FirstName.errors?.required && isSubmited"> Please enter FirstName </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-pencil"></i> </span> </div>
+                                            <input type="text" placeholder="Enter Your Last name*" class="form-control" formControlName="LastName" />
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmRegister.controls.LastName.errors?.required && isSubmited"> Please enter LastName </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-envelope"></i> </span> </div>
+                                            <input type="text" placeholder="Enter Email Id*" class="form-control form-control-solid placeholder-no-fix btn-text-height" formControlName="UserName" />
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmRegister.controls.UserName.errors?.required && isSubmited"> Please enter Email </span>
+                                        <span class="help-block has-error" *ngIf="frmRegister.controls.UserName.errors?.email && !frmRegister.controls.UserName.errors?.required && isSubmited"> Please enter proper Email </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-mobile"></i> </span> </div>
+                                            <input type="text" placeholder="Mobile phone *" class="form-control mobile_number" formControlName="Mobile" />
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmRegister.controls.Mobile.errors?.required && isSubmited"> Please enter Mobile </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-building"></i> </span> </div>
+                                            <input type="text" placeholder="Company Name *" class="form-control mobile_number" formControlName="CompanyName" />
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmRegister.controls.CompanyName.errors?.required && isSubmited"> Please enter Company Name </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-graduation-cap"></i> </span> </div>
+                                            <select class="custom-select" formControlName="ProfessionalQualificationId">
+                                                <option *ngFor="let item of professionalQualifications" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmRegister.controls.ProfessionalQualificationId.errors?.required && isSubmited"> Please select Professional Qualification </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-users"></i> </span> </div>
+                                            <select class="custom-select" formControlName="Gender">
+                                                <option value="">Select your Gender</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Male">Male </option>
+                                            </select>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmRegister.controls.Gender.errors?.required && isSubmited"> Please select Gender </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" id="btnRegister" (click)="Register(frmRegister)" class="btn btn-primary" style="margin-top: 0 !important;"> <i class="fa fa-lock" aria-hidden="true"></i> Register </button>
+                                    </div>
+                                </form>
+                                <form [formGroup]="frmVerifyAccount" novalidate>
+                                    <div *ngIf="isRegistered">
+                                        <div *ngIf="errorMessageVerifyAccount" class="alert alert-danger" style="width:300px !important;margin-top:8px !important;">
+                                            <a class="close" data-close="alert"></a>
+                                            <span [innerHtml]="errorMessageVerifyAccount"></span>
+                                        </div>
+                                        <div *ngIf="successMessageVerifyAccount" class="alert alert-success" style="width:300px !important;margin-top:8px !important;">
+                                            <a class="close" data-close="alert"></a>
+                                            <span [innerHtml]="successMessageVerifyAccount"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-mobile"></i> </span> </div>
+                                                <input type="text" placeholder="Mobile OTP *" class="form-control" formControlName="MobileOTP" />
+                                            </div>
+                                            <span class="help-block has-error" *ngIf="frmVerifyAccount.controls.MobileOTP.errors?.required && isVerifyAccountSubmited"> Please enter Mobile OTP </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-envelope"></i> </span> </div>
+                                                <input type="text" placeholder="Email OTP *" class="form-control" formControlName="EmailOTP" />
+                                            </div>
+                                            <span class="help-block has-error" *ngIf="frmVerifyAccount.controls.EmailOTP.errors?.required && isVerifyAccountSubmited"> Please enter Email OTP </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" id="btnVerify" (click)="VerifyAccount(frmVerifyAccount)" class="btn btn-primary" style="margin-top: 0 !important;"> <i class="fa fa-lock" aria-hidden="true"></i> Verify </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!--<div class="modal-footer">
+                            <button type="button" class="waves-effect ml-auto close_btn" (click)="Close()" > <i class="fa fa-times" aria-hidden="true"></i></button>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,272 @@
+import { LoginAdminComponent } from '../areas/admin/login/login.component';
+
+import { DashboardAdminComponent } from '../areas/admin/dashboard/dashboard.component';
+import { ActNamesAdminComponent } from '../areas/admin/actName/actNames.component';
+import { ActNameAdminComponent } from '../areas/admin/actName/actName.component';
+import { AllDefinitionAdminComponent } from '../areas/admin/allDefinition/allDefinition.component';
+import { RegulationsAdminComponent } from '../areas/admin/regulation/regulations.component';
+import { RegulationAdminComponent } from '../areas/admin/regulation/regulation.component';
+import { FemaIndexAdminComponent } from '../areas/admin/femaIndex/femaIndex.component';
+import { IndexAmendmentAdminComponent } from '../areas/admin/indexAmendment/indexAmendment.component';
+import { FemaSubIndexAdminComponent } from '../areas/admin/femaSubIndex/femaSubIndex.component';
+import { NotificationAdminComponent } from '../areas/admin/notification/notification.component';
+import { NotificationsAdminComponent } from '../areas/admin/notification/notifications.component';
+import { APDIRCircularAdminComponent } from '../areas/admin/aPDIRCircular/aPDIRCircular.component';
+import { APDIRCircularsAdminComponent } from '../areas/admin/aPDIRCircular/aPDIRCirculars.component';
+import { APDIRCircularBeforeAdminComponent } from '../areas/admin/aPDIRCircularBefore/aPDIRCircularBefore.component';
+import { APDIRCircularAfterAdminComponent } from '../areas/admin/aPDIRCircularAfter/aPDIRCircularAfter.component';
+import { PressNoteAdminComponent } from '../areas/admin/pressNote/pressNote.component';
+import { PressNotesAdminComponent } from '../areas/admin/pressNote/pressNotes.component';
+import { PressNoteNotificationAdminComponent } from '../areas/admin/pressNoteNotification/pressNoteNotification.component';
+import { PressNoteAPDIRCircularAdminComponent } from '../areas/admin/pressNoteAPDIRCircular/pressNoteAPDIRCircular.component';
+import { FDICircularAdminComponent } from '../areas/admin/fDICircular/fDICircular.component';
+import { FDICircularsAdminComponent } from '../areas/admin/fDICircular/fDICirculars.component';
+import { FDIChapterAdminComponent } from '../areas/admin/fDIChapter/fDIChapter.component';
+import { FDICircularIndexAdminComponent } from '../areas/admin/fDICircularIndex/fDICircularIndex.component';
+import { FDICircularIndexAmendmentAdminComponent } from '../areas/admin/fDICircularIndexAmendment/fDICircularIndexAmendment.component';
+import { FDICircularSubIndexAdminComponent } from '../areas/admin/fDICircularSubIndex/fDICircularSubIndex.component';
+import { SectorAdminComponent } from '../areas/admin/sector/sector.component';
+import { SectorsAdminComponent } from '../areas/admin/sector/sectors.component';
+import { SubSectorAdminComponent } from '../areas/admin/subSector/subSector.component';
+import { SectorDetailAdminComponent } from '../areas/admin/sectorDetail/sectorDetail.component';
+import { MasterCircularAdminComponent } from '../areas/admin/masterCircular/masterCircular.component';
+import { MasterCircularDetailAdminComponent } from '../areas/admin/masterCircularDetail/masterCircularDetail.component';
+import { MasterCircularsAdminComponent } from '../areas/admin/masterCircular/masterCirculars.component';
+import { FAQAdminComponent } from '../areas/admin/fAQ/fAQ.component';
+import { FAQsAdminComponent } from '../areas/admin/fAQ/fAQs.component';
+import { FAQCategoryAdminComponent } from '../areas/admin/fAQCategory/fAQCategory.component';
+import { FAQCategoriesAdminComponent } from '../areas/admin/fAQCategory/fAQCategories.component';
+import { MasterDirectionAdminComponent } from '../areas/admin/masterDirection/masterDirection.component';
+import { MasterDirectionsAdminComponent } from '../areas/admin/masterDirection/masterDirections.component';
+import { MasterDirectionFAQAdminComponent } from '../areas/admin/masterDirectionFAQ/masterDirectionFAQ.component';
+import { MasterDirectionChapterAdminComponent } from '../areas/admin/masterDirectionChapter/masterDirectionChapter.component';
+import { MasterDirectionIndexAdminComponent } from '../areas/admin/masterDirectionIndex/masterDirectionIndex.component';
+import { MasterDirectionSubIndexAdminComponent } from '../areas/admin/masterDirectionSubIndex/masterDirectionSubIndex.component';
+import { MasterDirectionIndexAmendmentAdminComponent } from '../areas/admin/masterDirectionIndexAmendment/masterDirectionIndexAmendment.component';
+import { NICCodesAdminComponent } from '../areas/admin/nICCode/nICCodes.component';
+import { NICCodeAdminComponent } from '../areas/admin/nICCode/nICCode.component';
+import { ManualsAdminComponent } from '../areas/admin/manual/manuals.component';
+import { ManualAdminComponent } from '../areas/admin/manual/manual.component';
+import { FetersCodesAdminComponent } from '../areas/admin/fetersCode/fetersCodes.component';
+import { FetersCodeAdminComponent } from '../areas/admin/fetersCode/fetersCode.component';
+import { FetersCodeDetailAdminComponent } from '../areas/admin/fetersCodeDetail/fetersCodeDetail.component';
+import { FetersCodeGroupDetailAdminComponent } from '../areas/admin/fetersCodeGroupDetail/fetersCodeGroupDetail.component';
+import { FIPBReviewAdminComponent } from '../areas/admin/fIPBReview/fIPBReview.component';
+import { FIPBReviewsAdminComponent } from '../areas/admin/fIPBReview/fIPBReviews.component';
+import { DIPPClarificationAdminComponent } from '../areas/admin/dIPPClarification/dIPPClarification.component';
+import { DIPPClarificationsAdminComponent } from '../areas/admin/dIPPClarification/dIPPClarifications.component';
+import { FIPBPressReleaseCaseAdminComponent } from '../areas/admin/fIPBPressReleaseCase/fIPBPressReleaseCase.component';
+import { FIPBPressReleaseCasesAdminComponent } from '../areas/admin/fIPBPressReleaseCase/fIPBPressReleaseCases.component';
+import { FormAdminComponent } from '../areas/admin/form/form.component';
+import { FormsAdminComponent } from '../areas/admin/form/forms.component';
+import { FormDetailAdminComponent } from '../areas/admin/formDetail/formDetail.component';
+import { SummariesAdminComponent } from '../areas/admin/summary/summaries.component';
+import { SummaryAdminComponent } from '../areas/admin/summary/summary.component';
+import { SummaryDetailAdminComponent } from '../areas/admin/summaryDetail/summaryDetail.component';
+import { DocumentationAdminComponent } from '../areas/admin/documentation/documentation.component';
+import { DocumentationsAdminComponent } from '../areas/admin/documentation/documentations.component';
+import { DocumentationDetailAdminComponent } from '../areas/admin/documentationDetail/documentationDetail.component';
+import { RBILiaisonOfficeAdminComponent } from '../areas/admin/rBILiaisonOffice/rBILiaisonOffice.component';
+import { RBILiaisonOfficesAdminComponent } from '../areas/admin/rBILiaisonOffice/rBILiaisonOffices.component';
+import { RBICompoundingOrderAdminComponent } from '../areas/admin/rBICompoundingOrder/rBICompoundingOrder.component';
+import { RBICompoundingOrdersAdminComponent } from '../areas/admin/rBICompoundingOrder/rBICompoundingOrders.component';
+import { RBIDataAdminComponent } from '../areas/admin/rBIData/rBIData.component';
+import { RBIDatasAdminComponent } from '../areas/admin/rBIData/rBIDatas.component';
+import { RBIDataDetailAdminComponent } from '../areas/admin/rBIDataDetail/rBIDataDetail.component';
+import { RulesAdminComponent } from '../areas/admin/rules/rules.component';
+import { RulessAdminComponent } from '../areas/admin/rules/ruless.component';
+import { RulesIndexAdminComponent } from '../areas/admin/rulesIndex/rulesIndex.component';
+import { RulesSubIndexAdminComponent } from '../areas/admin/rulesSubIndex/rulesSubIndex.component';
+import { GSRNotificationAdminComponent } from '../areas/admin/gSRNotification/gSRNotification.component';
+import { GSRNotificationsAdminComponent } from '../areas/admin/gSRNotification/gSRNotifications.component';
+import { RulesIndexAmendmentAdminComponent } from '../areas/admin/rulesIndexAmendment/rulesIndexAmendment.component';
+import { AuthorWriteUpAdminComponent } from '../areas/admin/authorWriteUp/authorWriteUp.component';
+import { AuthorWriteUpsAdminComponent } from '../areas/admin/authorWriteUp/authorWriteUps.component';
+import { AuthorWriteUpDetailAdminComponent } from '../areas/admin/authorWriteUpDetail/authorWriteUpDetail.component';
+import { AuthorFAQAdminComponent } from '../areas/admin/authorFAQ/authorFAQ.component';
+import { AuthorFAQsAdminComponent } from '../areas/admin/authorFAQ/authorFAQs.component';
+import { AuthorFAQDetailAdminComponent } from '../areas/admin/authorFAQDetail/authorFAQDetail.component';
+import { AuthorFAQQuestionReplyAdminComponent } from '../areas/admin/authorFAQQuestionReply/authorFAQQuestionReply.component';
+import { KeyDefinitionAdminComponent } from '../areas/admin/keyDefinition/keyDefinition.component';
+import { KeyDefinitionsAdminComponent } from '../areas/admin/keyDefinition/keyDefinitions.component';
+import { KeyEventAdminComponent } from '../areas/admin/keyEvent/keyEvent.component';
+import { KeyEventsAdminComponent } from '../areas/admin/keyEvent/keyEvents.component';
+import { FEMAModuleAdminComponent } from '../areas/admin/fEMAModule/fEMAModule.component';
+import { FEMAModulesAdminComponent } from '../areas/admin/fEMAModule/fEMAModules.component';
+import { SupportTicketAdminComponent } from '../areas/admin/supportTicket/supportTicket.component';
+import { SupportTicketReplyAdminComponent } from '../areas/admin/supportTicketReply/supportTicketReply.component';
+import { PostQueryAdminComponent } from '../areas/admin/postQuery/postQuery.component';
+import { PostQueryReplyAdminComponent } from '../areas/admin/postQueryReply/postQueryReply.component';
+import { UserProfilesAdminComponent } from '../areas/admin/userProfile/userProfiles.component';
+import { UserProfileAdminComponent } from '../areas/admin/userProfile/userProfile.component';
+
+import { Routes, RouterModule } from '@angular/router';
+
+export const PUBLIC_ADMIN_ROUTES: Routes = [
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'login', component: LoginAdminComponent }
+];
+
+export const ADMIN_ROUTES: Routes = [
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    { path: 'dashboard', component: DashboardAdminComponent },
+    { path: 'actnames', component: ActNamesAdminComponent },
+    { path: 'actname', component: ActNameAdminComponent },
+    { path: 'actname/:actId', component: ActNameAdminComponent },
+    { path: 'alldefinition/:actId', component: AllDefinitionAdminComponent },
+    { path: 'alldefinition/:actId/:id', component: AllDefinitionAdminComponent },
+    { path: 'regulations', component: RegulationsAdminComponent },
+    { path: 'regulation', component: RegulationAdminComponent },
+    { path: 'regulation/:regulationId', component: RegulationAdminComponent },
+    { path: 'femaindex/:regulationId', component: FemaIndexAdminComponent },
+    { path: 'femaindex/:regulationId/:indexId', component: FemaIndexAdminComponent },
+    { path: 'indexamendment/:regulationId', component: IndexAmendmentAdminComponent },
+    { path: 'indexamendment/:regulationId/:indexAmendmentId', component: IndexAmendmentAdminComponent },
+    { path: 'femasubindex/:regulationId/:indexId', component: FemaSubIndexAdminComponent },
+    { path: 'femasubindex/:regulationId/:indexId/:subIndexId', component: FemaSubIndexAdminComponent },
+    { path: 'notifications', component: NotificationsAdminComponent },
+    { path: 'notification', component: NotificationAdminComponent },
+    { path: 'notification/:notificationId', component: NotificationAdminComponent },
+    { path: 'apdircirculars', component: APDIRCircularsAdminComponent },
+    { path: 'apdircircular', component: APDIRCircularAdminComponent },
+    { path: 'apdircircular/:aPDIRCircularId', component: APDIRCircularAdminComponent },
+    { path: 'apdircircularbefore/:aPDIRCircularParentId', component: APDIRCircularBeforeAdminComponent },
+    { path: 'apdircircularbefore/:aPDIRCircularParentId/:aPDIRCircularBeforeId', component: APDIRCircularBeforeAdminComponent },
+    { path: 'apdircircularafter/:aPDIRCircularParentId', component: APDIRCircularAfterAdminComponent },
+    { path: 'apdircircularafter/:aPDIRCircularParentId/:aPDIRCircularAfterId', component: APDIRCircularAfterAdminComponent },
+    { path: 'pressnotes', component: PressNotesAdminComponent },
+    { path: 'pressnote', component: PressNoteAdminComponent },
+    { path: 'pressnote/:pressNoteId', component: PressNoteAdminComponent },
+    { path: 'pressnotenotification/:pressNoteId', component: PressNoteNotificationAdminComponent },
+    { path: 'pressnotenotification/:pressNoteId/:pressNoteNotificationId', component: PressNoteNotificationAdminComponent },
+    { path: 'pressnoteapdircircular/:pressNoteId', component: PressNoteAPDIRCircularAdminComponent },
+    { path: 'pressnoteapdircircular/:pressNoteId/:pressNoteAPDIRCircularId', component: PressNoteAPDIRCircularAdminComponent },
+    { path: 'fdicirculars', component: FDICircularsAdminComponent },
+    { path: 'fdicircular', component: FDICircularAdminComponent },
+    { path: 'fdicircular/:fDICircularId', component: FDICircularAdminComponent },
+    { path: 'fdichapter/:fDICircularId', component: FDIChapterAdminComponent },
+    { path: 'fdichapter/:fDICircularId/:fDIChapterId', component: FDIChapterAdminComponent },
+    { path: 'fdicircularindex/:fDICircularId/:fDIChapterId', component: FDICircularIndexAdminComponent },
+    { path: 'fdicircularindex/:fDICircularId/:fDIChapterId/:fDICircularIndexId', component: FDICircularIndexAdminComponent },
+    { path: 'fdicircularindexamendment/:fDICircularId', component: FDICircularIndexAmendmentAdminComponent },
+    { path: 'fdicircularindexamendment/:fDICircularId/:fDICircularIndexAmendmentId', component: FDICircularIndexAmendmentAdminComponent },
+    { path: 'fdicircularsubindex/:fDICircularId/:fDIChapterId/:fDICircularIndexId', component: FDICircularSubIndexAdminComponent },
+    { path: 'fdicircularsubindex/:fDICircularId/:fDIChapterId/:fDICircularIndexId/:fDICircularSubIndexId', component: FDICircularSubIndexAdminComponent },
+    { path: 'sectors', component: SectorsAdminComponent },
+    { path: 'sector', component: SectorAdminComponent },
+    { path: 'sector/:sectorId', component: SectorAdminComponent },
+    { path: 'sectordetail/:sectorId', component: SectorDetailAdminComponent },
+    { path: 'sectordetail/:sectorId/:sectorDetailId', component: SectorDetailAdminComponent },
+    { path: 'subsector/:sectorId', component: SubSectorAdminComponent },
+    { path: 'subsector/:sectorId/:subSectorId', component: SubSectorAdminComponent },
+    { path: 'mastercirculars', component: MasterCircularsAdminComponent },
+    { path: 'mastercircular', component: MasterCircularAdminComponent },
+    { path: 'mastercircular/:masterCircularId', component: MasterCircularAdminComponent },
+    { path: 'mastercirculardetail/:masterCircularId', component: MasterCircularDetailAdminComponent },
+    { path: 'mastercirculardetail/:masterCircularId/:masterCircularDetailId', component: MasterCircularDetailAdminComponent },
+    { path: 'faqs', component: FAQsAdminComponent },
+    { path: 'faq', component: FAQAdminComponent },
+    { path: 'faq/:fAQId', component: FAQAdminComponent },
+    { path: 'faqcategories', component: FAQCategoriesAdminComponent },
+    { path: 'faqcategory', component: FAQCategoryAdminComponent },
+    { path: 'faqcategory/:fAQCategoryId', component: FAQCategoryAdminComponent },
+    { path: 'masterdirections', component: MasterDirectionsAdminComponent },
+    { path: 'masterdirection', component: MasterDirectionAdminComponent },
+    { path: 'masterdirection/:masterDirectionId', component: MasterDirectionAdminComponent },
+    { path: 'masterdirectionfaq/:masterDirectionId', component: MasterDirectionFAQAdminComponent },
+    { path: 'masterdirectionfaq/:masterDirectionId/:masterDirectionFAQId', component: MasterDirectionFAQAdminComponent },
+    { path: 'masterdirectionchapter/:masterDirectionId', component: MasterDirectionChapterAdminComponent },
+    { path: 'masterdirectionchapter/:masterDirectionId/:masterDirectionChapterId', component: MasterDirectionChapterAdminComponent },
+    { path: 'masterdirectionindex/:masterDirectionId/:masterDirectionChapterId', component: MasterDirectionIndexAdminComponent },
+    { path: 'masterdirectionindex/:masterDirectionId/:masterDirectionChapterId/:masterDirectionIndexId', component: MasterDirectionIndexAdminComponent },
+    { path: 'masterdirectionsubindex/:masterDirectionId/:masterDirectionChapterId/:masterDirectionIndexId', component: MasterDirectionSubIndexAdminComponent },
+    { path: 'masterdirectionsubindex/:masterDirectionId/:masterDirectionChapterId/:masterDirectionIndexId/:masterDirectionSubIndexId', component: MasterDirectionSubIndexAdminComponent },
+    { path: 'masterdirectionindexamendment/:masterDirectionId', component: MasterDirectionIndexAmendmentAdminComponent },
+    { path: 'masterdirectionindexamendment/:masterDirectionId/:masterDirectionIndexAmendmentId', component: MasterDirectionIndexAmendmentAdminComponent },
+    { path: 'niccodes', component: NICCodesAdminComponent },
+    { path: 'niccode', component: NICCodeAdminComponent },
+    { path: 'niccode/:nICCodeId', component: NICCodeAdminComponent },
+    { path: 'manuals', component: ManualsAdminComponent },
+    { path: 'manual', component: ManualAdminComponent },
+    { path: 'manual/:manualId', component: ManualAdminComponent },
+    { path: 'feterscodes', component: FetersCodesAdminComponent },
+    { path: 'feterscode', component: FetersCodeAdminComponent },
+    { path: 'feterscode/:fetersCodeId', component: FetersCodeAdminComponent },
+    { path: 'feterscodedetail/:fetersCodeId', component: FetersCodeDetailAdminComponent },
+    { path: 'feterscodedetail/:fetersCodeId/:fetersCodeDetailId', component: FetersCodeDetailAdminComponent },
+    { path: 'feterscodegroupdetail/:fetersCodeId/:fetersCodeDetailId', component: FetersCodeGroupDetailAdminComponent },
+    { path: 'feterscodegroupdetail/:fetersCodeId/:fetersCodeDetailId/:fetersCodeGroupDetailId', component: FetersCodeGroupDetailAdminComponent },
+    { path: 'fipbreviews', component: FIPBReviewsAdminComponent },
+    { path: 'fipbreview', component: FIPBReviewAdminComponent },
+    { path: 'fipbreview/:fIPBReviewId', component: FIPBReviewAdminComponent },
+    { path: 'dippclarifications', component: DIPPClarificationsAdminComponent },
+    { path: 'dippclarification', component: DIPPClarificationAdminComponent },
+    { path: 'dippclarification/:dIPPClarificationId', component: DIPPClarificationAdminComponent },
+    { path: 'fipbpressreleasecases', component: FIPBPressReleaseCasesAdminComponent },
+    { path: 'fipbpressreleasecase', component: FIPBPressReleaseCaseAdminComponent },
+    { path: 'fipbpressreleasecase/:fIPBPressReleaseCaseId', component: FIPBPressReleaseCaseAdminComponent },
+    { path: 'forms', component: FormsAdminComponent },
+    { path: 'form', component: FormAdminComponent },
+    { path: 'form/:formSummaryDocumentationId', component: FormAdminComponent },
+    { path: 'formdetail/:formSummaryDocumentationId', component: FormDetailAdminComponent },
+    { path: 'formdetail/:formSummaryDocumentationId/:formSummaryDocumentationDetailId', component: FormDetailAdminComponent },
+    { path: 'summaries', component: SummariesAdminComponent },
+    { path: 'summary', component: SummaryAdminComponent },
+    { path: 'summary/:formSummaryDocumentationId', component: SummaryAdminComponent },
+    { path: 'summarydetail/:formSummaryDocumentationId', component: SummaryDetailAdminComponent },
+    { path: 'summarydetail/:formSummaryDocumentationId/:formSummaryDocumentationDetailId', component: SummaryDetailAdminComponent },
+    { path: 'documentations', component: DocumentationsAdminComponent },
+    { path: 'documentation', component: DocumentationAdminComponent },
+    { path: 'documentation/:formSummaryDocumentationId', component: DocumentationAdminComponent },
+    { path: 'documentationdetail/:formSummaryDocumentationId', component: DocumentationDetailAdminComponent },
+    { path: 'documentationdetail/:formSummaryDocumentationId/:formSummaryDocumentationDetailId', component: DocumentationDetailAdminComponent },
+    { path: 'rbiliaisonoffices', component: RBILiaisonOfficesAdminComponent },
+    { path: 'rbiliaisonoffice', component: RBILiaisonOfficeAdminComponent },
+    { path: 'rbicompoundingorders', component: RBICompoundingOrdersAdminComponent },
+    { path: 'rbicompoundingorder', component: RBICompoundingOrderAdminComponent },
+    { path: 'rbicompoundingorder/:rBICompoundingOrderId', component: RBICompoundingOrderAdminComponent },
+    { path: 'rbidatas', component: RBIDatasAdminComponent },
+    { path: 'rbidata', component: RBIDataAdminComponent },
+    { path: 'rbidata/:rBIDataId', component: RBIDataAdminComponent },
+    { path: 'rbidatadetail/:rBIDataId', component: RBIDataDetailAdminComponent },
+    { path: 'rbidatadetail/:rBIDataId/:rBIDataDetailId', component: RBIDataDetailAdminComponent },
+    { path: 'rules', component: RulessAdminComponent },
+    { path: 'rule', component: RulesAdminComponent },
+    { path: 'rule/:rulesId', component: RulesAdminComponent },
+    { path: 'rulesindex/:rulesId', component: RulesIndexAdminComponent },
+    { path: 'rulesindex/:rulesId/:indexId', component: RulesIndexAdminComponent },
+    { path: 'rulessubindex/:rulesId/:indexId', component: RulesSubIndexAdminComponent },
+    { path: 'rulessubindex/:rulesId/:indexId/:subIndexId', component: RulesSubIndexAdminComponent },
+    { path: 'gsrnotifications', component: GSRNotificationsAdminComponent },
+    { path: 'gsrnotification', component: GSRNotificationAdminComponent },
+    { path: 'gsrnotification/:gSRNotificationId', component: GSRNotificationAdminComponent },
+    { path: 'rulesindexamendment/:rulesId', component: RulesIndexAmendmentAdminComponent },
+    { path: 'rulesindexamendment/:rulesId/:rulesIndexAmendmentId', component: RulesIndexAmendmentAdminComponent },
+    { path: 'authorwriteups', component: AuthorWriteUpsAdminComponent },
+    { path: 'authorwriteup', component: AuthorWriteUpAdminComponent },
+    { path: 'authorwriteup/:authorWriteUpId', component: AuthorWriteUpAdminComponent },
+    { path: 'authorwriteupdetail/:authorWriteUpId', component: AuthorWriteUpDetailAdminComponent },
+    { path: 'authorwriteupdetail/:authorWriteUpId/:authorWriteUpDetailId', component: AuthorWriteUpDetailAdminComponent },
+    { path: 'authorfaqs', component: AuthorFAQsAdminComponent },
+    { path: 'authorfaq', component: AuthorFAQAdminComponent },
+    { path: 'authorfaq/:authorFAQId', component: AuthorFAQAdminComponent },
+    { path: 'authorfaqdetail/:authorFAQId', component: AuthorFAQDetailAdminComponent },
+    { path: 'authorfaqdetail/:authorFAQId/:authorFAQDetailId', component: AuthorFAQDetailAdminComponent },
+    { path: 'authorfaqquestionreply/:authorFAQId/:authorFAQDetailId', component: AuthorFAQQuestionReplyAdminComponent },
+    { path: 'authorfaqquestionreply/:authorFAQId/:authorFAQDetailId/:authorFAQQuestionReplyId', component: AuthorFAQQuestionReplyAdminComponent },
+    { path: 'keydefinitions', component: KeyDefinitionsAdminComponent },
+    { path: 'keydefinition', component: KeyDefinitionAdminComponent },
+    { path: 'keydefinition/:keyDefinitionEventId', component: KeyDefinitionAdminComponent },
+    { path: 'keyevents', component: KeyEventsAdminComponent },
+    { path: 'keyevent', component: KeyEventAdminComponent },
+    { path: 'keyevent/:keyDefinitionEventId', component: KeyEventAdminComponent },
+    { path: 'femamodule/:fEMAModuleId', component: FEMAModuleAdminComponent },
+    { path: 'femamodule/:fEMAModuleId/:fEMASubModuleOfModuleId', component: FEMAModuleAdminComponent },
+    { path: 'femamodules', component: FEMAModulesAdminComponent },
+    { path: 'postquery', component: PostQueryAdminComponent },
+    { path: 'postqueryreply/:supportTicketId', component: PostQueryReplyAdminComponent },
+    { path: 'supportticket', component: SupportTicketAdminComponent },
+    { path: 'supportticketreply/:supportTicketId', component: SupportTicketReplyAdminComponent },
+    { path: 'userprofiles', component: UserProfilesAdminComponent },
+    { path: 'userprofile/:userId', component: UserProfileAdminComponent }
+];

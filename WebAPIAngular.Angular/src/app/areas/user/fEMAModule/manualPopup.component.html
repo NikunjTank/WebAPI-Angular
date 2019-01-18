@@ -1,0 +1,45 @@
+﻿<div class="<!--poupu_modules05-->" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div *ngIf="!manuals" class="no-detail-found">
+                    Loading data. Please wait...
+                </div>
+                <div *ngIf="manuals && manuals.length == 0" class="no-detail-found">
+                    No Manual found
+                </div>
+                <div class="search_result" *ngIf="manuals.length > 0">
+                    <div class="card">
+                        <ul class="nav nav-tabs justify-content-center" role="tablist" style="margin-bottom: 20px;">
+                            <li role="presentation" *ngFor="let item of manuals" (click)="GetSelectedManualId(item.ManualId)"><a href="#{{item.ManualId}}" [class.tab-active]="moduleTab == item.ManualId" role="tab" data-toggle="tab">{{item.ManualName}}</a></li>
+                        </ul>
+                        <div class="tab-content no-padding">
+                            <div role="tabpanel" class="tab-pane active" [class.active]="moduleTab == item.ManualId" *ngFor="let item of manuals" id="{{item.ManualId}}">
+                                <div class="fdi_box_poupu" *ngIf="manualPDFUrl">
+                                    <!--<iframe [src]='manualPDFUrl' class="w-100" height="455" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+                                    <iframe [src]='manualPDFUrl' class="w-100" id="{{item.ManualName}}" frameborder="0"
+                                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div *ngIf="manuals.length > 0">
+                    <div class="select_fdi_menu">
+                        <div class="form-group">
+                            <select class="form-control" (change)="GetSelectedManualId(ddlManual.value)" #ddlManual>
+                                <option *ngFor="let item of manuals" [value]="item.ManualId">{{item.ManualName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fdi_box_poupu" *ngIf="manualPDFUrl">
+                        <iframe [src]='manualPDFUrl' class="w-100" height="470" frameborder="0"
+                                webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>

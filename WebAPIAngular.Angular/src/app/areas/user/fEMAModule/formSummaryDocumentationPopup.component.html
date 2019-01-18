@@ -1,0 +1,65 @@
+﻿<div class="<!--poupu_modules-->" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="search_result">
+                    <div class="card">
+                        <ul class="nav nav-tabs justify-content-center" role="tablist" style="margin-bottom: 20px;">
+                            <li role="presentation" (click)="OnClickFormSummaryDocumentation('form')"><a href="#tab1" [class.tab-active]="moduleTab == 'form'" aria-controls="tab1" role="tab" data-toggle="tab">Forms</a></li>
+                            <li role="presentation" (click)="OnClickFormSummaryDocumentation('summary')"><a href="#tab2" [class.tab-active]="moduleTab == 'summary'" aria-controls="tab2" role="tab" data-toggle="tab">Summaries</a></li>
+                            <li role="presentation" (click)="OnClickFormSummaryDocumentation('documentation')"><a href="#tab3" [class.tab-active]="moduleTab == 'documentation'" aria-controls="tab3" role="tab" data-toggle="tab">Documentation & Procedures</a></li>
+                        </ul>
+                        <div class="tab-content no-padding">
+                            <div role="tabpanel" class="tab-pane active" id="tab1">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 select_fdi_menu">
+                                        <div class="form-group no-margin">
+                                            <select class="form-control" (change)="OnChangeTopic(ddlTopic.value)" [(ngModel)]="formSummaryDocumentationId" #ddlTopic>
+                                                <option *ngFor="let item of formSummaryDocumentations" [value]="item.Value">{{item.Text}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modules_tabel modules_tabel01 no-border no-padding top-padding-20px">
+                                    <div class="tab-hg">
+                                        <div class="table-responsive">
+                                            <table class="table no-margin">
+                                                <thead class="thead_bg">
+                                                    <tr class="grey-mint text-nowrap">
+                                                        <th (click)="OnFormSummaryDocumentationDetailSort('FormName')" class="pointer-cursor">Name <i class="fa {{sortingFormDetailField == 'FormName' ? (sortingFormDetailDirection == 'A' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort sort-opacity'}}"></i></th>
+                                                        <th>Word</th>
+                                                        <th>Excel</th>
+                                                        <th>PDF</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngIf="!formSummaryDocumentationDetails">
+                                                        <td colspan="5" class="text-center"><label>Loading data. Please wait...</label></td>
+                                                    </tr>
+                                                    <tr *ngIf="formSummaryDocumentationDetails && formSummaryDocumentationDetails.length == 0">
+                                                        <td colspan="5" class="text-center"><label>No Detail Found!</label></td>
+                                                    </tr>
+                                                    <tr *ngFor='let formSummaryDocumentationDetail of formSummaryDocumentationDetails' class="text-nowrap">
+                                                        <td>{{formSummaryDocumentationDetail.FormName}}</td>
+                                                        <td><a href="{{wordServerPath + formSummaryDocumentationDetail.WordFileName}}" *ngIf="formSummaryDocumentationDetail.WordFileName" target="_blank"><i class="fa fa-file-word-o" style="color:dodgerblue;margin-right:7px;"></i></a><span *ngIf="!formSummaryDocumentationDetail.WordFileName">---</span></td>
+                                                        <td><a href="{{excelServerPath + formSummaryDocumentationDetail.ExcelFileName}}" *ngIf="formSummaryDocumentationDetail.ExcelFileName" target="_blank"><i class="fa fa-file-excel-o" style="color:green;margin-right:7px;"></i></a><span *ngIf="!formSummaryDocumentationDetail.ExcelFileName">---</span></td>
+                                                        <td><a href="{{pdfServerPath + formSummaryDocumentationDetail.PDFFileName}}" *ngIf="formSummaryDocumentationDetail.PDFFileName" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;"></i></a><span *ngIf="!formSummaryDocumentationDetail.PDFFileName">---</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row top-padding-20px">
+                                    <div class="col-md-12">
+                                        <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="currentPage" [maxSize]="5" [rotate]="true" (pageChange)="OnPageChange($event)" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

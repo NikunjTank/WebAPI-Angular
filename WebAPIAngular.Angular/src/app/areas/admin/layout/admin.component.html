@@ -1,0 +1,474 @@
+﻿<div class="page-header navbar navbar-fixed-top">
+    <div class="page-header-inner ">
+        <div class="page-logo">
+            <a [routerLink]="['/admin/secure/dashboard']">
+                <img src="/assets/images/Demsifylogo.svg" alt="Site Blocker" style="height: 25px;" class="logo-default" />
+            </a>
+            <div class="menu-toggler sidebar-toggler"> </div>
+        </div>
+
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <li class="dropdown dropdown-user">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <span class="username username-hide-on-mobile">Admin</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a (click)="Logout()">
+                                <i class="fa fa-key"></i> Log Out
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="clearfix"> </div>
+<div class="page-container">
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+            <ul class="page-sidebar-menu  page-header-fixed navigationmenu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                <li class="sidebar-toggler-wrapper hide">
+                    <div class="sidebar-toggler"> </div>
+                </li>
+                <li [class.active]="router.url.search('dashboard') != -1" class="nav-item">
+                    <a [routerLink]="['/admin/secure/dashboard']" class="nav-link nav-toggle">
+                        <i class="fa fa-home"></i>
+                        <span class="title">Dashboard</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li [class.active]="router.url.search('actname') != -1 ||
+                                    router.url.search('alldefinition') != -1" class="nav-item">
+                    <a [routerLink]="['/admin/secure/actnames']" class="nav-link nav-toggle">
+                        <i class="fa fa-gavel"></i>
+                        <span class="title">Acts</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+
+                <li [class.active]="(router.url.search('regulation') != -1 ||
+                                    router.url.search('femaindex') != -1 ||
+                                    router.url.search('femasubindex') != -1 ||
+                                    router.url.search('indexamendment') != -1 ||
+                                    router.url.search('mastercircular') != -1 ||
+                                    router.url.search('masterdirection') != -1 ||
+                                    router.url.search('apdircircular') != -1 ||
+                                    router.url.search('notification') != -1 ||
+                                    router.url.search('rbidata') != -1 ||
+                                    router.url.search('rbicompoundingorder') != -1 ||
+                                    router.url.search('rule') != -1 ||
+                                    router.url.search('gsrnotification') != -1 ||
+                                    router.url.search('niccode') != -1 ||
+                                    router.url.search('manual') != -1 ||
+                                    router.url.search('feterscode') != -1 ||
+                                    router.url.search('keydefinition') != -1 ||
+                                    router.url.search('keyevent') != -1 ||
+                                    router.url.search('form') != -1 ||
+                                    router.url.search('summar') != -1 ||
+                                    router.url.search('documentation') != -1 ||
+                                    router.url.search('faqcategor') != -1 ||
+                                    router.url.search('faq') != -1) &&
+                                    router.url.search('fdicircular') == -1 &&
+                                    router.url.search('pressnote') == -1 &&
+                                    router.url.search('authorfaq') == -1" class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link nav-toggle">
+                        <i class="fa fa-university"></i>
+                        <span class="title">RBI</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li [class.active]="(router.url.search('regulation') != -1 ||
+                                    router.url.search('femaindex') != -1 ||
+                                    router.url.search('femasubindex') != -1 ||
+                                    router.url.search('indexamendment') != -1) &&
+                                    router.url.search('fdicircular') == -1 &&
+                                    router.url.search('masterdirectionindexamendment') == -1 &&
+                                    router.url.search('rulesindexamendment') == -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/regulations']" class="nav-link nav-toggle">
+                                <i class="fa fa-book margin-right-5"></i>
+                                <span class="title">Regulations</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="router.url.search('mastercircular') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/mastercirculars']" class="nav-link nav-toggle">
+                                <i class="fa fa-dot-circle-o margin-right-5"></i>
+                                <span class="title">Master Circulars</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="router.url.search('masterdirection') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/masterdirections']" class="nav-link nav-toggle">
+                                <i class="fa fa-arrows margin-right-5"></i>
+                                <span class="title">Master Directions</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="router.url.search('notification') != -1 &&
+                                    router.url.search('pressnote') == -1 &&
+                                    router.url.search('gsrnotification') == -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/notifications']" class="nav-link nav-toggle">
+                                <i class="fa fa-bell margin-right-5"></i>
+                                <span class="title">Notifications</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="router.url.search('apdircircular') != -1 &&
+                                    router.url.search('pressnote') == -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/apdircirculars']" class="nav-link nav-toggle">
+                                <i class="fa fa-circle-o margin-right-5"></i>
+                                <span class="title">AP DIR Circulars</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="router.url.search('rbicompoundingorder') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/rbicompoundingorders']" class="nav-link nav-toggle">
+                                <i class="fa fa-circle-o margin-right-5"></i>
+                                <span class="title">RBI Compounding Orders</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="router.url.search('rbidata') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/rbidatas']" class="nav-link nav-toggle">
+                                <i class="fa fa-circle-o margin-right-5"></i>
+                                <span class="title">RBI Datas</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="(router.url.search('rule') != -1 ||
+                                    router.url.search('gsrnotification') != -1)" class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="fa fa-code-fork"></i>
+                                <span class="title">Rules</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li [class.active]="router.url.search('rule') != -1" class="nav-item">
+                                    <a [routerLink]="['/admin/secure/rules']" class="nav-link nav-toggle">
+                                        <i class="fa fa-qrcode margin-right-5"></i>
+                                        <span class="title">Rules</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li [class.active]="router.url.search('gsrnotification') != -1" class="nav-item">
+                                    <a [routerLink]="['/admin/secure/gsrnotifications']" class="nav-link nav-toggle">
+                                        <i class="fa fa-qrcode margin-right-5"></i>
+                                        <span class="title">GSR Notification</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li [class.active]="(router.url.search('niccode') != -1 ||
+                                    router.url.search('manual') != -1 ||
+                                    router.url.search('feterscode') != -1)" class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="fa fa-code-fork"></i>
+                                <span class="title">Codes & Manuals</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li [class.active]="router.url.search('feterscode') != -1" class="nav-item">
+                                    <a [routerLink]="['/admin/secure/feterscodes']" class="nav-link nav-toggle">
+                                        <i class="fa fa-qrcode margin-right-5"></i>
+                                        <span class="title">Feters Codes</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li [class.active]="router.url.search('niccode') != -1" class="nav-item">
+                                    <a [routerLink]="['/admin/secure/niccodes']" class="nav-link nav-toggle">
+                                        <i class="fa fa-barcode margin-right-5"></i>
+                                        <span class="title">NIC Codes</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li [class.active]="router.url.search('manual') != -1" class="nav-item">
+                                    <a [routerLink]="['/admin/secure/manuals']" class="nav-link nav-toggle">
+                                        <i class="fa fa-inbox margin-right-5"></i>
+                                        <span class="title">Manuals</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li [class.active]="(router.url.search('keydefinition') != -1 ||
+                                    router.url.search('keyevent') != -1)" class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="fa fa-code-fork"></i>
+                                <span class="title">Key Definitions / Events</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li [class.active]="router.url.search('keydefinition') != -1" class="nav-item">
+                                    <a [routerLink]="['/admin/secure/keydefinitions']" class="nav-link nav-toggle">
+                                        <i class="fa fa-qrcode margin-right-5"></i>
+                                        <span class="title">Key Definitions</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li [class.active]="router.url.search('keyevent') != -1" class="nav-item">
+                                    <a [routerLink]="['/admin/secure/keyevents']" class="nav-link nav-toggle">
+                                        <i class="fa fa-qrcode margin-right-5"></i>
+                                        <span class="title">Key Events</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li [class.active]="(router.url.search('form') != -1 ||
+                                    router.url.search('summar') != -1 ||
+                                    router.url.search('documentation') != -1)" class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="fa fa-code-fork"></i>
+                                <span class="title">Forms / Summaries / Documentation & Procedures</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li [class.active]="router.url.search('form') != -1" class="nav-item">
+                                    <a [routerLink]="['/admin/secure/forms']" class="nav-link nav-toggle">
+                                        <i class="fa fa-qrcode margin-right-5"></i>
+                                        <span class="title">Forms</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li [class.active]="router.url.search('summar') != -1" class="nav-item">
+                                    <a [routerLink]="['/admin/secure/summaries']" class="nav-link nav-toggle">
+                                        <i class="fa fa-qrcode margin-right-5"></i>
+                                        <span class="title">Summaries</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li [class.active]="router.url.search('documentation') != -1" class="nav-item">
+                                    <a [routerLink]="['/admin/secure/documentations']" class="nav-link nav-toggle">
+                                        <i class="fa fa-qrcode margin-right-5"></i>
+                                        <span class="title">Documentation & Procedures</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li [class.active]="(router.url.search('faqcategor') != -1 ||
+                                    router.url.search('faq') != -1) &&
+                                    router.url.search('masterdirectionfaq') == -1 &&
+                                    router.url.search('authorfaq') == -1" class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="fa fa-question-circle"></i>
+                                <span class="title">FAQ</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li [class.active]="router.url.search('faqcategor') != -1" class="nav-item">
+                                    <a [routerLink]="['/admin/secure/faqcategories']" class="nav-link nav-toggle">
+                                        <i class="fa fa-question margin-right-5"></i>
+                                        <span class="title">FAQ Categories</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li [class.active]="router.url.search('faq') != -1 &&
+                                            router.url.search('faqcategor') == -1 &&
+                                            router.url.search('masterdirectionfaq') == -1 &&
+                                            router.url.search('authorfaq') == -1" class="nav-item">
+                                    <a [routerLink]="['/admin/secure/faqs']" class="nav-link nav-toggle">
+                                        <i class="fa fa-question-circle margin-right-5"></i>
+                                        <span class="title">FAQ Details</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <!--<li [class.active]="(router.url.search('fdicircular') != -1 ||
+                                    router.url.search('sector') != -1 ||
+                                    router.url.search('pressnote') != -1)" class="nav-item">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="fa fa-black-tie"></i>
+                        <span class="title">FIPB / DIPP</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li [class.active]="router.url.search('fdicircular') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/fdicirculars']" class="nav-link nav-toggle">
+                                <i class="fa fa-circle margin-right-5"></i>
+                                <span class="title">FDI Circulars</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="router.url.search('sector') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/sectors']" class="nav-link nav-toggle">
+                                <i class="fa fa-industry margin-right-5"></i>
+                                <span class="title">Sectors</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="router.url.search('pressnote') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/pressnotes']" class="nav-link nav-toggle">
+                                <i class="fa fa-newspaper-o margin-right-5"></i>
+                                <span class="title">Press Notes</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>-->
+                
+                <li [class.active]="(router.url.search('fipbreview') != -1 ||
+                                    router.url.search('dippclarification') != -1 ||
+                                    router.url.search('fipbpressreleasecase') != -1 || 
+                                    router.url.search('fdicircular') != -1 ||
+                                    router.url.search('sector') != -1 ||
+                                    router.url.search('pressnote') != -1)" class="nav-item">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="fa fa-code-fork"></i>
+                        <span class="title">DIPP / FIPB</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li [class.active]="router.url.search('fipbreview') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/fipbreviews']" class="nav-link nav-toggle">
+                                <i class="fa fa-qrcode margin-right-5"></i>
+                                <span class="title">FIPB Reviews</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="router.url.search('dippclarification') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/dippclarifications']" class="nav-link nav-toggle">
+                                <i class="fa fa-qrcode margin-right-5"></i>
+                                <span class="title">DIPP Clarifications</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="router.url.search('fipbpressreleasecase') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/fipbpressreleasecases']" class="nav-link nav-toggle">
+                                <i class="fa fa-qrcode margin-right-5"></i>
+                                <span class="title">FIPB Press Release Cases</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="router.url.search('fdicircular') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/fdicirculars']" class="nav-link nav-toggle">
+                                <i class="fa fa-circle margin-right-5"></i>
+                                <span class="title">FDI Circulars</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="router.url.search('sector') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/sectors']" class="nav-link nav-toggle">
+                                <i class="fa fa-industry margin-right-5"></i>
+                                <span class="title">Sectors</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="router.url.search('pressnote') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/pressnotes']" class="nav-link nav-toggle">
+                                <i class="fa fa-newspaper-o margin-right-5"></i>
+                                <span class="title">Press Notes</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li [class.active]="(router.url.search('authorwriteup') != -1 ||
+                                    router.url.search('authorfaq') != -1)" class="nav-item">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="fa fa-code-fork"></i>
+                        <span class="title">Author</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li [class.active]="router.url.search('authorwriteup') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/authorwriteups']" class="nav-link nav-toggle">
+                                <i class="fa fa-qrcode margin-right-5"></i>
+                                <span class="title">Author's Write Ups</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li [class.active]="router.url.search('authorfaq') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/authorfaqs']" class="nav-link nav-toggle">
+                                <i class="fa fa-qrcode margin-right-5"></i>
+                                <span class="title">Author's FAQs</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li [class.active]="(router.url.search('femamodule') != -1)" class="nav-item">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="fa fa-code-fork"></i>
+                        <span class="title">FEMA SubModule of Module</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li [class.active]="router.url.search('femamodule') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/femamodules']" class="nav-link nav-toggle">
+                                <i class="fa fa-qrcode margin-right-5"></i>
+                                <span class="title">FEMA SubModule of Module</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li [class.active]="(router.url.search('postquery') != -1)" class="nav-item">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="fa fa-code-fork"></i>
+                        <span class="title">Post A Query</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li [class.active]="router.url.search('postquery') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/postquery']" class="nav-link nav-toggle">
+                                <i class="fa fa-qrcode margin-right-5"></i>
+                                <span class="title">Post A Query</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li [class.active]="(router.url.search('supportticket') != -1)" class="nav-item">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="fa fa-code-fork"></i>
+                        <span class="title">Support Ticket</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li [class.active]="router.url.search('supportticket') != -1" class="nav-item">
+                            <a [routerLink]="['/admin/secure/supportticket']" class="nav-link nav-toggle">
+                                <i class="fa fa-qrcode margin-right-5"></i>
+                                <span class="title">Support Ticket</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li [class.active]="router.url.search('userprofile') != -1" class="nav-item">
+                    <a [routerLink]="['/admin/secure/userprofiles']" class="nav-link nav-toggle">
+                        <i class="fa fa-gavel"></i>
+                        <span class="title">User Profiles</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <router-outlet></router-outlet>
+            <spinner></spinner>
+        </div>
+    </div>
+
+</div>
+<div class="page-footer">
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
+</div>

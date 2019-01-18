@@ -1,0 +1,85 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Press Note
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitPressNote(frmPressNote)" [formGroup]="frmPressNote">
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="Year" id="txtYear" />
+                        <label for="txtYear">Year</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmPressNote.controls.Year.errors?.required && isSubmited"> Please enter Year </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="PressNoteNo" id="txtPressNoteNo" />
+                        <label for="txtPressNoteNo">Press Note No</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmPressNote.controls.PressNoteNo.errors?.required && isSubmited"> Please enter Press Note No </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="PressNoteName" id="txtPressNoteName" />
+                        <label for="txtPressNoteName">Press Note Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmPressNote.controls.PressNoteName.errors?.required && isSubmited"> Please enter Press Note Name </span>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <label for="txtPressNoteDate" class="no-margin">Press Note Date</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="dd-mm-yyyy" [minDate]="minDate" name="dp" formControlName="PressNoteDate" [value]="(frmPressNote.controls.PressNoteDate.value) ? (frmPressNote.controls.PressNoteDate.value.day + '-' + frmPressNote.controls.PressNoteDate.value.month + '-' + frmPressNote.controls.PressNoteDate.value.year) : frmPressNote.controls.PressNoteDate.value" readonly="readonly" #d1="ngbDatepicker" ngbDatepicker>
+                        <div class="input-group-btn" style="vertical-align: bottom !important;">
+                            <button class="btn btn-outline-secondary" (click)="d1.toggle()" type="button">
+                                <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                            </button>
+                        </div>
+                        <div class="input-group-btn" style="padding: 0 5px !important; vertical-align: bottom !important;">
+                            <span class="input-group-btn">
+                                <button class="btn blue bold" type="button" (click)="ClearPressNoteDate()"><i class="fa fa-remove"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmPressNote.controls.PressNoteDate.errors?.required && isSubmited"> Please enter Press Note Date </span>
+                </div>
+                <div class="col-md-3">
+                    <label for="txtPressNoteEffectiveDate" class="no-margin">Press Note EffectiveDate</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="dd-mm-yyyy" [minDate]="minDate" name="dp" formControlName="PressNoteEffectiveDate" [value]="(frmPressNote.controls.PressNoteEffectiveDate.value) ? (frmPressNote.controls.PressNoteEffectiveDate.value.day + '-' + frmPressNote.controls.PressNoteEffectiveDate.value.month + '-' + frmPressNote.controls.PressNoteEffectiveDate.value.year) : frmPressNote.controls.PressNoteEffectiveDate.value" readonly="readonly" #d2="ngbDatepicker" ngbDatepicker>
+                        <div class="input-group-btn" style="vertical-align: bottom !important;">
+                            <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button">
+                                <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                            </button>
+                        </div>
+                        <div class="input-group-btn" style="padding: 0 5px !important; vertical-align: bottom !important;">
+                            <span class="input-group-btn">
+                                <button class="btn blue bold" type="button" (click)="ClearPressNoteEffectiveDate()"><i class="fa fa-remove"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmPressNote.controls.PressNoteEffectiveDate.errors?.required && isSubmited"> Please enter Press Note EffectiveDate </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Upload PDF : </label>
+                        <input type="file" (change)="fileChange($event)" placeholder="Upload file" class="form-control" accept=".pdf">
+                        <a href="{{pdfServerPath + pressNotePDFName}}" *ngIf="pressNotePDFName && frmPressNote.value.PressNoteId" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;"></i>{{(pressNotePDFName) ? pressNotePDFName.substr(pressNotePDFName.indexOf('_') + 1) : pressNotePDFName}}</a>
+                        <input type="hidden" formControlName="PressNotePDF" />
+                        <span class="help-block has-error" *ngIf="frmPressNote.controls.PressNotePDF.errors?.required && isSubmited"> Please Upload PDF file </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelPressNote()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

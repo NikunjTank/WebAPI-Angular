@@ -1,0 +1,80 @@
+﻿<div class="inner_page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="inner_page_titel">Contact Us</div>
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-md-10">
+                <div class="card  l_r_from contact_us_wapper contact-brdr">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form novalidate (ngSubmit)="OnSubmitContactUs(frmContactUs)" [formGroup]="frmContactUs">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 mb-12">
+                                        <div class="form-group input-group no-margin-bottom">
+                                            <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-pencil"></i> </span> </div>
+                                            <input name="" class="form-control" formControlName="Name" placeholder="Enter Your First name*" type="text">
+                                        </div>
+                                          <span class="help-block has-error" *ngIf="frmContactUs.controls.Name.errors?.required && isSubmited"> Please enter Name </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 mb-12">
+                                        <div class="form-group input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-envelope"></i> </span> </div>
+                                            <input name="" class="form-control" formControlName="Email" placeholder="Enter Email Id*" type="text">
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmContactUs.controls.Email.errors?.required && isSubmited"> Please enter Email </span>
+                                        <span class="help-block has-error" *ngIf="frmContactUs.controls.Email.errors?.email && !frmContactUs.controls.Email.errors?.required && isSubmited"> Please enter proper Email </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 mb-12">
+                                        <div class="form-group input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-mobile"></i> </span> </div>
+                                            <input name="" class="form-control" formControlName="Mobile" placeholder="Mobile phone *" type="text">
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmContactUs.controls.Mobile.errors?.required && isSubmited"> Please enter Mobile </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 mb-12">
+                                        <div class="form-group input-group">
+                                            <textarea class="form-control" formControlName="Comment" placeholder="Comment"></textarea>
+                                        </div>
+                                        <span class="help-block has-error" *ngIf="frmContactUs.controls.Comment.errors?.required && isSubmited"> Please enter Comment </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary margin-top-25px"> <i class="fa fa-paper-plane" aria-hidden="true"></i> Submit </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="contact_us_details">
+                                <div class="contact_us_info_adress">
+                                    <ul>
+                                        <li class="call_id"> <a href="tel:9920015356">+ 91-9920015356</a> </li>
+                                        <li class="email_id">
+                                            <p>Policy - <a href="mailto:helpdesk@demyftifyfema.com">helpdesk@demyftifyfema.com</a></p>
+                                            <p>Terms & Conditions - <a href="mailto:helpdesk@demyftifyfema.com">helpdesk@demyftifyfema.com</a></p>
+                                            <p>Customer Support - <a href="mailto:support@demyftifyfema.com">support@demyftifyfema.com</a></p>
+                                        </li>
+                                        <li class="address_id"> <p>Office No. 616, Ghanshyam Enclave, Link  <br> Road, Kandivali (West), Mumbai – 400 067</p> </li>
+                                    </ul>
+                                </div>
+                                <div class="contact_us_map">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30703787.135696385!2d64.40575222784024!3d20.049567692328537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2sin!4v1537820368003" width="100%" height="310" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

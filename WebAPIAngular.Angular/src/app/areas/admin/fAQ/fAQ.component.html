@@ -1,0 +1,43 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} FAQ
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitFAQ(frmFAQ)" [formGroup]="frmFAQ">
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="CategoryId" id="txtCategoryId">
+                            <option *ngFor="let item of fAQCategories" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label for="txtYear">Category</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFAQ.controls.CategoryId.errors?.required && isSubmited"> Please select Category </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <input type="text" class="form-control" formControlName="TopicName" id="txtTopicName" />
+                        <label for="txtTopicName">Topic Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFAQ.controls.TopicName.errors?.required && isSubmited"> Please enter Topic Name </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Upload PDF : </label>
+                        <input type="file" (change)="fileChange($event)" placeholder="Upload file" class="form-control" accept=".pdf">
+                        <a href="{{pdfServerPath + fAQPDFName}}" *ngIf="fAQPDFName && frmFAQ.value.FAQId" target="_blank"><i class="fa fa-file-pdf-o" style="color:red;margin-right:7px;"></i>{{(fAQPDFName) ? (fAQPDFName.split('_')[1] ? fAQPDFName.substr(fAQPDFName.indexOf('_') + 1) : fAQPDFName.split('_')[0]) : fAQPDFName}}</a>
+                        <input type="hidden" formControlName="PDF" />
+                        <span class="help-block has-error" *ngIf="frmFAQ.controls.PDF.errors?.required && isSubmited"> Please Upload PDF file </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelFAQ()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

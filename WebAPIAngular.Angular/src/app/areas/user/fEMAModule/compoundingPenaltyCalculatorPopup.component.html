@@ -1,0 +1,135 @@
+﻿<div class="poupu_modules" id="modalLForm" aria-labelledby="myModalLabel">
+    <div class="cascading-modal no-margin" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form novalidate (ngSubmit)="OnSubmitCompoundingPenaltyCalculator(frmCompoundingPenaltyCalculator)" [formGroup]="frmCompoundingPenaltyCalculator">
+                    <div class="row">
+                        <div class="col-md-6 select_fdi_menu mob-pb5">
+                            <div class="form-group form-md-line-input no-margin">
+                                <label>Topic</label>
+                                <select class="form-control" (change)="OnCalculatorTopicChange()" formControlName="CalculatorTopicId" [disabled]="isDisabledCompoundingPenaltyCalculator">
+                                    <option *ngFor="let item of calculatorTopics" [value]="item.Value">{{item.Text}}</option>
+                                </select>
+                            </div>
+                            <span class="help-block has-error" *ngIf="frmCompoundingPenaltyCalculator.controls.CalculatorTopicId.errors?.required && isSubmited"> Please select Topic </span>
+                        </div>
+                        <div class="col-md-6 select_fdi_menu">
+                            <div class="form-group form-md-line-input no-margin">
+                                <label>SubTopic</label>
+                                <select class="form-control" (change)="OnCalculatorSubTopicChange()" formControlName="CalculatorSubTopicId" [disabled]="isDisabledCompoundingPenaltyCalculator">
+                                    <option *ngFor="let item of calculatorSubTopics" [value]="item.Value">{{item.Text}}</option>
+                                </select>
+                            </div>
+                            <span class="help-block has-error" *ngIf="frmCompoundingPenaltyCalculator.controls.CalculatorSubTopicId.errors?.required && isSubmited"> Please select SubTopic </span>
+                        </div>
+                    </div>
+                    <div class="row top-padding-20px" *ngIf="isTotalAPR_AAC_FCGPRDisabled">
+                        <div class="col-md-6 mob-pb5">
+                            <label>Contravention Date</label>
+                            <div class="input-group" style="height: 32px;">
+                                <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(frmCompoundingPenaltyCalculator.value.ContraventionDate) ? (frmCompoundingPenaltyCalculator.value.ContraventionDate.day + '-' + frmCompoundingPenaltyCalculator.value.ContraventionDate.month + '-' + frmCompoundingPenaltyCalculator.value.ContraventionDate.year) : ''" />
+                                <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                    <button class="btn btn-outline-secondary cal" (click)="isContraventionDateDatePicker = !isContraventionDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledCompoundingPenaltyCalculator">
+                                        <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                    </button>
+                                </div>
+                            </div>
+                            <ngb-datepicker #dp (select)="isContraventionDateDatePicker = !isContraventionDateDatePicker; OnChangeContraventionDate();" [minDate]="contraventionMinDate" formControlName="ContraventionDate" *ngIf="isContraventionDateDatePicker && !isDisabledCompoundingPenaltyCalculator">
+                            </ngb-datepicker>
+                            <span class="help-block has-error" *ngIf="frmCompoundingPenaltyCalculator.controls.ContraventionDate.errors?.required && isSubmited"> Please select Contravention Date </span>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Reporting Date</label>
+                            <div class="input-group" style="height: 32px;">
+                                <input class="form-control" placeholder="dd-mm-yyyy" readonly="readonly" [value]="(frmCompoundingPenaltyCalculator.value.ReportingDate) ? (frmCompoundingPenaltyCalculator.value.ReportingDate.day + '-' + frmCompoundingPenaltyCalculator.value.ReportingDate.month + '-' + frmCompoundingPenaltyCalculator.value.ReportingDate.year) : ''" />
+                                <div class="input-group-btn" style="vertical-align: bottom !important;">
+                                    <button class="btn btn-outline-secondary cal" (click)="isReportingDateDatePicker = !isReportingDateDatePicker" type="button" style="height: 32px;" [disabled]="isDisabledCompoundingPenaltyCalculator">
+                                        <img src="../../../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;vertical-align: top;" />
+                                    </button>
+                                </div>
+                            </div>
+                            <ngb-datepicker #dp (select)="isReportingDateDatePicker = !isReportingDateDatePicker; OnChangeReportingDate()" [minDate]="reportingMinDate" formControlName="ReportingDate" *ngIf="isReportingDateDatePicker && !isDisabledCompoundingPenaltyCalculator">
+                            </ngb-datepicker>
+                            <span class="help-block has-error" *ngIf="frmCompoundingPenaltyCalculator.controls.ReportingDate.errors?.required && isSubmited"> Please select Reporting Date </span>
+                        </div>
+                    </div>
+                    <div class="row top-padding-20px">
+                        <div class="col-md-12">
+                            <label>Whether (50% of Fixed + Variable + Other if compounded earlier) for the same offence - Yes /No.</label><br />
+                            <input type="radio" value="true" formControlName="WhetherSameOffence" name="WhetherSameOffence" id="YesWhetherSameOffence" /><label for="YesWhetherSameOffence">Yes</label>
+                            <input type="radio" value="false" formControlName="WhetherSameOffence" name="WhetherSameOffence" id="NoWhetherSameOffence" /><label for="NoWhetherSameOffence">No</label>
+                            <span class="help-block has-error" *ngIf="frmCompoundingPenaltyCalculator.controls.WhetherSameOffence.errors?.required && isSubmited"> Please select Yes/No </span>
+                        </div>
+                    </div>
+                    <div class="row top-padding-20px" *ngIf="isTotalAPR_AAC_FCGPRDisabled">
+                        <div class="col-md-6 mob-pb5">
+                            <div class="form-group form-md-line-input no-margin">
+                                <label>Years</label><br />
+                                <label><b>{{frmCompoundingPenaltyCalculator.value.Years}}</b></label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mob-pb5">
+                            <div class="form-group form-md-line-input no-margin">
+                                <label>Number of Years</label><br />
+                                <label><b>{{frmCompoundingPenaltyCalculator.value.NoOfYear}}</b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row top-padding-20px">
+                        <div class="col-md-6 mob-pb5">
+                            <div class="form-group form-md-line-input no-margin">
+                                <label>Amount of Contravention</label>
+                                <input type="text" class="form-control" (keyup)="OnChangeAmount()" formControlName="ContraventionAmount" [disabled]="isDisabledCompoundingPenaltyCalculator || isContraventionAmountDisabled" />
+                            </div>
+                            <span class="help-block has-error" *ngIf="frmCompoundingPenaltyCalculator.controls.ContraventionAmount.errors?.required && isSubmited"> Please select Amount of Contravention</span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-md-line-input no-margin">
+                                <label>Total no of APR / AAC / FCGPR(B)</label>
+                                <input type="text" class="form-control" (keyup)="OnChangeAmount()" formControlName="TotalAPR_AAC_FCGPR" [disabled]="isDisabledCompoundingPenaltyCalculator || isTotalAPR_AAC_FCGPRDisabled" />
+                            </div>
+                            <span class="help-block has-error" *ngIf="frmCompoundingPenaltyCalculator.controls.TotalAPR_AAC_FCGPR.errors?.required && isSubmited"> Please enter Total no of APR / AAC / FCGPR(B)</span>
+                        </div>
+                    </div>
+
+                    <div class="row top-padding-20px justify-content-end">
+                        <div class="col-md-4">
+                            <div class="form-group d-f f-r">
+                                <input class="btn btn-default resp-btn" type="button" value="Reset" (click)="OnClickReset()">
+                                <input class="btn btn-default resp-btn mr0" type="submit" value="Submit">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="isDisabledCompoundingPenaltyCalculator">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="thead_bg">
+                                        <tr class="grey-mint">
+                                            <th>Penalty Particulars</th>
+                                            <th>Penalty Amount (in INR)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of compundingPenaltyCalculator; let i = index">
+                                            <td>{{item.PenaltyParticulars}}</td>
+                                            <td>{{item.Amount}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end" *ngIf="isDisabledCompoundingPenaltyCalculator">
+                        <div class="col-md-3">
+                            <div class="form-group d-f f-r">
+                                <input class="btn btn-default resp-btn mr0" type="button" value="Download PDF" (click)="OnClickPrint()">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

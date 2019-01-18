@@ -1,0 +1,93 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>Index Details
+        </div>
+    </div>
+    <div class="portlet-body form label-color">
+        <div class="form-body">
+            <h4 class="form-section no-margin">Rules</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>Rules No</b> : </label></div>
+                        <div class="col-md-6 no-space"><label class="text-left-margin">{{rules.RulesNo}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-4 no-space text-right"><label><b>Rules Name</b> : </label></div>
+                        <div class="col-md-8 no-space"><label class="text-left-margin">{{rules.RulesName}}</label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-6 no-space text-right"><label><b>Year</b> : </label></div>
+                        <div class="col-md-6 no-space"><label class="text-left-margin">{{rules.Year}}</label></div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group  form-md-line-input">
+                        <div class="col-md-4 no-space text-right"><label><b>Publication Date</b> : </label></div>
+                        <div class="col-md-8 no-space"><label class="text-left-margin">{{rules.PublicationDate | date:'dd-MM-yyyy'}}</label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} Index
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitRulesIndex(frmRulesIndex)" [formGroup]="frmRulesIndex">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="SaveAfterIndexId" id="txtSaveAfterIndexId">
+                            <option *ngFor="let item of rulesIndexes" [value]="item.IndexId">{{item.IndexName}}</option>
+                        </select>
+                        <label for="txtSaveAfterIndexId">Save After</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input  margin-bottom">
+                        <input type="text" class="form-control" formControlName="IndexNo" id="txtIndexNo" />
+                        <label for="txtIndexNo">Index No.</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmRulesIndex.controls.IndexNo.errors?.required && isSubmited"> Please enter Index No. </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input  margin-bottom">
+                        <input type="text" class="form-control" formControlName="IndexName" id="txtIndexName" />
+                        <label for="txtIndexName">Index Name</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmRulesIndex.controls.IndexName.errors?.required && isSubmited"> Please enter Index Name </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input no-margin">
+                        <label for="txtIndexContent">Index Content</label>
+                        <ckeditor formControlName="IndexContent"
+                                  [readonly]="false"
+                                  debounce="500">
+                        </ckeditor>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmRulesIndex.controls.IndexContent.errors?.required && isSubmited"> Please enter Index Content </span>
+                </div>
+            </div>
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelRulesIndex()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>

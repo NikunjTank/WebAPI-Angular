@@ -1,0 +1,100 @@
+﻿<div class="portlet box green">
+    <div class="portlet-title col-md-12">
+        <div class="caption col-md-6">
+            <i class="fa fa-tasks"></i>{{addUpdateText}} FEMA SubModule of Module
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form novalidate (ngSubmit)="OnSubmitFEMASubModuleOfModule(frmFEMASubModuleOfModule)" [formGroup]="frmFEMASubModuleOfModule">
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                    <div class="form-group form-md-line-input no-margin">
+                        <select class="form-control" formControlName="FEMASubModuleId" (change)="OnChangeFEMASubModule(drpFEMASubModuleId.value)" #drpFEMASubModuleId>
+                            <option *ngFor="let item of fEMASubModules" [value]="item.Value">{{item.Text}}</option>
+                        </select>
+                        <label>FEMA SubModule</label>
+                    </div>
+                    <span class="help-block has-error" *ngIf="frmFEMASubModuleOfModule.controls.FEMASubModuleId.errors?.required && isSubmited"> Please select FEMA SubModule </span>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:15px;" *ngIf="isRegulationRulesModuleDetailDisplay">
+                <div class="col-md-3">
+                    <div class="form-md-line-input no-margin">
+                        <label>Regulation</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedRegulations"
+                                                 formControlName="RegulationKeyModuleDetail"
+                                                 [data]="regulations"
+                                                 [settings]="regulationDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <!--<span class="help-block has-error" *ngIf="frmFEMASubModuleOfModule.controls.FEMAKeyModuleDetail.errors?.required && isSubmited"> Please select FEMA Module Detail </span>-->
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:15px;" *ngIf="isRegulationRulesModuleDetailDisplay">
+                <div class="col-md-12">
+                    <div class="form-md-line-input no-margin">
+                        <label>Rules</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedRuless"
+                                                 formControlName="RulesKeyModuleDetail"
+                                                 [data]="ruless"
+                                                 [settings]="rulesDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <!--<span class="help-block has-error" *ngIf="frmFEMASubModuleOfModule.controls.FEMAKeyModuleDetail.errors?.required && isSubmited"> Please select FEMA Module Detail </span>-->
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:15px;" *ngIf="isMasterDirectionCircularModuleDetailDisplay">
+                <div class="col-md-3">
+                    <div class="form-md-line-input no-margin">
+                        <label>Master Direction</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedMasterDirections"
+                                                 formControlName="MasterDirectionKeyModuleDetail"
+                                                 [data]="masterDirections"
+                                                 [settings]="masterDirectionDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <!--<span class="help-block has-error" *ngIf="frmFEMASubModuleOfModule.controls.FEMAKeyModuleDetail.errors?.required && isSubmited"> Please select FEMA Module Detail </span>-->
+                </div>
+                <div class="col-md-3">
+                    <div class="form-md-line-input no-margin">
+                        <label>Master Circular</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedMasterCirculars"
+                                                 formControlName="MasterCircularKeyModuleDetail"
+                                                 [data]="masterCirculars"
+                                                 [settings]="masterCircularDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <!--<span class="help-block has-error" *ngIf="frmFEMASubModuleOfModule.controls.FEMAKeyModuleDetail.errors?.required && isSubmited"> Please select FEMA Module Detail </span>-->
+                </div>
+                <div class="col-md-3">
+                    <div class="form-md-line-input no-margin">
+                        <label>RBI FAQ</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedRBIFAQs"
+                                                 formControlName="RBIFAQKeyModuleDetail"
+                                                 [data]="rBIFAQs"
+                                                 [settings]="rBIFAQDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <!--<span class="help-block has-error" *ngIf="frmFEMASubModuleOfModule.controls.FEMAKeyModuleDetail.errors?.required && isSubmited"> Please select FEMA Module Detail </span>-->
+                </div>
+            </div>
+            <!--<div class="row" style="margin-bottom:15px;" *ngIf="isRBIFAQModuleDetailDisplay">
+                <div class="col-md-3">
+                    <div class="form-md-line-input no-margin">
+                        <label>RBI FAQ</label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedRBIFAQs"
+                                                 formControlName="RBIFAQKeyModuleDetail"
+                                                 [data]="rBIFAQs"
+                                                 [settings]="rBIFAQDropDownSettings">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="form-actions text-right btn-outer-background no-space-right form-actions-bottom-padding row-top-margin">
+                <a (click)="CancelFEMASubModuleOfModule()" class="btn btn-default">Back To List</a>
+                <input class="btn btn-primary btn-cancel-margin" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>
